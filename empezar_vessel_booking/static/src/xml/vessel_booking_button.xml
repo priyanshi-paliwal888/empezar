@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="vessel_booking_help_button.ListView.Buttons" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <div>
+                <button type="button" class="fa fa-info-circle h-100"
+                    style="margin-left: 10px; border: none; background-color: transparent; font-size: 1.4em; color: #997a00;"
+                    t-on-click="HelpButtonBooking" data-tooltip="Help Document">
+                </button>
+            </div>
+        </xpath>
+    </t>
+</templates>

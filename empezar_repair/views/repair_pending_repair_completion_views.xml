@@ -1,0 +1,178 @@
+<odoo>
+    <record id="view_repair_completion_form" model="ir.ui.view">
+        <field name="name">repair.pending.estimates.page.form</field>
+        <field name="model">repair.pending.estimates</field>
+        <field name="arch" type="xml">
+            <form string="Repair Pending Estimates" create="0">
+                <sheet>
+                    <field name="pending_id" string="Pending ID" invisible="1" />
+                    <div style="border:solid 1px #ced4da; padding:10px;border-radius: 6px;">
+                        <div style="padding:13px 0px;">
+                            <h3>
+                                <span>Container- </span>
+                                    <field name="display_name"/>
+                            </h3>
+                        </div>
+                        <div style="justify-content: space-between;background-color: #f6f8fc;">
+                            <div class="row" style="padding:10px;">
+                                <div class="container">
+                                    <div class="shipping_line_logo" style="flex:1;">
+                                        <label for="shipping_line_logo" string="SHIPPING LINE LOGO"/>
+                                        <field name="shipping_line_logo" widget="image" options="{'size': [50, 50]}" class="w-100"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="location_id" style="pointer-events: none;flex:1;">
+                                        <label for="location_id" string="LOCATION"/>
+                                        <field name="location_id" class="w-100"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="production_year_and_month" style="flex:1;">
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label for="month" string="PRODUCTION MONTH/YEAR"
+                                                    style="font-weight: bold !important;"/>
+                                            </div>
+                                            <field name="month" style="width:90px;"/>
+                                            <field name="year" style="width:60px;"/>      
+                                        </div>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="gross_wt" style="flex:1;">
+                                        <label for="gross_wt" string="GROSS WEIGHT (KG)"/>
+                                        <field name="gross_wt" class="w-100"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="tare_wt" style="flex:1;">
+                                        <label for="tare_wt" string="TARE WEIGHT (KG)"/>
+                                        <field name="tare_wt" class="w-100"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="grade" style="flex:1;">
+                                        <label for="grade" string="GRADE"/>
+                                        <field name="grade" class="w-100"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="damage_condition" style="pointer-events: none; flex:1;">
+                                        <label for="damage_condition" string="DAMAGE"/>
+                                        <field name="damage_condition" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px; border-radius: 6px;">
+                       <div style="display:flex;" >
+                            <h3>Pre Repair Survey</h3>
+                            <field name="pre_repair_date_and_time" readonly="1" invisible="not pre_repair_image_ids" style="margin-left:8px"/>
+                        </div>
+                        <div>
+                            <div style="padding:10px;">
+                                <field name="pre_repair_image_ids" widget="many2many_binary_preview"
+                                       readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px; border-radius: 6px;">                        
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <!-- <span><h3>Damages &amp; Estimate</h3></span> -->
+                            <div style="display:flex;">
+                                <h3>
+                                    Damages &amp; Estimate
+                                </h3>
+                                <field name="currency_id" style="pointer-events: none; background-color: lightgrey; border-radius: 10px; padding: 3px; border: 1px solid #ccc;margin-left:8px;margin-right:8px;" no_label="True"/>
+                                <button name="download_edi_file" type="object" class="btn btn-secondary" string="Download WESTIM" title="Download WESTIM"/>
+                            </div>
+                                <div style="border:solid 1px #ced4da; padding:10px; border-radius: 6px;">
+                                    <label for="estimate_date_and_time" string="Estimate D/T:"/>
+                                    <field name="estimate_date_and_time" readonly="1"/>
+                                </div>
+                        </div>
+                        <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px; border-radius: 6px;">
+                            <field name="estimate_line_ids" readonly="1">
+                                <tree>
+                                    <field name="description" string="DESCRIPTION"/>
+                                    <field name="qty" string="QTY"/>
+                                    <field name="material_cost" string="MATERIAL COST(Yard)"/>
+                                    <field name="labour_cost" string="LABOUR COST(Yard)"/>
+                                    <field name="total" string="ESTIMATES BY YARD" class="highlight-font"/>
+                                    <field name="material_cost_by_shipping_line" string="MATERIAL COST(Shipping Line)"/>
+                                    <field name="labour_cost_by_shipping_line" string="LABOUR COST(Shipping Line)"/>
+                                    <field name="total_by_shipping_line" string="ESTIMATES BY SHIPPING LINE" class="highlight-font"/>
+                                    <field name="repair_status" string="STATUS"/>
+                                </tree>
+                            </field>
+                            <div class="o_form_sheet_footer">
+                                <div style="display: flex; justify-content:flex-end;">
+                                    <div style="text-align:right; width: 50%; padding-right: 20px;">
+                                        <div>
+                                            <span style="padding:10px;"><strong>Total Cost By Yard:</strong></span>
+                                                <field name="total_amount"/>
+                                        </div>
+                                        <div>
+                                            <span style="padding:10px;"><strong>Total Tax By Yard:</strong></span>
+                                                <field name="total_tax"/>
+                                        </div>
+                                        <div style="text-align:right;">
+                                            <span style="padding:10px;"><strong>Grand Total By Yard:</strong></span>
+                                                <field name="grand_total"/>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right; padding-left: 20px;">
+                                        <div>
+                                            <span style="padding:10px;"><strong>Total Cost By Shipping Line:</strong></span>
+                                                <field name="total_amount_by_shipping_line"/>
+                                        </div>
+                                        <div>
+                                            <span style="padding:10px;"><strong>Total Tax By Shipping Line:</strong></span>
+                                                <field name="total_tax_by_shipping_line"/>
+                                        </div>
+                                        <div>
+                                            <span style="padding:10px;"><strong>Grand Total By Shipping Line:</strong></span> 
+                                                <field name="grand_total_by_shipping_line"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px; border-radius: 6px;">
+                        <h3 style="padding:20px 0px;">Post Repair Survey</h3>
+                         <div>
+                            <label for="post_repair_date_and_time" string="Repair Completion Date/Time"/>
+                            <br/>
+                            <field name="post_repair_date_and_time" class="w-50" required="1"/>
+                        </div>
+                        <div style="padding:10px 0px;">
+                         <field name="post_repair_image_ids" widget="many2many_binary_preview"/>
+                        </div>
+                        <div>
+                            <p>Do you want to share with the shipping line?</p>
+                            <field name="is_send_post_repair_images" widget="radio" options="{'horizontal': true}" required="1"/>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;text-align:right;">
+                        <field name="grand_total" invisible="1"/>
+                        <button name="action_repair_completion" string="Send to Shipping Line" type="object" 
+                                class="btn-primary" invisible="grand_total == False" groups="empezar_base.group_repair_completion"/>
+                    </div>
+                </sheet>
+                <div class="row"
+                     style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;"
+                     invisible="not id">
+                    <div style="width: 100%; display:flex;">
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                            Created By :
+                            <field name="display_create_info"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                            Last Modified By:
+                            <field name="display_modified_info"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

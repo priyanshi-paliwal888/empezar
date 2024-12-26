@@ -1,0 +1,69 @@
+<odoo>
+    <record id="view_e_invoice_wizard" model="ir.ui.view">
+        <field name="name">e.invoice.wizard.form</field>
+        <field name="model">e.invoice.wizard</field>
+        <field name="arch" type="xml">
+            <form string="E-Invoice Details">
+                 <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                    <div style="margin-top: 10px;"/>
+                    <div class="row">
+                        <div>
+                            <field name="invoice_id" invisible="1"/>
+                            <span><i class="fa fa-file-text-o" title="IRN No."/></span>
+                            <label class="ms-2" for="irn_no"/>
+                            <field name="irn_no" class="w-100 ms-3" readonly="1" string="IRN No."/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                             <div>
+                                 <field name="irn_received_date" invisible="1"/>
+                                <span><i class="fa fa-file-text-o" title="IRN GENERATED ON"/></span>
+
+                                <label class="ms-2" for="irn_date"/>
+                                <field name="irn_date" class="w-100 ms-3" readonly="1" string="IRN GENERATED ON"
+                                />
+
+                             </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <span><i class="fa fa-file-text-o" title="IRN STATUS"/></span>
+                                <label class="ms-2" for="irn_status"/>
+                                <field name="irn_status" class="w-100 ms-3" readonly="1" string="IRN STATUS"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <button string="Download" type="object" name="action_download"
+                                    icon="empezar_account_invoices/static/src/images/download.svg"
+                                    class="button_actions" title="Download" />
+                    <button type="object"
+                            class="button_actions"
+                            icon="empezar_account_invoices/static/src/images/cancel.svg"
+                            special="cancel" title="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="e_invoice_wizard_response_view" model="ir.ui.view">
+            <field name="name">e.invoice.response.form.view</field>
+            <field name="model">e.invoice.wizard</field>
+            <field name="arch" type="xml">
+                <form edit="0" create="0">
+                    <sheet>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="w-100">
+                                    <field name="generate_irn_response"/>
+                                </div>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+</odoo>

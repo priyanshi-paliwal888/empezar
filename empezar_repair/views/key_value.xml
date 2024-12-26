@@ -1,0 +1,47 @@
+<odoo>
+    <record id="key_value_form_view" model="ir.ui.view">
+        <field name="name">key.value.form.view</field>
+        <field name="model">key.value</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="master_uom_tree_view" model="ir.ui.view">
+        <field name="name">key.value.tree.view</field>
+        <field name="model">key.value</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="name" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="key_value_action" model="ir.actions.act_window">
+        <field name="name">Key Value</field>
+        <field name="res_model">key.value</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_key_value"
+            name="Key Value"
+            parent="empezar_base.menu_master_configurations"
+            action="key_value_action"
+            sequence="8"
+            groups="empezar_base.group_empezar_management"
+    />
+
+</odoo>

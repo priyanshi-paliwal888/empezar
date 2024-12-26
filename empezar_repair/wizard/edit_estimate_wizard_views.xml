@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_confirmation_wizard_form" model="ir.ui.view">
+        <field name="name">edit.estimate.wizard.form</field>
+        <field name="model">edit.estimate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Confirmation">
+                <div>
+                    Repair status for this estimate is “Approved”.
+                    Are you sure that you want to edit the estimate details?
+                </div>
+                <footer>
+                    <button string="No" type="object" name="action_cancel" class="btn-secondary" />
+                    <button string="Yes, Edit" type="object" name="action_confirm_edit_estimate" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_movement_and_inventory_reports,movement.and.inventory.reports,model_movement_and_inventory_reports,base.group_user,1,1,1,1
+access_repair_reports,repair.reports,model_repair_reports,base.group_user,1,1,1,1

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="inherit_res_users_form_view" model="ir.ui.view">
+        <field name="name">inherit.res.users.form.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet//notebook//page[1]" position="inside">
+                <group string="Procurement Access Right">
+                    <group>
+                        <field name="is_procurement_user"/>
+                        <field name="procurement_user_type" invisible="not is_procurement_user" required="is_procurement_user"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

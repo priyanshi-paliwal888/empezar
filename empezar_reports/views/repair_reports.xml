@@ -1,0 +1,69 @@
+<odoo>
+    <record id="repair_reports_form_view" model="ir.ui.view">
+        <field name="name">repair.reports.form.view</field>
+        <field name="model">repair.reports</field>
+        <field name="arch" type="xml">
+            <form duplicate="0" create="0">
+                <sheet>
+                    <div style="border:solid 1px #ced4da; padding:10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <field name="display_name" invisible="1"/>
+                                <label for="location_ids"/>
+                                <field name="location_ids" class="w-100" options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="date_range_estimate" style="flex:1;">
+                                <div>
+                                    <label for="start_date" string="Estimate Date Range"
+                                           style="font-weight: bold !important;"/>
+                                </div>
+                                <field name="start_date" style="width:150px;"/>
+                                <field name="end_date" style="width:150px;"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="shipping_line_ids"/>
+                                <field name="shipping_line_ids"  class="w-100" options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>
+                            </div>
+                            <div class="col-lg-6">
+                                <div style="margin-left:16px;">
+                                <label for="type_size_ids"/>
+                                <field name="type_size_ids" class="w-100" options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:flex;justify-content: flex-end;">
+                        <div style="display: flex; justify-content: space-between; width: 200px;">
+                            <button name="action_email_report" string="Email Report" type="object" class="btn-primary"/>
+                        </div>
+                    </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="repair_reports_action" model="ir.actions.act_window">
+        <field name="name">Repair</field>
+        <field name="res_model">repair.reports</field>
+        <field name="view_mode">form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_repair_reports"
+              name="Repair"
+              parent="empezar_reports.menu_reports_root"
+              action="repair_reports_action"
+              sequence="1"
+    />
+
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_delivery_order,delivery.order,model_delivery_order,base.group_user,1,1,1,1
+access_container_details_delivery,container.details.delivery,model_container_details_delivery,base.group_user,1,1,1,1
+access_update_allocation_wizard,update.allocation.wizard,model_update_allocation_wizard,base.group_user,1,1,1,1
+access_view_update_allocation,view.update.allocation,model_view_update_allocation,base.group_user,1,1,1,1

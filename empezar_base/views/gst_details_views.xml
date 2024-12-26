@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="gst_details_form_view" model="ir.ui.view">
+            <field name="name">gst.details.form.view</field>
+            <field name="model">gst.details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group style="margin-left:90%">
+                            <field name="active" widget="boolean_toggle" readonly="not id"/>
+                        </group>
+                        <group style="border:solid 1px #ced4da; padding:10px 10px; margin: 0px 2px;">
+                            <group>
+                                <field name="company_id" invisible="1"/>
+                                <field name="partner_id" invisible="1"/>
+                                <field name="is_e_invoice_applicable" invisible="1"/>
+                                 <div class="form-group">
+                                    <label for="gst_no">GST No</label>
+                                     <field name="gst_no" required="True" readonly="id" style="width: 750px;"/>
+                                 </div>
+                            </group>
+                            <div class="col-lg-6 d-flex justify-content-end">
+                                <a href="#" role="button" class="get_gst_details btn btn-secondary" style="margin-top: 20px;" invisible="id or context.get('is_cms_parties_view')">Check Details</a>
+                                <a href="#" role="button" class="get_gst_details_for_parties btn btn-secondary" style="margin-top: 20px;" invisible="id or not context.get('is_cms_parties_view')">Check Details</a>
+                                <i title="Refresh Data" class="fa fa-refresh fa-2x get_gst_details" style="cursor: pointer; margin-left: 10px; margin-top: 10px; padding: 8px 10px; font-size: 18px; border: 1px solid #ced4da;" aria-hidden="true" invisible="not id or context.get('is_cms_parties_view')"></i>
+                                <i title="Refresh Data" class="fa fa-refresh fa-2x get_gst_details_for_parties" style="cursor: pointer; margin-left: 10px; margin-top: 10px; padding: 8px 10px; font-size: 18px; border: 1px solid #ced4da;" aria-hidden="true" invisible="not id or not context.get('is_cms_parties_view')"></i>
+                            </div>
+                        </group>
+                        <div class="mt-4 mb-4" style="border:solid 1px #ced4da; padding:0px 10px;">
+                            <div class="alert alert-success d-none" role="alert" id="success_message">
+                                Valid GST No., information was successfully retrieved as shown below:
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-lg-4">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="TAXPAYER TYPE"/></span>
+                                        <label class="ms-2" for="tax_payer_type"/><br></br>
+                                        <field class="ms-3" name="tax_payer_type"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="NATURE OF BUSINESS"/></span>
+                                        <label class="ms-2" for="nature_of_business"/><br></br>
+                                        <field class="ms-3" name="nature_of_business"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="STATE JURISDICTION"/></span>
+                                        <label class="ms-2" for="state_jurisdiction"/><br></br>
+                                        <field class="ms-3" name="state_jurisdiction"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="PRINCIPAL PLACE OF BUSINESS"/></span>
+                                <label class="ms-2" for="place_of_business"/><br></br>
+                                <field class="ms-3" name="place_of_business"/>
+                            </div>
+                            <div class="w-100 d-none" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="Legal Name"/></span>
+                                <label class="ms-2" for="legal_name"/><br></br>
+                                <field class="ms-3" name="legal_name"/>
+                            </div>
+                            <div class="w-100 d-none" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="Pin Code"/></span>
+                                <label class="ms-2" for="gst_pincode"/><br></br>
+                                <field class="ms-3" name="gst_pincode"/>
+                            </div>
+                            <div class="w-100 d-none" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="Parties Address Line 1"/></span>
+                                <label class="ms-2" for="parties_add_line_1"/><br></br>
+                                <field class="ms-3" name="parties_add_line_1"/>
+                            </div>
+                            <div class="w-100 d-none" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="Parties Address Line 2"/></span>
+                                <label class="ms-2" for="parties_add_line_2"/><br></br>
+                                <field class="ms-3" name="parties_add_line_2"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="ADDITIONAL PLACE OF BUSINESS 1"/></span>
+                                <label class="ms-2" for="additional_place_of_business"/><br></br>
+                                <field class="ms-3" name="additional_place_of_business"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="NATURE OF ADDITIONAL PLACE OF BUSINESS 1"/></span>
+                                <label class="ms-2" for="nature_additional_place_of_business"/><br></br>
+                                <field class="ms-3" name="nature_additional_place_of_business"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="ADDITIONAL PLACE OF BUSINESS 2"/></span>
+                                <label class="ms-2" for="additional_place_of_business_2"/><br></br>
+                                <field class="ms-3" name="additional_place_of_business_2"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="NATURE OF ADDITIONAL PLACE OF BUSINESS 2"/></span>
+                                <label class="ms-2" for="nature_additional_place_of_business_2"/><br></br>
+                                <field class="ms-3" name="nature_additional_place_of_business_2"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="LAST UPDATE ON"/></span>
+                                <label class="ms-2" for="last_update"/><br></br>
+                                <field class="ms-3" name="last_update"/>
+                            </div>
+                        </div>
+                        <div class="row" name="e_invoice_data" invisible="not is_e_invoice_applicable or context.get('is_cms_parties_view')">
+                            <div class="col-lg-6">
+                                <div class="w-100">
+                                    <label for="username"/><br></br>
+                                    <field name="username" required="is_e_invoice_applicable"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="client_secret">
+                                    <label for="password"/>
+                                    <br></br>
+                                    <field name="password" required="is_e_invoice_applicable" class="w-100" password="True"/>
+                                    <span class="fa fa-eye-slash" id="b2b_toggle_password" title="Password"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" invisible="context.get('is_cms_parties_view')">
+                            <div class="col-lg-6">
+                                <div class="w-100">
+                                    <field name="arn_no" placeholder="ARN No. (LUT)"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="w-100">
+                                    <field name="date" placeholder="Date" required="arn_no"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-none">
+                            <div class="col-lg-6">
+                                <div class="w-100">
+                                    <field name="status"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="w-100">
+                                    <field name="state"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="w-100">
+                                    <field name="gst_api_response"/>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="d-flex justify-content-end">
+                            <button id="submit_gst_info" string="Submit" special="save" class="btn btn-primary" disabled="1"/>
+                        </footer>
+                    </sheet>
+                    <div style="margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                        <div style="width:55%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                        <div class="mt-2" style="width:55%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="gst_details_response_view" model="ir.ui.view">
+            <field name="name">gst.details.response.form.view</field>
+            <field name="model">gst.details</field>
+            <field name="arch" type="xml">
+                <form edit="0" create="0">
+                    <sheet>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="w-100">
+                                    <field name="gst_api_response"/>
+                                </div>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="gst_details_form_action" model="ir.actions.act_window">
+            <field name="name">Add New GST</field>
+            <field name="res_model">gst.details</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'active_test': False}</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

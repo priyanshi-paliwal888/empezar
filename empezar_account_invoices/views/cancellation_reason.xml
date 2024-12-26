@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="cancellation_reason_form_view" model="ir.ui.view">
+        <field name="name">cancellation.reason.form.view</field>
+        <field name="model">cancellation.reason</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                            <field name="active" invisible="1"/>
+                            <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="cancellation_reason_tree_view" model="ir.ui.view">
+        <field name="name">cancellation.reason.tree.view</field>
+        <field name="model">cancellation.reason</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cancellation_reason_action" model="ir.actions.act_window">
+            <field name="name">Cancellation Reason Data</field>
+            <field name="res_model">cancellation.reason</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_cancellation_reason"
+        name="Cancellation Reason"
+        parent="empezar_base.menu_master_configurations"
+        action="cancellation_reason_action"
+        sequence="9"
+        groups="empezar_base.group_empezar_management,empezar_base.group_empezar_accounts"
+    />
+
+</odoo>

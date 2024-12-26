@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="help_document_form_view" model="ir.ui.view">
+        <field name="name">help.document.form.view</field>
+        <field name="model">help.document</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="master_menu" required="1"/>
+                            <field name="file" filename="file_namex" required="1"/>
+                            <field name="file_namex" required="0" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="help_document_tree_view" model="ir.ui.view">
+        <field name="name">help.document.tree.view</field>
+        <field name="model">help.document</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="master_menu"/>
+                <field name="file_namex" string="File"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="help_document_action" model="ir.actions.act_window">
+        <field name="name">Help Document</field>
+        <field name="res_model">help.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_help_document"
+            name="Help Document"
+            parent="empezar_base.menu_master_configurations"
+            action="help_document_action"
+            sequence="4"
+            groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

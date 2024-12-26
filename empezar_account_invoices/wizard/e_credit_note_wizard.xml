@@ -1,0 +1,57 @@
+<odoo>
+    <record id="view_credit_note_invoice_wizard" model="ir.ui.view">
+        <field name="name">e.invoice.credit.wizard.form</field>
+        <field name="model">e.invoice.credit.wizard</field>
+        <field name="arch" type="xml">
+            <form string="E-Invoice Details">
+                 <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                    <div style="margin-top: 10px;"/>
+                     <div class="row">
+                        <div>
+                            <span><i class="fa fa-file-text-o" title="Invoice Ref. No."/></span>
+                            <label class="ms-2" for="invoice_ref_no"/>
+                            <field name="invoice_ref_no" class="w-100 ms-3" readonly="1"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <field name="credit_id" invisible="1"/>
+                            <span><i class="fa fa-file-text-o" title="IRN No."/></span>
+                            <label class="ms-2" for="irn_no"/>
+                            <field name="irn_no" class="w-100 ms-3" readonly="1"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                             <div>
+                                 <field name="irn_received_date" invisible="1"/>
+                                <span><i class="fa fa-file-text-o" title="IRN GENERATED ON"/></span>
+
+                                <label class="ms-2" for="irn_date"/>
+                                <field name="irn_date" class="w-100 ms-3" readonly="1" string="IRN GENERATED ON"
+                                />
+
+                             </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <span><i class="fa fa-file-text-o" title="IRN Status"/></span>
+                                <label class="ms-2" for="irn_status"/>
+                                <field name="irn_status" class="w-100 ms-3" readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <button string="Download" type="object" name="action_download"
+                                    icon="empezar_account_invoices/static/src/images/download.svg"
+                                    class="button_actions" title="Download" />
+                    <button type="object"
+                            class="button_actions"
+                            icon="empezar_account_invoices/static/src/images/cancel.svg"
+                            special="cancel" title="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

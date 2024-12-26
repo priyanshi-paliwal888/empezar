@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="damage_type_form_view" model="ir.ui.view">
+        <field name="name">damage.type.form.view</field>
+        <field name="model">damage.type</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="damage_type_code" required="1"/>
+                            <field name="damage_type_name" required="1"/>
+                            <field name="damage_type_description" required="1"/>
+                            <field name="record_status" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="damage_type_tree_view" model="ir.ui.view">
+        <field name="name">damage.type.tree.view</field>
+        <field name="model">damage.type</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="damage_type_code" required="1"/>
+                <field name="damage_type_name" required="1"/>
+                <field name="damage_type_description" required="1"/>
+                <field name="record_status" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="damage_type_action" model="ir.actions.act_window">
+        <field name="name">Damage Type</field>
+        <field name="res_model">damage.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_damage_type"
+            name="Damage Type"
+            parent="empezar_base.menu_master_configurations"
+            action="damage_type_action"
+            sequence="5"
+            groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management,empezar_base.group_repair_estimates_team,empezar_base.group_repair_estimates_yard"
+    />
+
+</odoo>

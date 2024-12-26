@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="inherit_company_form_view" model="ir.ui.view">
+        <field name="name">res.company.form.view</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_title']" position="replace"/>
+            <xpath expr="//form//field[@name='logo']" position="replace"/>
+            <xpath expr="//page[@name='general_info']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">False</attribute>
+            </xpath>
+            <xpath expr="//sheet" position="after">
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+<!--                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>-->
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@name='button_box']//button[@name='action_all_company_branches']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='branches']" position="replace">
+                <page string="Locations" name="branches">
+                    <field name="child_ids" nolabel="1" context="{'default_parent_id': id}">
+                        <tree create="False" delete="False" editable="bottom">
+                            <field name="name" string="Location Name" readonly="1"/>
+                            <field name="partner_id" readonly="1" options="{'no_open': True,'no_create': True}"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//notebook//page[@name='branches']" position="before">
+                <page string="Company Details" name="company_details">
+                    <div style="border:solid 1px #ced4da; padding:15px;" class="mb-4">
+                        <div class="row">
+                            <div>
+                                <label for="name" string="Company Name"/><br></br>
+                                <field name="name" required="true" class="w-100"/>
+                            </div>
+                            <div>
+                                <label for="logo" string="Logo"/><br></br>
+                                <field name="logo" widget="image" class="oe_avatar w-100" string="Logo" style="width:100%" required="1" options="{'accepted_file_extensions': '.jpg,.png,.jpeg'}"/>
+                            </div>
+                            <div>
+                                <label for="country_id"/><br></br>
+                                <field name="country_id" required="1" class="w-50" options="{'no_create': True}"/>
+                            </div>
+                            <div>
+                                <label for="street" string="Address Line 1"/><br></br>
+                                <field name="street" required="1" class="w-100"/>
+                            </div>
+                            <div>
+                                <field name="street2" placeholder="Address Line 2" required="1"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="city" string="City"/><br></br>
+                                    <field name="city" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="state_id" string="State"/><br></br>
+                                    <field name="state_id" required="1" class="w-100" options="{'no_create': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="zip" string="Pin Code"/><br></br>
+                                    <field name="zip" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="email" string="Email Address"/><br></br>
+                                    <field name="email" string="Email Address" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="phone" string="Contact No."/>
+                                <div class="d-flex flex-row">
+                                    <div style="max-width: 50px;">
+                                        <field name="phone_country_code"/>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <field name="phone"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <field name="is_country_india" invisible="1"/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="pan" string="PAN"/><br></br>
+                                        <field name="pan" class="w-100" required="is_country_india == True"/>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="cin" string="CIN"/><br></br>
+                                        <field name="cin" class="w-100" required="is_country_india == True"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:15px;" class="mb-4">
+                        <div class="oe_title mb-3">
+                            <h3>General Settings</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="currency_id"/><br></br>
+                                    <field name="currency_id" class="w-100" options="{'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="date_format"/><br></br>
+                                    <field name="date_format" widget="radio" options="{'horizontal': true}"
+                                           class="w-100" required="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="report_no_of_days"/><br></br>
+                                    <field name="report_no_of_days" class="w-100" required="1"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="primary_color"/><br></br>
+                                    <field name="primary_color" class="w-100" widget="color" required="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:15px;">
+                        <div class="oe_title mb-3">
+                            <h3>E-Invoicing Settings</h3>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <label for="e_invoice_applicable"/><br></br>
+                                <field name="e_invoice_applicable" options="{'horizontal': true}" class="w-100" widget="radio" required="1"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="client_id"/><br></br>
+                                    <field name="client_id" class="w-100" required="e_invoice_applicable == 'yes'"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="client_secret">
+                                    <label for="client_secret"/><br></br>
+                                    <field name="client_secret" class="w-100" password="True" required="e_invoice_applicable == 'yes'"/>
+                                    <span class="fa fa-eye-slash" id="b2b_toggle_password" title="Show"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </page>
+                <page string="GST" name="gst" invisible="is_country_india == False">
+                    <div class="row mb-4">
+                        <div class="col-md-6"><p>GST Details</p></div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button string="Add New" type="object" name="add_gst_line" class="btn btn-primary"/>
+                        </div>
+                    </div>
+                    <field name="gst_invoice_line_ids" mode="tree" invisible="not gst_invoice_line_ids">
+                        <tree create="False" delete="False" class="response_parties">
+                            <field name="gst_no" string="GST No."/>
+                            <field name="tax_payer_type" string="Taxpayer Type"/>
+                            <field name="state" string="State"/>
+                            <field name="status" widget="badge" decoration-success="1" string="GST Number Status"/>
+                            <button type="object" icon="empezar_base/static/src/img/gst_resp_view.svg" name="view_response" title="View GST Details"/>
+                        </tree>
+                    </field>
+                    <div style="text-align: center; border: solid 1px #ced4da;padding: 35px;" invisible="gst_invoice_line_ids">
+                        <h3>No Records Found</h3>
+                    </div>
+                </page>
+                <page string="Integrations" name="integration">
+                    <field name="gst_integration_line_ids" mode="tree">
+                        <tree create="False" delete="False">
+                            <field name="name"/>
+                            <field name="api_key" placeholder="Not yet Added"/>
+                            <field name="url" placeholder="Not yet Added"/>
+                            <field name="integration_status" widget="badge" decoration-danger="integration_status == 'not_set'" decoration-success="integration_status == 'set'"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_company_tree_view" model="ir.ui.view">
+        <field name="name">inherit.res.company.tree.view</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">False</attribute>
+            </xpath>
+            <xpath expr="//tree//field[@name='child_ids']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="base.action_res_company_form" model="ir.actions.act_window">
+        <field name="name">Company Profile</field>
+    </record>
+</odoo>

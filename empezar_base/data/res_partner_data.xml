@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="res_partner_shipping_tag_1" model="res.partner.category">
+            <field name="name">Shipping Line</field>
+        </record>
+
+        <record id="res_partner_cms_parties_tag_1" model="res.partner.category">
+            <field name="name">CMS Parties</field>
+        </record>
+
+    </data>
+</odoo>

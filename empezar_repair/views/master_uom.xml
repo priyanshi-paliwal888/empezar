@@ -1,0 +1,47 @@
+<odoo>
+    <record id="master_uom_form_view" model="ir.ui.view">
+        <field name="name">master.uom.form.view</field>
+        <field name="model">master.uom</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="master_uom_tree_view" model="ir.ui.view">
+        <field name="name">master.uom.tree.view</field>
+        <field name="model">master.uom</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="name" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="master_uom_action" model="ir.actions.act_window">
+        <field name="name">Master uom</field>
+        <field name="res_model">master.uom</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_master_uom"
+            name="UOM"
+            parent="empezar_base.menu_master_configurations"
+            action="master_uom_action"
+            sequence="7"
+            groups="empezar_base.group_empezar_management"
+    />
+
+</odoo>

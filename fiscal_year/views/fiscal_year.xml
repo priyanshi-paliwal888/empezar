@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_fiscal_year_tree" model="ir.ui.view">
+        <field name="name">account.fiscal.year.tree</field>
+        <field name="model">account.fiscal.year</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0" import="0">
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_account_fiscal_year_form" model="ir.ui.view">
+        <field name="name">account.fiscal.year.form</field>
+        <field name="model">account.fiscal.year</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <field name="active" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div>
+                                <label for="name"/><br></br>
+                                <field name="name" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div>
+                                <label for="date_from"/><br></br>
+                                <field name="date_from" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div>
+                                <label for="date_to"/><br></br>
+                                <field name="date_to" class="w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="actions_account_fiscal_year" model="ir.actions.act_window">
+        <field name="name">Fiscal Years</field>
+        <field name="res_model">account.fiscal.year</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'active_test': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No records found.
+            </p>
+        </field>
+    </record>
+
+    <record id="account_fiscal_year_inherited_tree_view" model="ir.ui.view">
+        <field name="name">account.fiscal.year.tree.inherit</field>
+        <field name="model">account.fiscal.year</field>
+        <field name="inherit_id" ref="fiscal_year.view_account_fiscal_year_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="js_class">button_in_tree</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="menu_fiscal_year"
+              name="Fiscal Years"
+              sequence="5"
+              parent="empezar_base.menu_master_root"
+              action="actions_account_fiscal_year"
+              groups="fiscal_year.group_fiscal_year,empezar_base.group_empezar_management,empezar_base.group_empezar_accounts"
+    />
+
+</odoo>

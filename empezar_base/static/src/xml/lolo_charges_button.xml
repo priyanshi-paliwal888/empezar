@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="lolo_charge_help_button.ListView.Buttons" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="after">
+            <div class="dropdown" t-if="props.resModel == 'lolo.charge'">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="upload_dropdownMenu" t-if="canViewButton"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        style="background-color: #910000; color: white;">
+                    Upload
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="upload_dropdownMenu">
+                    <li>
+                        <a class="dropdown-item" id="download_template" href="#">Download Template</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" id="upload_lolo_charges" href="#">Upload LOLO Charges</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <button type="button" class="fa fa-info-circle h-100"
+                        style="margin-left: 10px; border: none; background-color: transparent; font-size: 1.4em; color: #997a00;"
+                        t-on-click="HelpButton" data-tooltip="Help Document">
+                </button>
+            </div>
+        </xpath>
+    </t>
+</templates>

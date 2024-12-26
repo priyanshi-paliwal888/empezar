@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="container_type_data_form_view" model="ir.ui.view">
+        <field name="name">container.type.data.form.view</field>
+        <field name="model">container.type.data</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="name"/>
+                            <field name="type_group_code"/>
+                            <field name="company_size_type_code"/>
+                            <field name="te_us"/>
+                        </group>
+                        <group>
+                            <field name="order_number"/>
+                            <field name="is_refer"/>
+                            <field name="size"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="container_type_data_tree_view" model="ir.ui.view">
+        <field name="name">container.type.data.tree.view</field>
+        <field name="model">container.type.data</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="name"/>
+                <field name="type_group_code"/>
+                <field name="company_size_type_code"/>
+                <field name="te_us"/>
+                <field name="order_number"/>
+                <field name="is_refer"/>
+                <field name="size"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="container_type_data_action" model="ir.actions.act_window">
+            <field name="name">Container Type Data</field>
+            <field name="res_model">container.type.data</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_container_type_data"
+        name="Container Type Data"
+        parent="empezar_base.menu_master_configurations"
+        action="container_type_data_action"
+        sequence="2"
+        groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

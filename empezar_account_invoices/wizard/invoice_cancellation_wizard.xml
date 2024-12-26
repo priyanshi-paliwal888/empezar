@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_move_invoice_cancellation_wizard_form" model="ir.ui.view">
+        <field name="name">invoice.cancellation.wizard.form</field>
+        <field name="model">invoice.cancellation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cancellation Wizard">
+                <field name="invoice_id" invisible="1"/>
+                <div class="row">
+                    <label for="cancellation_reason"/>
+                    <field name="cancellation_reason" class="w-100"
+                     options="{'no_open': True,'no_create': True}"/>
+                </div>
+                <div class="row">
+                    <label for="cancellation_remarks"/>
+                    <field name="cancellation_remarks" required="1"
+                    class="w-100"/>
+                </div>
+                <footer>
+                    <button string="Confirm" type="object" name="confirm_cancellation"
+                            class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

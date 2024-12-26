@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="booking_import_form">
+            <field name="name">Upload Containers</field>
+            <field name="model">booking.import.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="file" filename="file_namex" required="is_import_done != False" />
+                        <field name="file_namex" invisible="1" />
+                        <field name="delimiter" invisible="1" />
+                        <field name="my_file" invisible="1"/>
+                        <field name="is_import_done" invisible="1"/>
+                    </group>
+                    <footer style="justify-content: end; display: flex;">
+                        <button name="action_import" string="Submit" type="object" class="btn-primary"  invisible ="is_import_done != False"/>
+                        <button string="Close" class="btn-secondary" special="cancel" invisible ="is_import_done != False"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

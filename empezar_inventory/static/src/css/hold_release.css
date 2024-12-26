@@ -1,0 +1,12 @@
+.hold_tree .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(8)::after {
+            content: "Actions";
+            display: inline-block;
+            position: relative;
+            top: -9px;
+        }
+
+.release_button
+{
+padding: 3px 6px;
+border: 1px solid #cfcfcf;
+}

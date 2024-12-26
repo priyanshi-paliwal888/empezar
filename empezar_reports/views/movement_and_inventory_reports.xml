@@ -1,0 +1,180 @@
+<odoo>
+    <record id="movement_and_inventory_reports_form_view" model="ir.ui.view">
+        <field name="name">movement.and.inventory.reports.form.view</field>
+        <field name="model">movement.and.inventory.reports</field>
+        <field name="arch" type="xml">
+            <form duplicate="0" create="0">
+                <sheet>
+                    <div style="border:solid 1px #ced4da; padding:10px;"> 
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <field name="name" invisible="1"/>
+                                <label for="location_ids"/>
+                                <field name="location_ids" class="w-100" options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="shipping_line_ids"/>
+                                <field name="shipping_line_ids" class="w-100" options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="type_size_ids"/>
+                                <field name="type_size_ids"  class="w-100" options="{'no_open': True, 'no_create': True}" widget="many2many_tags"/>
+                            </div>
+                        </div>
+                        <div style="border:solid 1px #ced4da; padding:10px; margin:10px;">
+                            <h3>Select the reports from the listed below:</h3>
+                            <p>The selected reports will be available as diffrent tab sheets in the emailed excel report.</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%;"> </th>
+                                            <th style="width: 50%;">Report Type</th>
+                                            <th style="width: 40%;">Dates</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <field name="is_move_in"/>
+                                            </td>
+                                            <td>
+                                                <span>Detailed - Move In</span>
+                                            </td>
+                                            <td>
+                                                <label for="move_in_date_range" />
+                                                <div class="d-flex">
+                                                    <field name="move_in_date_range_start" class="w-50" required="is_move_in"/>
+                                                    <field name="move_in_date_range" class="w-50" required="is_move_in"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <field name="is_move_out"/>
+                                            </td>
+                                            <td>
+                                                <span>Detailed - Move Out</span>
+                                            </td>
+                                            <td>
+                                                <label for="move_out_date_range" />
+                                                <div class="d-flex">
+                                                <field name="move_out_date_range_start" class="w-50" required="is_move_out"/>
+                                                <field name="move_out_date_range" class="w-50" required="is_move_out"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <field name="is_inventory"/>
+                                            </td>
+                                            <td>
+                                                <span>Detailed - Inventory</span>
+                                            </td>
+                                            <td>
+                                                <label for="as_on_date"/>
+                                                <field name="as_on_date" class="w-100" required="is_inventory or is_summary_TAT or is_summary_ageing
+                                                                                                or is_summary_stock_report or is_summary_inventory_container_status"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <field name="is_summary_movement"/>
+                                            </td>
+                                            <td>
+                                                <span>Summary - Movement with Throughout</span>
+                                            </td>
+                                            <td>
+                                                <label for="movement_date_range"/>
+                                                <div class="d-flex">
+                                                    <field name="movement_date_range_start" class="w-50" required="is_summary_movement"/>
+                                                    <field name="movement_date_range" class="w-50" required="is_summary_movement"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                            <td>
+                                                <field name="is_summary_TAT"/>
+                                            </td>
+                                            <td>
+                                                <span>Summary - TAT</span>
+                                            </td>
+                                            <td>
+                                                 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <field name="is_summary_ageing"/>
+                                            </td>
+                                            <td>
+                                                <span>Summary - Ageing</span>
+                                            </td>
+                                            <td>
+                                                 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <field name="is_summary_stock_report"/>
+                                            </td>
+                                            <td>
+                                                <span>Summary - Stock Report</span>
+                                            </td>
+                                            <td>
+                                                 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <field name="is_summary_inventory_container_status"/>
+                                            </td>
+                                            <td>
+                                                <span>Summary - Inventory &amp; Container Status</span>
+                                            </td>
+                                            <td>
+                                                 
+                                            </td>
+                                        </tr>  
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:flex;justify-content: flex-end;">
+                        <div style="display: flex; justify-content: space-between; width: 180px; margin-top:20px">
+                            <button name="action_clear" string="Clear" type="object" class="btn-secondary"/>
+                            <button name="action_send_combined_reports" string="Email Report" type="object" class="btn-primary"/>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="movement_and_inventory_reports_action" model="ir.actions.act_window">
+        <field name="name">Movement And Inventory Reports</field>
+        <field name="res_model">movement.and.inventory.reports</field>
+        <field name="view_mode">form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_reports_root"
+              name="Reports"
+    />
+
+    <menuitem id="menu_movement_and_inventory_reports"
+              name="Movement &amp; Inventory"
+              parent="empezar_reports.menu_reports_root"
+              action="movement_and_inventory_reports_action"
+              sequence="1"
+    />
+
+</odoo>

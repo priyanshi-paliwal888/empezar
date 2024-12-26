@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="shipping_line_transporters_form_view" model="ir.ui.view">
+        <field name="name">shipping.line.transporters.form.view</field>
+        <field name="model">shipping.line.transporters</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group style="margin-left:90%">
+                        <field name="active" widget="boolean_toggle" readonly="not id"/>
+                    </group>
+                    <div class="row">
+                        <div>
+                            <label for="transporter_id"/><br></br>
+                            <field name="transporter_id" required="true" class="w-100" options="{'no_open': True,'no_create': True}"/>
+                        </div>
+                        <div>
+                            <label for="code"/><br></br>
+                            <field name="code" required="true" class="w-100"/>
+                        </div>
+                    </div>
+                </sheet>
+                <div style="margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:55%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div class="mt-2" style="width:55%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

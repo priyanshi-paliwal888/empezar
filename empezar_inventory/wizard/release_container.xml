@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="release_container_wizard_form_view" model="ir.ui.view">
+        <field name="name">release.container.wizard.form.view</field>
+        <field name="model">release.container.wizard</field>
+        <field name="arch" type="xml">
+            <form style="justify-content: center;display: flex;">
+                <header>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Release Container -
+                                <field name="display_name" readonly="1"/>
+                            </h2>
+                            <p>Are you sure that you want to release this container?</p>
+                        </div>
+                        <field name="release_container_id" readonly="1" invisible="1"/>
+                    </div>
+                </header>
+                <sheet>
+                    <footer class="d-flex justify-content-end">
+                        <button special="cancel" string="Cancel" class="btn-outline-danger"/>
+                        <button name="action_release" string="Yes, Release" type="object" class="btn-outline-success"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

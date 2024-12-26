@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seal_management_wizard_form_view" model="ir.ui.view">
+        <field name="name">seal.management.wizard.form.view</field>
+        <field name="model">seal.management.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="location"/><br></br>
+                                <field name="location" required="1" options="{'no_open': True,'no_create': True}"
+                                       class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="shipping_line_id"/><br></br>
+                                <field name="shipping_line_id" required="1"
+                                       options="{'no_open': True,'no_create': True}" class="w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="prefix"/><br></br>
+                                <field name="prefix" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div>
+                                <label for="start_range"/><br></br>
+                                <field name="start_range" required="1" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div>
+                                <label for="end_range"/><br></br>
+                                <field name="end_range" required="1" class="w-100"/>
+                            </div>
+                        </div>
+                        <footer>
+                        <div class="col">
+                            <div class="row" style=" display: inline; float:right; padding: 5px 25px 10px 5px">
+                                <button name="action_create" string="Submit" type="object" class="btn-primary"/>
+                            </div>
+                        </div>
+                        </footer>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

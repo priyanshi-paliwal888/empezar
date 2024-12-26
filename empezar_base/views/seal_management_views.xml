@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seal_management_tree_view" model="ir.ui.view">
+        <field name="name">seal.management.tree.view</field>
+        <field name="model">seal.management</field>
+        <field name="arch" type="xml">
+            <tree create="False">
+                <field name="shipping_line_logo" widget="image" class="oe_avatar" options="{'size': [50, 50]}"/>
+                <field name="location"/>
+                <field name="seal_number"/>
+                <field name="container_number"/>
+                <field name="rec_status" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="seal_management_action" model="ir.actions.act_window">
+        <field name="name">Seal</field>
+        <field name="res_model">seal.management</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_seal_management"
+        name="Seal"
+        parent="empezar_base.menu_location_root"
+        action="seal_management_action"
+        sequence="3"
+        groups="empezar_base.group_gate_operator,empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+
+    />
+
+</odoo>

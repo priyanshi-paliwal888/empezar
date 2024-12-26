@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-inherit="web.ListView.Selection" t-inherit-mode="extension">
+        <xpath expr="//div" position="after">
+            <div t-if="props.resModel == 'pending.invoices'">
+                <button class="btn btn-secondary" type="button" id="generate_invoices_records" t-if="addNewInvoice"
+                        aria-expanded="false">
+                    Add New Invoice
+                 </button>
+             </div>
+        </xpath>
+    </t>
+    <t t-name="invoice_help_button.ListView.Buttons" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <div t-if="props.resModel == 'pending.invoices'">
+                <button type="button" class="fa fa-info-circle h-100"
+                        style="margin-left: 10px; border: none; background-color: transparent; font-size: 1.4em; color: #997a00;"
+                        t-on-click="HelpButton" data-tooltip="Pending Invoice - Help">
+                </button>
+            </div>
+        </xpath>
+    </t>
+    <t t-name="move_invoice_help_button.ListView.Buttons" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <div t-if="props.resModel == 'move.in.out.invoice'">
+                <button type="button" class="fa fa-info-circle h-100"
+                        style="margin-left: 10px; border: none; background-color: transparent; font-size: 1.4em; color: #997a00;"
+                        t-on-click="HelpButton" data-tooltip="Invoices - Help">
+                </button>
+            </div>
+        </xpath>
+    </t>
+    <t t-name="credit_note_help_button.ListView.Buttons" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <div t-if="props.resModel == 'credit.note.invoice'">
+                <button type="button" class="fa fa-info-circle h-100"
+                        style="margin-left: 10px; border: none; background-color: transparent; font-size: 1.4em; color: #997a00;"
+                        t-on-click="HelpButton" data-tooltip="Credit - Note Help">
+                </button>
+            </div>
+        </xpath>
+    </t>
+    <t t-name="monthly_lock_help_button.ListView.Buttons" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <div t-if="props.resModel == 'monthly.lock'">
+                <button type="button" class="fa fa-info-circle h-100"
+                        style="margin-left: 10px; border: none; background-color: transparent; font-size: 1.4em; color: #997a00;"
+                        t-on-click="HelpButton" data-tooltip="Monthly Lock - Help">
+                </button>
+            </div>
+        </xpath>
+    </t>
+</templates>

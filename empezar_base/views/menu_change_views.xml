@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="base.menu_action_res_company_form"
+        parent="base.menu_administration"
+        name="Company Profile"
+        action="base.action_res_company_form"
+        sequence="5"
+    />
+
+    <menuitem
+        id="base.menu_users"
+        name="Users"
+        parent="base.menu_administration"
+    />
+
+    <menuitem
+        id="base.menu_action_res_groups"
+        name="Roles"
+        action="base.action_res_groups"
+        parent="base.menu_users"
+        sequence="2"
+    />
+
+    <menuitem
+        id="base.menu_security"
+        name="Permissions"
+        parent="base.menu_users"
+        sequence="3"
+    />
+
+    <menuitem
+        id="base.menu_action_res_users"
+        name="Users"
+        parent="base.menu_users"
+        action="base.action_res_users"
+        sequence="4"
+    />
+</odoo>

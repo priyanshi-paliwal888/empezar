@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+       <record id="container_facilities_inherited_tree_view" model="ir.ui.view">
+           <field name="name">container.facilities.view.tree.inherit</field>
+           <field name="model">container.facilities</field>
+           <field name="inherit_id" ref="empezar_base.container_facilities_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">button_in_tree</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="container_master_inherited_tree_view" model="ir.ui.view">
+           <field name="name">container.master.view.tree.inherit</field>
+           <field name="model">container.master</field>
+           <field name="inherit_id" ref="empezar_base.container_master_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">button_in_tree</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="shipping_line_inherited_tree_view" model="ir.ui.view">
+           <field name="name">shipping.line.view.tree.inherit</field>
+           <field name="model">res.partner</field>
+           <field name="inherit_id" ref="empezar_base.shipping_lines_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">button_in_tree</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="parties_inherited_tree_view" model="ir.ui.view">
+           <field name="name">parties.view.tree.inherit</field>
+           <field name="model">res.partner</field>
+           <field name="inherit_id" ref="empezar_base.res_partner_parties_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">button_in_tree</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="charges_inherited_tree_view" model="ir.ui.view">
+           <field name="name">charges.view.tree.inherit</field>
+           <field name="model">product.template</field>
+           <field name="inherit_id" ref="empezar_base.product_charge_template_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">button_in_tree</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="locations_inherited_tree_view" model="ir.ui.view">
+           <field name="name">locations.view.tree.inherit</field>
+           <field name="model">res.company</field>
+           <field name="inherit_id" ref="empezar_base.res_company_location_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">button_in_tree</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="lolo_inherited_tree_view" model="ir.ui.view">
+           <field name="name">lolo.view.tree.inherit</field>
+           <field name="model">lolo.charge</field>
+           <field name="inherit_id" ref="empezar_base.lolo_charge_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">lolo_charge_help_button</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="seal_inherited_tree_view" model="ir.ui.view">
+           <field name="name">seal.view.tree.inherit</field>
+           <field name="model">seal.management</field>
+           <field name="inherit_id" ref="empezar_base.seal_management_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">seal_help_button</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="inherit_res_users_tree_view" model="ir.ui.view">
+           <field name="name">inherit.res.users.tree.view</field>
+           <field name="model">res.users</field>
+           <field name="inherit_id" ref="base.view_users_tree"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">res_user_help_button</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="inherit_res_company_tree_view" model="ir.ui.view">
+           <field name="name">inherit.res.company.tree.view</field>
+           <field name="model">res.company</field>
+           <field name="inherit_id" ref="base.view_company_tree"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">res_company_help_button</attribute>
+               </xpath>
+           </field>
+       </record>
+
+       <record id="inherit_res_groups_button_tree_view" model="ir.ui.view">
+           <field name="name">inherit.res.groups.tree.view</field>
+           <field name="model">res.groups</field>
+           <field name="inherit_id" ref="empezar_base.inherit_res_groups_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">res_groups_help_button</attribute>
+               </xpath>
+           </field>
+       </record>
+   </data>
+</odoo>

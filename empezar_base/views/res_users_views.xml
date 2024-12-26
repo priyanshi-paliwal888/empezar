@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="inherit_res_users_tree_view" model="ir.ui.view">
+        <field name="name">inherit.res.users.tree.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree//field[@name='lang']" position="attributes">
+                <attribute name="column_invisible">True</attribute>
+            </xpath>
+            <xpath expr="//tree//field[@name='login_date']" position="attributes">
+                <attribute name="column_invisible">True</attribute>
+            </xpath>
+            <xpath expr="//tree//field[@name='state']" position="attributes">
+                <attribute name="column_invisible">True</attribute>
+            </xpath>
+            <xpath expr="//tree//field[@name='login']" position="attributes">
+                <attribute name="string">Username</attribute>
+            </xpath>
+            <xpath expr="//tree//field[@name='login']" position="after">
+                <field name="active" column_invisible="1"/>
+                <field name="user_status" widget="badge" decoration-danger="user_status == 'inactive'" decoration-success="user_status == 'active'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_res_users_form_view" model="ir.ui.view">
+        <field name="name">inherit.res.users.form.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet//div[hasclass('oe_title')]//group[1]" position="replace"/>
+            <xpath expr="//form//sheet//div[hasclass('oe_title')]" position="after">
+                <group>
+                    <group>
+                        <field name="partner_id" groups="base.group_no_one" readonly="1" required="0" invisible="1"/>
+                        <field name="email" widget="email" required="1"/>
+                        <field name="tz" widget="timezone_mismatch" options="{'tz_offset_field': 'tz_offset'}" required="1"/>
+                        <field name="share" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="mobile" widget="phone" string="Contact No."/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='access_rights']//group" position="attributes">
+                <attribute name="string">Multi  Locations</attribute>
+            </xpath>
+            <xpath expr="//page[@name='access_rights']//group//field[@name='company_ids']" position="attributes">
+                <attribute name="string">Locations</attribute>
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='access_rights']//group//field[@name='company_id']" position="attributes">
+                <attribute name="string">Default Location</attribute>
+                <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='preferences']//group[@name='preferences']//field[@name='tz']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='login']" position="attributes">
+                <attribute name="string">Username</attribute>
+            </xpath>
+            <xpath expr="//field[@name='login']" position="attributes">
+                <attribute name="readonly">id</attribute>
+            </xpath>
+            <xpath expr="//form//sheet" position="after">
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+<!--    hide change password functionality from user's preference view-->
+    <record id="inherit_form_view_users_form_simple_modif" model="ir.ui.view">
+        <field name="name">inherit.form.view.users.form.simple.modif</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//notebook//page[@name='page_account_security']//group[1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

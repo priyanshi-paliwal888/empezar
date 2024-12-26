@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_charge_template_form_view" model="ir.ui.view">
+        <field name="name">product.charge.template.form.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="charge_name"/><br></br>
+                                <field name="charge_name" required="1" string="Charge Name" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="charge_code"/><br></br>
+                                <field name="charge_code" string="Charge Code" required="1" class="w-100" readonly="id"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <field name="descriptions" placeholder="Charge Description" class="w-100"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="invoice_type"/><br></br>
+                                <field name="invoice_type" required="1" class="w-100" readonly="id"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="gst_applicable"/><br></br>
+                                <field name="gst_applicable" string="GST Applicable" widget="radio" required="1" options="{'horizontal': true}" class="w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="hsn_code"/><br></br>
+                                <field name="hsn_code" string="HSN/SAC Code" required="gst_applicable == 'yes'" class="w-100" options="{'no_open': True,'no_create': True}" readonly="gst_applicable == 'no'"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="gst_rate"/><br></br>
+                                <field name="gst_rate" string="GST Rate" widget="many2many_tags" options="{'no_create': True}" required="gst_applicable == 'yes'" class="w-100" readonly="gst_applicable == 'no'"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_charge_template_tree_view" model="ir.ui.view">
+        <field name="name">product.template.tree.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0" import="0">
+                <field name="charge_name" string="Charge Name"/>
+                <field name="charge_code" string="Charge Code"/>
+                <field name="invoice_type"/>
+                <field name="gst_rate" widget="many2many_tags" string="GST Rate"/>
+                <field name="hsn_code"/>
+                <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_charge_template_search_view" model="ir.ui.view">
+            <field name="name">product.charge.template.search</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="charge_name"/>
+                </search>
+            </field>
+    </record>
+
+    <record id="product_charge_template_action" model="ir.actions.act_window">
+            <field name="name">Charges</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_chargeable_product', '=', True)]</field>
+            <field name="search_view_id" ref="product_charge_template_search_view"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('empezar_base.product_charge_template_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('empezar_base.product_charge_template_form_view')}),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('product.product_template_kanban_view')})]"/>
+            <field name="context">{'is_charge_product_view': True, 'active_test': False}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_charges_product"
+        name="Charges"
+        parent="empezar_base.menu_master_root"
+        action="product_charge_template_action"
+        sequence="6"
+        groups="empezar_base.group_empezar_management,empezar_base.group_empezar_accounts"
+    />
+
+</odoo>

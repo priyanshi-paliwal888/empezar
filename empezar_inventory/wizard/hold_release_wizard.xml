@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hold_release_container_wizard_form_view" model="ir.ui.view">
+        <field name="name">hold.release.container.wizard.form.view</field>
+        <field name="model">hold.release.container.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="file_name" invisible="1"/>
+                        <field name="location_id" options="{'no_open': True,'no_create': True}"/>
+                        <field name="hold_reason_id" options="{'no_open': True,'no_create': True}"/>
+                        <field name="remarks"/>
+                        <field name="upload_file" filename="file_name"
+                               options="{'accepted_file_extensions': '.xls,.xlsx'}"/>
+                    </group>
+                    <footer class="d-flex justify-content-end">
+                        <button name="action_submit" string="Submit" type="object" class="btn-primary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

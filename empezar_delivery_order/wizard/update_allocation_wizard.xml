@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="update_allocation_wizard_form_view" model="ir.ui.view">
+        <field name="name">container.details.wizard.form.view</field>
+        <field name="model">update.allocation.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="row">
+                    <label for="container_size_type_domain"/>
+                    <field name="container_size_type_domain" string="Container Size Type Domain" invisible="1"/>
+                    <div class="col-lg-4">
+                        <label for="container_size_type" string="Container Type/Size"/>
+                        <field name="container_size_type" options="{'no_open': True,'no_create': True}"
+                               domain="container_size_type_domain"/>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="quantity"/>
+                        <field name="quantity" string="Quantity" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="container_yard"/>
+                        <field name="container_yard" string="Container Yard"
+                               options="{'no_open': True,'no_create': True}"/>
+                    </div>
+                </div>
+                <footer>
+                    <button string="Submit" class="btn btn-secondary" type="object"
+                            name="action_update_allocation"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

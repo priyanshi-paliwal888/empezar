@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="mode_rail" model="mode.options">
+            <field name="name">Rail</field>
+        </record>
+
+        <record id="mode_truck" model="mode.options">
+            <field name="name">Truck</field>
+        </record>
+
+        <record id="laden_laden" model="laden.status.options">
+            <field name="name">Laden</field>
+        </record>
+
+        <record id="laden_empty" model="laden.status.options">
+            <field name="name">Empty</field>
+        </record>
+ 
+        <record id="operation_gate_operator" model="operations.options">
+            <field name="name">Gate Operations</field>
+        </record>
+
+        <record id="operation_repair" model="operations.options">
+            <field name="name">Repair</field>
+        </record>
+
+        <record id="gate_pass_move_in" model="gate.pass.options">
+            <field name="name">Move In</field>
+        </record>
+
+        <record id="gate_pass_move_out" model="gate.pass.options">
+            <field name="name">Move Out</field>
+        </record>
+
+        <record id="inv_applicable_lift_off" model="invoice.applicable.options">
+            <field name="name">Lift Off</field>
+        </record>
+
+        <record id="inv_applicable_lift_on" model="invoice.applicable.options">
+            <field name="name">Lift On</field>
+        </record>
+
+        <record id="inv_applicable_others" model="invoice.applicable.options">
+            <field name="name">Others</field>
+        </record>
+
+        <record id="payment_mode_cash" model="payment.mode.options">
+            <field name="name">Cash</field>
+        </record>
+
+        <record id="payment_mode_online" model="payment.mode.options">
+            <field name="name">Online</field>
+        </record>
+
+    </data>
+</odoo>

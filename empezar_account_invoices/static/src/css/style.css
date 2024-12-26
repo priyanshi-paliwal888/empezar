@@ -1,0 +1,96 @@
+.invoice_tree .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(7)::after {
+    content: "E-Invoice  Actions"; /* Add multiple spaces */
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px
+}
+.move_invoice_tree .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(8)::after {
+    content: "E-Invoice  Actions"; /* Add multiple spaces */
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px
+}
+
+.monthly_lock_tree .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(6)::after {
+    content: "Actions"; /* Add multiple spaces */
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px
+}
+
+
+.invoice_button_actions{
+    margin-right:1rem !important;
+
+}
+.button_actions {
+    padding: 3px 6px;
+    border: 1px solid #cfcfcf;
+    line-height: 2;
+}
+
+.button_e_invoice_yes_actions {
+   padding: 3px 6px;
+    border: 1px solid #cfcfcf;
+    position: relative;
+    display: inline-block;
+    line-height: 2;
+}
+
+.button_e_invoice_yes_actions::before {
+    content: "";
+    position: absolute;
+    top: -28%;
+    right: -5px;
+    width: 15px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../images/check_circle.svg);
+}
+
+.button_e_invoice_no_actions {
+    padding: 3px 6px;
+    border: 1px solid #cfcfcf;
+    position: relative;
+    display: inline-block;
+    line-height: 2;
+}
+
+.button_e_invoice_no_actions::before {
+    content: "";
+    position: absolute;
+    top: -28%;
+    right: -5px;
+    width: 15px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../images/cancel_invoice.svg);
+}
+
+.container_master .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(8)::after {
+    content: "Actions"; /* Add multiple spaces */
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px
+}
+
+.container_master_button_actions{
+    margin-right:1rem !important;
+
+}
+
+.fa-info-circle:before
+{
+    color:#997a00;
+}
+
+.credit_notes .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(9)::after {
+    content: "E-Invoice  Actions"; /* Add multiple spaces */
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px
+}

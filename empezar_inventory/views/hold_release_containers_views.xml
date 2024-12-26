@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hold_release_containers_tree_view" model="ir.ui.view">
+        <field name="name">hold.release.containers.view</field>
+        <field name="model">hold.release.containers</field>
+        <field name="arch" type="xml">
+            <tree class="hold_tree" create="False" js_class="upload_inventory_help_button">
+                <field name="location_id"/>
+                <field name="container_id" column_invisible="1"/>
+                <field name="inventory_id" string="Container No."/>
+                <field name="type_size"/>
+                <field name="hold_date" string="Hold Date/Time"/>
+                <field name="hold_reason_id" class="hold_reason_id" string="Hold Reason"/>
+                <field name="remarks" string="Remarks"/>
+                <button name="action_container_release" type="object" class="oe_button release_button" groups="empezar_base.group_release_container"
+                        icon="empezar_inventory/static/images/fluent--lock-open-32-regular.svg"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hold_release_containers_action" model="ir.actions.act_window">
+        <field name="name">Hold/Release Containers</field>
+        <field name="res_model">hold.release.containers</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hold_release_containers"
+              name="Hold/Release Containers"
+              parent="empezar_inventory.menu_upload_inventory_root"
+              action="hold_release_containers_action"
+              sequence="4"
+              groups="empezar_base.group_gate_operator,empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="email_template_seal_management" model="mail.template">
+            <field name="name">Failure in Seal Number creation</field>
+            <field name="model_id" ref="empezar_base.model_seal_management_wizard"/>
+            <field name="email_from">test@test.com</field>
+            <field name="email_to">{{ (object.env.user.email or '')}}</field>
+            <field name="subject">Failure in Seal Number creation</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear Sir/Madam,
+                        <br/><br/>
+                        The Seal Numbers creation for the below data set has failed:
+                        <br/><br/>
+                        Location : <t t-esc="object.location.name"/>
+                        <br/>
+                        Shipping Line : <t t-esc="object.shipping_line_id.name"/>
+                        <br/>
+                        Prefix : <t t-esc="object.prefix"/>
+                        <br/>
+                        Start Range : <t t-esc="object.start_range"/>
+                        <br/>
+                        End Range : <t t-esc="object.end_range"/>
+                        <br/>
+                        Failure Reason : <t t-out="ctx.get('failure_reason')"/>
+                        <br /><br/>
+                        Kindly make the necessary changes and try again.
+                        <br /><br />
+                        Regards,
+                        <br />
+                        CMS Team
+                    </p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+        <record id="ir_cron_automatic_EDI" model="ir.cron">
+            <field name="name">Automation EDI Sent</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model.Edi_sent()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="lolo_charge_lines_form_view" model="ir.ui.view">
+        <field name="name">lolo.charge.lines.form.view</field>
+        <field name="model">lolo.charge.lines</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="container_size"/>
+                        <field name="lift_on"/>
+                        <field name="lift_off"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

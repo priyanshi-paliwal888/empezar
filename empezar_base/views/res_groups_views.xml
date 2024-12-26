@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="inherit_res_groups_tree_view" model="ir.ui.view">
+        <field name="name">inherit.res.groups.tree.view</field>
+        <field name="model">res.groups</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="inherit_res_groups_form_view" model="ir.ui.view">
+        <field name="name">inherit.res.groups.form.view</field>
+        <field name="model">res.groups</field>
+        <field name="inherit_id" ref="base.view_groups_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet" position="inside">
+                <field name="active" invisible="1"/>
+            </xpath>
+            <xpath expr="//form//sheet" position="after">
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

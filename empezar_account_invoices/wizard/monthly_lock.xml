@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <!-- Wizard Form View for Lock/Unlock Invoice -->
+        <record id="view_monthly_lock_wizard_form" model="ir.ui.view">
+            <field name="name">monthly.lock.wizard.form</field>
+            <field name="model">monthly.lock.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Lock Invoice">
+                    <group>
+                        <field name="action" invisible="1"/>
+                        <field name="remarks" required="action == 'unlock'"/>
+                        <field name="username" readonly="1" invisible="1" />
+                        <field name="invoice_type" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button string="Lock" type="object" name="action_confirm_lock" class="btn-primary" />
+                        <button string="Cancel" type="object" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_monthly_unlock_wizard_form" model="ir.ui.view">
+            <field name="name">monthly.unlock.wizard.form</field>
+            <field name="model">monthly.lock.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Unlock Invoice">
+                    <group>
+                        <field name="action" invisible="1"/>
+                        <field name="remarks" required="action == 'unlock'"/>
+                        <field name="username" readonly="1" invisible="1" />
+                        <field name="invoice_type" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button string="Unlock" type="object" name="action_confirm_unlock" class="btn-primary" />
+                        <button string="Cancel" type="object" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

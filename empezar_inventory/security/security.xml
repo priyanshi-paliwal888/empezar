@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="container_inventory_rule" model="ir.rule">
+            <field name="name">Location-based access for Container inventory</field>
+            <field name="model_id" ref="model_container_inventory"/>
+            <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+        </record>
+        <record id="hold_release_containers_rule" model="ir.rule">
+            <field name="name">Location-based access for hold release containers</field>
+            <field name="model_id" ref="model_hold_release_containers"/>
+            <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+        </record>
+    </data>
+</odoo>

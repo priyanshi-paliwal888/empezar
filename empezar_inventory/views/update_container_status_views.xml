@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="upload_container_status_tree_view" model="ir.ui.view">
+        <field name="name">upload.inventory.tree.view</field>
+        <field name="model">update.container.status</field>
+        <field name="arch" type="xml">
+            <tree create="False" js_class="upload_inventory_help_button">
+                <field name="name"/>
+                <field name="upload_id"/>
+                <field name="uploaded_by"/>
+                <field name="uploaded_on"/>
+                <field name="rec_status" string="Status"/>
+                <field name="upload_inventory_file" string="Actions" widget="binary"
+                       filename="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="update_container_status_action" model="ir.actions.act_window">
+            <field name="name">Update Container Status</field>
+            <field name="res_model">update.container.status</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_update_container_status"
+        name="Update Container Status"
+        parent="empezar_inventory.menu_upload_inventory_root"
+        action="update_container_status_action"
+        sequence="3"
+        groups="empezar_base.group_gate_operator,empezar_base.group_yard_manager,,empezar_base.group_empezar_management"
+    />
+
+</odoo>

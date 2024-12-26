@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="damage_condition_form_view" model="ir.ui.view">
+        <field name="name">damage.condition.form.view</field>
+        <field name="model">damage.condition</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <field name="active" invisible="1"/>
+                        <field name="name"/>
+                        <field name="damage_code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="damage_condition_tree_view" model="ir.ui.view">
+        <field name="name">damage.condition.tree.view</field>
+        <field name="model">damage.condition</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="name"/>
+                <field name="damage_code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="damage_condition_action" model="ir.actions.act_window">
+            <field name="name">Damage condition</field>
+            <field name="res_model">damage.condition</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_damage_condition"
+        name="Damage condition"
+        parent="empezar_base.menu_master_configurations"
+        action="damage_condition_action"
+        sequence="5"
+        groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management,empezar_base.group_repair_estimates_team,empezar_base.group_repair_estimates_yard"
+    />
+
+</odoo>

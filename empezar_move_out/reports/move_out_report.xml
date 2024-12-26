@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_move_out_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <table style="width: 100%; text-align: left; border: 1px solid black; border-collapse: collapse;">
+                                <tr>
+                                    <td colspan="2"
+                                        style="border: 1px solid black; padding: 8px; text-align: center; width: 50%; background-color: moccasin;">
+                                        <span style="font-weight: bold; color: #000000;">OUTWARD GATE PASS</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                        <b style="color: #000000;">Gate Pass No.</b>
+                                        <br/><br/>
+                                        <span t-field="o.gate_pass_no"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                        <b style="color: #000000;">Date/Time</b>
+                                        <br/><br/>
+                                        <span t-field="o.move_out_date_time"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                        <b style="color: #000000;">Shipping Line</b>
+                                        <br/><br/>
+                                        <span t-field="o.shipping_line_id"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                        <b style="color: #000000;">Customer</b>
+                                        <br/><br/>
+                                        <span t-field="o.billed_to_party"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                        <b style="color: #000000;">Container No.</b>
+                                        <br/><br/>
+                                        <span t-field="o.container_id"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                        <b style="color: #000000;">Movement Type</b>
+                                        <br/><br/>
+                                        <t t-if="o.movement_type == 'export_stuffing'">
+                                            <t t-if="o.export_stuffing_to == 'factory'">
+                                                <span>
+                                                    <t t-esc="'Export Stuffing - Factory'"/>
+                                                </span>
+                                            </t>
+                                            <t t-if="o.export_stuffing_to == 'CFS/ICD'">
+                                                <span>
+                                                    <t t-esc="'Export Stuffing - CFS/ICD'"/>
+                                                </span>
+                                            </t>
+                                        </t>
+                                        <t t-if="o.movement_type == 'repo'">
+                                            <t t-if="o.repo_to == 'port_terminal'">
+                                                <span>
+                                                    <t t-esc="'Repo - Port/Terminal'"/>
+                                                </span>
+                                            </t>
+                                            <t t-if="o.repo_to == 'CFS/ICD'">
+                                                <span>
+                                                    <t t-esc="'Repo - CFS/ICD'"/>
+                                                </span>
+                                            </t>
+                                            <t t-if="o.repo_to == 'empty_yard'">
+                                                <span>
+                                                    <t t-esc="'Repo - Empty Yard'"/>
+                                                </span>
+                                            </t>
+                                        </t>
+                                    </td>
+                                </tr>
+
+                                <t t-if="o.mode == 'truck'">
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                            <b style="color: #000000;">Transporter</b>
+                                            <br/>
+                                            <br/>
+                                            <span t-field="o.transporter_fulfilled_id"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                            <b style="color: #000000;">Truck No.</b>
+                                            <br/>
+                                            <br/>
+                                            <span t-field="o.truck_number"/>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                                 <tr>
+                                    <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                        <b style="color: #000000;">Booking No.</b>
+                                        <br/><br/>
+                                        <t t-if="o.movement_type == 'export_stuffing'">
+                                                <span t-field="o.delivery_order_id"/>
+                                        </t>
+                                        <t t-if="o.movement_type == 'repo'">
+                                                <span t-field="o.booking_no_id"/>
+                                        </t>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px; width: 25%;">
+                                        <b style="color: #000000;">Seal No.</b>
+                                        <br/><br/>
+                                        <span t-field="o.seal_no_1"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2"
+                                        style="text-align: right; padding-top: 5px; padding-bottom: 5px; padding-right: 5px; border: 1px solid black;">
+                                        <b style="color: #000000;">For</b>
+                                        <br/><br/>
+                                        <p>Empezar Global Marine Services Pvt.Ltd</p>
+                                        <br/><br/><br/>
+                                        <b style="color: #000000;">Authorized Signatory</b>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2"
+                                        style="border: 1px solid black; padding: 8px; vertical-align: top; width: 50%; background-color: #DFEDF2;">
+                                        <b style="color: #000000;">Prepared By:</b>
+                                        <span>
+                                            <t t-esc="user.name"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

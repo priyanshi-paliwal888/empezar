@@ -1,0 +1,56 @@
+.oe_login_form{
+    .field-password{
+        position: relative;
+    }
+    #b2b_toggle_password{
+        position: absolute;
+        right: 13px;
+        bottom: 10px;
+        cursor: pointer;
+    }
+}
+#wrapwrap{
+    .o_database_list{
+        max-width: 100% !important;
+        background-color: transparent !important;
+        border: 2px solid #e5e5e5 !important;
+        border-radius: 8px;
+        .card-body{
+            background-color: transparent !important;
+            .border-bottom.mb-4{
+                display: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+    }
+}
+.grey_color{
+    color:gray;
+}
+
+.small_font_size{
+    font-size:small;
+}
+
+.large_font_size{
+    font-size:large;
+}
+
+.custom_login_form_class{
+    border: solid 1px gray;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#wrapwrap footer#bottom{
+    display:none !important;
+    height:0 !important;
+}
+
+.oe_website_login_container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+}

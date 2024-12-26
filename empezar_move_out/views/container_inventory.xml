@@ -1,0 +1,12 @@
+<odoo>
+    <record id="container_inventory_form_view_inherit" model="ir.ui.view">
+        <field name="name">container.inventory.inherit</field>
+        <field name="model">container.inventory</field>
+        <field name="inherit_id" ref="empezar_inventory.container_inventory_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_id']" position="after">
+                <field name="move_in_id" string="Move In"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

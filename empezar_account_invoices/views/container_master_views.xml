@@ -1,0 +1,16 @@
+<odoo>
+    <record id="container_master_tree_view_inherit" model="ir.ui.view">
+        <field name="name">container.master.inherit</field>
+        <field name="model">container.master</field>
+        <field name="inherit_id" ref="empezar_base.container_master_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+            <attribute name="class">container_master</attribute>
+            </xpath>
+            <xpath expr="//field[@name='production_month_year']" position="after">
+                <button name="action_view_history" type="object" icon="fa-history" class="btn btn-secondary"
+                        title="View History" groups = "empezar_base.group_view_history"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

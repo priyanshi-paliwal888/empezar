@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="container_type_edi_form_view" model="ir.ui.view">
+        <field name="name">container.type.edi.form.view</field>
+        <field name="model">container.type.edi</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group style="margin-left:90%">
+                        <field name="active" widget="boolean_toggle" readonly="not id"/>
+                    </group>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="container_type_data_id"/><br></br>
+                                <field name="container_type_data_id" required="true" class="w-100" options="{'no_open': True,'no_create': True}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="type_group_code"/><br></br>
+                                <field name="type_group_code" required="true" class="w-100"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="edi_code"/><br></br>
+                            <field name="edi_code" required="true" class="w-100"/>
+                        </div>
+                    </div>
+                </sheet>
+                <div style="margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:55%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div class="mt-2" style="width:55%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

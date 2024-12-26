@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_invoice_cancellation_wizard_form" model="ir.ui.view">
+        <field name="name">credit.note.cancellation.wizard.form</field>
+        <field name="model">credit.note.cancellation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cancellation Wizard">
+                <field name="credit_id" invisible="1"/>
+                <div class="row">
+                    <p>Are you sure that you want to cancel this credit note?</p>
+                </div>
+                <div class="row">
+                    <label for="cancellation_reason"/>
+                    <field name="cancellation_reason" required="1"
+                    options="{'no_open': True,'no_create': True}"/>
+                    <label for="cancellation_remarks"/>
+                    <field name="cancellation_remarks" required="1"/>
+                </div>
+                <footer>
+                    <button string="No" special="cancel"/>
+                    <button string="Yes, Cancel" type="object" name="confirm_credit_cancellation"
+                            class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="move_in_tree_view" model="ir.ui.view">
+        <field name="name">move.in.tree.view</field>
+        <field name="model">move.in</field>
+        <field name="arch" type="xml">
+            <tree  class="move_in_tree" js_class="move_in_help_button" delete="0">
+                <field name="shipping_line_logo" widget="image" class="oe_avatar" options="{'size': [50, 50]}"
+                string="Shipping Line"/>
+                <field name="location_id"/>
+                <field name="gate_pass_visible" column_invisible="1"/>
+                <field name="display_name" string="Container Details"/>
+                <field name="move_in_date_time" string="Move In Date/Time"/>
+                <field name="container_status" widget="badge"/>
+                <field name="is_edi_send" column_invisible="1"/>
+                <button type="object"
+                                        icon="empezar_move_out/static/src/images/gate_pass.svg"
+                                        name="gate_pass" class="button_actions" invisible="not gate_pass_visible" groups = "empezar_base.group_gate_pass_for_move_in"
+                                        title="Gate Pass" />
+                <button type="object"
+                                        icon="empezar_move_out/static/src/images/view_edi.svg"
+                                        name="view_edi" class="button_actions" groups = "empezar_base.group_view_edi_move_in"
+                                        title="View EDI" invisible="is_edi_send == False"/>
+                <!-- <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'"
+                       decoration-success="rec_status == 'active'"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="move_in_form_view" model="ir.ui.view">
+        <field name="name">move.in.form.view</field>
+        <field name="model">move.in</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <sheet>
+                    <div style="border:solid 1px #ced4da; padding:10px;">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="location_id"/>
+                                <field name="location_id" required="1" class="w-100" readonly="id"
+                                       options="{'no_open': True,'no_create': True}"
+                                        context="{'is_location_change': True}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div>
+                                    <field name="is_time_editable" invisible="1"/>
+                                    <label for="move_in_date_time"/>
+                                    <field name="move_in_date_time" string="Move In Date/Time" required="1" class="w-100"
+                                     readonly="is_time_editable == False"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" invisible="id == False">
+                                <button type="object"
+                                            icon="empezar_move_in/static/src/images/correct.svg"
+                                            name="edit_time" class="button_actions" groups = "empezar_base.group_edit_move_in_date_time"
+                                            context="{'is_edit_time': 1}"
+                                            title="Edit Time"/>
+                                <button type="object"
+                                        icon="empezar_move_in/static/src/images/cancel.svg"
+                                        name="cancel_edit" class="button_actions" groups = "empezar_base.group_edit_move_in_date_time"
+                                        context="{'is_edit_time': 0}"
+                                        title="Cancel"/>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="movement_type"/>
+                                    <field name="movement_type" required="1" class="w-100" readonly="id"
+                                           widget="radio" options="{'horizontal':true}"/>
+                                    <label for="gate_pass_no" string="Gate Pass No." invisible="True"/>
+                                    <field name ="gate_pass_no" invisible="True"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3" invisible="movement_type != 'import_destuffing'">
+                                <div>
+                                    <label for="import_destuffing_from"/>
+                                    <field name="import_destuffing_from" widget="radio" readonly="id"
+                                           options="{'horizontal': true}" class="w-100"
+                                           required="movement_type == 'import_destuffing'"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" invisible="movement_type != 'repo'">
+                                <div>
+                                    <label for="repo_from"/>
+                                    <field name="repo_from" widget="radio" readonly="id"
+                                           options="{'horizontal': true}" class="w-100"
+                                           required="movement_type == 'repo'"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3"
+                                 invisible="not ((import_destuffing_from == 'factory' and movement_type == 'import_destuffing') or movement_type == 'factory_return')">
+                            <div>
+                                    <label for="from_factory"/>
+                                    <field name="from_factory" class="w-100" readonly="id" string="From Factory"
+                                           options="{'no_open': True,'no_create': True}"
+                                           required="import_destuffing_from == 'factory' or movement_type == 'factory_return'"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" invisible="(repo_from != 'CFS/ICD' or movement_type != 'repo') and
+                                    (movement_type != 'import_destuffing' or import_destuffing_from != 'CFS/ICD')">
+                                <div>
+                                    <label for="from_cfs_icd"/>
+                                    <field name="from_cfs_icd" class="w-100" string="From CFS/ICD" readonly="id"
+                                           options="{'no_open': True}"
+                                           context="{'is_from_move_in': True,'cfs_move_in': True}"
+                                           required="import_destuffing_from == 'CFS/ICD' or repo_from == 'CFS/ICD'"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" invisible="repo_from != 'port_terminal' or movement_type != 'repo'">
+                                <div>
+                                    <label for="from_port"/>
+                                    <field name="from_port" class="w-100" readonly="id" string="From Port"
+                                           options="{'no_open': True,'no_create': True}"
+                                           required="repo_from == 'port_terminal'"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" invisible="repo_from != 'port_terminal' or movement_type != 'repo'">
+                                <div>
+                                    <label for="from_terminal"/>
+                                    <field name="from_terminal" class="w-100" readonly="id"
+                                           options="{'no_open': True}" string="From Terminal"
+                                           context="{'is_from_move_in': True,'terminal_move_in': True}"
+                                           required="repo_from == 'port_terminal'"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="repo_from != 'empty_yard' or movement_type != 'repo'">
+                                <div>
+                                    <label for="from_empty_yard"/>
+                                    <field name="from_empty_yard" class="w-100" readonly="id"
+                                           options="{'no_open': True}" string="From Empty yard"
+                                           context="{'is_from_move_in': True,'empty_yard_move_in': True}"
+                                           required="repo_from == 'empty_yard'"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" invisible="movement_type == 'repo' or movement_type == False">
+                            <div>
+<!--                                <field name="do_no_compute_domain" invisible="1"/>-->
+                                <label for="do_no_id"/>
+                                <field name="do_no_id" required="movement_type == 'factory_return'"
+                                       class="w-100" readonly="id"
+                                       context="{'form_view_ref': 'empezar_delivery_order.view_delivery_order_form','is_from_move_out':1, 'is_from_delivery_order':1, 'location_id': location_id, 'name': do_no_id.delivery_no}"
+                                       placeholder="DO No."
+                                       options="{'no_open': True}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" invisible="movement_type != 'repo'">
+                            <div>
+<!--                                <field name="booking_no_compute_domain" invisible="1"/>-->
+                                <label for="booking_no_id"/>
+                                <field name="booking_no_id" class="w-100" readonly="id"
+                                       placeholder="Booking No."
+                                       context="{'form_view_ref': 'empezar_vessel_booking.view_vessel_booking_form','is_from_move_out':1, 'is_from_vessel_booking':1, 'location_id': location_id, 'name': booking_no_id.booking_no}"
+                                       options="{'no_open': True}"/>
+                            </div>
+                        </div>
+                        <div style="border: solid 1px #e6e6e6; border-radius: 6px;"
+                             invisible="do_no_id == False or movement_type == 'repo'">
+                                <div style="background: #ddf8dd; height: 32px;margin-bottom: 2vh; display: flex; gap: 0.2rem;">
+                                    <p>Delivery Order Found For more
+                                        details Click Here</p>
+                                        <b>
+                                            <field style="color:#599e53;" name="delivery_order_url"
+                                                   readonly="1"/>
+                                        </b>
+                                    <p>to view more details.</p>
+
+                                </div>
+                                <div class="delivery_order">
+                                    <div class="delivery_order_details">
+                                        <label for="do_date"/>
+                                        <field name="do_date"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="delivery_order_details">
+                                        <label for="do_validity_datetime"/>
+                                        <div style="display: flex; flex-direction: row;">
+                                            <field name="do_validity_datetime"/>
+                                            <div class="oe_form_field" invisible="validity_status == ''"
+                                                 style="">
+                                                <field name="validity_status" readonly="1"
+                                                       style="color: red; background-color: antiquewhite; border: 1pt solid white; border-radius: 8px; padding: 1px; margin-left: 15px;"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="vertical-line"/>
+                                    <div class="delivery_order_details">
+                                        <label for="do_balance_container"/>
+                                        <field name="do_balance_container"/>
+                                    </div>
+                                </div>
+                        </div>
+                        <div style="border: solid 1px #e6e6e6; border-radius: 6px;"
+                                 invisible="booking_no_id == False or movement_type != 'repo'">
+                                <div style="background: #ddf8dd; height: 32px;margin-bottom: 2vh; display: flex; gap: 0.2rem;">
+                                    <p style="margin-left: 2vh;">Booking Found For more details
+                                        Click Here
+                                    </p>
+                                        <b>
+                                            <field style="color:#599e53;" name="booking_number_url"
+                                                   readonly="1"/>
+                                        </b>
+                                        <p>to view more details.</p>
+                                </div>
+                                <div class="booking">
+                                    <div class="booking_details">
+                                        <label for="booking_date"/>
+                                        <field name="booking_date"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="booking_details">
+                                        <label for="booking_validity_datetime"/>
+                                        <div style="display: flex; flex-direction: row;">
+                                            <field name="booking_validity_datetime"/>
+                                            <div class="oe_form_field" invisible="validity_status == ''"
+                                                 style="">
+                                                <field name="validity_status" readonly="1"
+                                                       style="color: red; background-color: antiquewhite; border: 1pt solid white; border-radius: 8px; padding: 1px; margin-left: 15px;"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="booking_details">
+                                        <label for="booking_balance_container"/>
+                                        <field name="booking_balance_container"/>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <h3>Container &amp; Movement Details</h3>
+
+<!--                        <div class="row">-->
+<!--                            <div class="col-lg-6 mt-3">-->
+<!--                                <div>-->
+<!--                                    <label for="container_id"/>-->
+<!--                                    <field name="container_id" required="1" class="w-100"-->
+<!--                                           readonly="id"-->
+<!--                                           options="{'no_open': True,'no_create': True}"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                        <div class="row">
+                            <div class="col-lg-6 mt-3">
+                                <div>
+                                    <label for="container"/>
+                                    <field name="container" required="1" class="w-100"
+                                           readonly="id"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="border: solid 1px #e6e6e6; border-radius: 6px;" class="mb-3 mt-2">
+                                <div style="background: moccasin; height: 32px;margin-bottom: 2vh;">
+                                    <p style="margin-left: 2vh;">
+                                        There is no survey on this container, please fill out the following information:
+                                    </p>
+                                </div>
+                                <div class="booking">
+                                    <div class="booking_details">
+                                        <label for="grade"/>
+                                        <field name="grade" placeholder="--Select--"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="booking_details">
+                                        <label for="shipping_line_logo"/>
+                                        <field name="shipping_line_logo" widget="image" class="oe_avatar" options="{'size': [0, 50]}"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div class="booking_details">
+                                        <label for="damage_condition"/>
+                                        <field name="damage_condition" string="Damage"
+                                        options="{'no_open': True,'no_create': True}"
+                                               placeholder="--Select--"
+                                        context="{'is_move_in_damage': True}"/>
+                                    </div>
+                                    <field name="is_patch_count_visible" invisible="1"/>
+                                    <div class="vertical-line" invisible="not is_patch_count_visible"/>
+                                    <div class="booking_details" invisible="not is_patch_count_visible">
+                                        <label for="patch_count"/>
+                                        <field name="patch_count"
+                                               required="is_patch_count_visible and field_required.patch_count"/>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <field name="shipping_line_domain" invisible="1"/>
+                                <div>
+                                    <label for="shipping_line_id"/>
+                                    <field name="shipping_line_id" class="w-100"
+                                           domain="[('id', 'in', shipping_line_domain)]"
+                                           options="{'no_open': True,'no_create': True}"
+                                           context="{'form_view_ref': 'empezar_base.shipping_lines_form_view',
+                                                     'tree_view_ref': 'empezar_base.shipping_lines_tree_view'}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <field name="type_size_domain" invisible="1"/>
+                                <div>
+                                    <label for="type_size_id"/>
+                                    <field name="type_size_id" class="w-100"
+                                           options="{'no_open': True,'no_create': True}" domain="type_size_domain"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" invisible="field_visibility.month == False or field_visibility.year == False ">
+                                <div>
+                                    <label for="month" string="Production Month/Year"
+                                           style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                                </div>
+                                <field name="month" style="width:90px;" required="field_required.month"/>
+                                <field name="year" style="width:60px;" required="field_required.year"/>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6" invisible="field_visibility.gross_wt == False">
+                                        <label for="gross_wt"/>
+                                        <field name="gross_wt" class="w-100"  required="field_required.gross_wt"/>
+                                    </div>
+                                    <div class="col-lg-6" invisible="field_visibility.tare_wt == False">
+                                        <label for="tare_wt"/>
+                                        <field name="tare_wt" class="w-100"  required="field_required.tare_wt"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" invisible="movement_type != 'factory_return'">
+                            <div>
+                                <label for="is_seal_return"/>
+                                <field name="is_seal_return" class="w-100"
+                                       required="movement_type == 'factory_return' and (seal_no_1 or seal_no_2)"
+                                       widget="radio" options="{'horizontal': true}"
+                                        readonly="id"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" invisible="field_visibility.seal_no_1 == False">
+                                <div>
+                                    <label for="seal_no_1"/>
+                                    <field name="seal_no_1" class="w-100" required="field_required.seal_no_1"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="field_visibility.seal_no_2 == False">
+                                <div>
+                                    <label for="seal_no_2"/>
+                                    <field name="seal_no_2" class="w-100" required="field_required.seal_no_2"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" invisible="field_visibility.laden_status == False">
+                                <div>
+                                    <field name="is_laden_status_readonly" invisible="1"/>
+                                    <label for="laden_status"/>
+                                    <field name="laden_status" class="w-100" widget="radio" required="field_required.laden_status"
+                                    options="{'horizontal': true}" readonly="is_laden_status_readonly"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <field name="is_mode_readonly" invisible="1"/>
+                                <div>
+                                    <label for="mode"/>
+                                    <field name="mode" class="w-100" widget="radio"
+                                           readonly="is_mode_readonly"
+                                           options="{'horizontal': true}"
+                                           force_save="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" invisible="mode != 'truck'">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="truck_no"/>
+                                    <field name="truck_no" class="w-100"
+                                    required="mode == 'truck'"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="field_visibility.driver_name == False" >
+                                <div>
+                                    <label for="driver_name"/>
+                                    <field name="driver_name" class="w-100"
+                                    required="mode == 'truck' and field_required.driver_name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" invisible="mode != 'truck'">
+                            <div class="col-lg-6" invisible="field_visibility.driver_mobile_no == False">
+                                <div>
+                                    <label for="driver_mobile_no"/>
+                                    <field name="driver_mobile_no" class="w-100"
+                                    required="mode == 'truck' and  field_required.driver_mobile_no"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="field_visibility.driver_licence_no == False">
+                                <div>
+                                    <label for="driver_licence_no"/>
+                                    <field name="driver_licence_no" class="w-100"
+                                    required="mode == 'truck' and field_required.driver_licence_no"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" invisible="mode != 'rail'">
+                            <div class="col-lg-6" invisible="field_visibility.rake_no == False">
+                                <div>
+                                    <label for="rake_no"/>
+                                    <field name="rake_no" class="w-100"
+                                    required="mode == 'rail' and field_required.rake_no"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="field_visibility.wagon_no == False">
+                                <div>
+                                    <label for="wagon_no"/>
+                                    <field name="wagon_no" class="w-100"
+                                    required="mode == 'rail' and field_required.wagon_no"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" invisible="mode != 'rail'">
+                            <div class="col-lg-6" invisible="field_visibility.stack == False">
+                                <div>
+                                    <label for="stack"/>
+                                    <field name="stack" class="w-100"
+                                    required="mode == 'rail' and field_required.stack" widget="radio" options="{'horizontal': true}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <h3>Parties</h3>
+                        <div class="row" invisible="mode != 'truck'">
+                            <div class="col-lg-6">
+                                <div>
+                                    <field name="transporter_allotment_id" required="mode == 'truck'"
+                                           class="w-100" placeholder="Transporter (Allotment)"
+                                           options="{'no_open': True}"
+                                           context="{'form_view_ref': 'empezar_base.res_partner_parties_form_view',
+                                           'tree_view_ref': 'empezar_base.res_partner_parties_tree_view',
+                                           'is_from_booking':1}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <field name="transporter_full_filled_id" required="mode == 'truck'"
+                                           class="w-100" placeholder="Transporter (Full-Filled)"
+                                           options="{'no_open': True}"
+                                           context="{'form_view_ref': 'empezar_base.res_partner_parties_form_view',
+                                           'tree_view_ref': 'empezar_base.res_partner_parties_tree_view',
+                                           'is_from_booking':1}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <field name="field_visibility" invisible="1"/>
+                            <field name="field_required" invisible="1"/>
+                            <div class="col-lg-6" invisible="field_visibility.parties_importer == False">
+                                <div>
+                                    <field name="parties_importer" class="w-100"
+                                           placeholder="Importer"
+                                           required="field_required.parties_importer"
+                                           options="{'no_open': True}"
+                                           context="{'form_view_ref': 'empezar_base.res_partner_parties_form_view',
+                                           'tree_view_ref': 'empezar_base.res_partner_parties_tree_view',
+                                           'is_from_delivery':1, 'is_from_importer':1}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="field_visibility.parties_cha == False">
+                                <div>
+                                    <field name="parties_cha"  class="w-100"
+                                           placeholder="CHA" required="field_required.parties_cha"
+                                           options="{'no_open': True}"
+                                           context="{'form_view_ref': 'empezar_base.res_partner_parties_form_view',
+                                           'tree_view_ref': 'empezar_base.res_partner_parties_tree_view',
+                                           'is_from_delivery':1, 'is_from_forwarder':1}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <field name="billed_to_party" required="1" class="w-100"
+                                       placeholder="Billed To Party"
+                                       context="{'form_view_ref': 'empezar_base.res_partner_parties_form_view',
+                                       'tree_view_ref': 'empezar_base.res_partner_parties_tree_view',
+                                        'is_from_billed_to_party':1}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <h3>Remarks</h3>
+                        <div>
+                            <field name="remarks" class="w-100"
+                                   placeholder="Remarks"/>
+                        </div>
+                    </div>
+                    <notebook invisible="id == False">
+                        <page string="Move In Details">
+                                <field name="is_edi_send"/>
+                                <div style="display:flex; justify-content: space-between;background-color: #f6f8fc;">
+                                    <div class="o_form_image">
+                                        <img src="empezar_move_in/static/src/images/image_move_in.png" alt="Move In" style="width: 40vh;"/>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div>
+                                        <div invisible="not gate_pass_no">
+                                            <p>Gate Pass is already generated.</p>
+                                            <br/>
+                                            <label for="gate_pass_no" string="Gate Pass: "/>
+                                            <field name="gate_pass_no"/>
+                                            <br/><br/>
+                                            <div>
+                                                <button name="download_gate_pass" class="o_button" string="Download Gate Pass" type="object"/>
+                                            </div>
+                                        </div>
+                                        <div invisible="gate_pass_no">
+                                            <p>Gate Pass is not generated.</p>
+                                        </div>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                    <div invisible="not is_edi_send">
+                                        <p>In EDI sent successfully</p>
+                                        <label for="edi_sent_on" string="EDI Send On: "/>
+                                        <field name="edi_sent_on" readonly="1" force_save="1"/>
+                                        <br/>
+                                        <button name="download_in_edi" class="o_button" string="Download IN EDI" type="object"/>
+                                    </div>
+                                    <div invisible="is_edi_send">
+                                        <p>In EDI Is Not sent : </p>
+                                    </div>
+                                    <div class="vertical-line"/>
+                                </div>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="row"
+                     style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;"
+                     invisible="not id">
+                    <div style="width: 100%; display:flex;">
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                            Created By :
+                            <field name="display_create_info"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                            Last Modified By:
+                            <field name="display_modified_info"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center;  border-radius: 10px; margin: 10px; padding-top: 3px;">
+                            Source :
+                            <field name="display_sources"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_move_in_search">
+        <field name="name">move.in.search</field>
+        <field name="model">move.in</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="container"/>
+                <field name="shipping_line_id" context="{'form_view_ref': 'empezar_base.shipping_lines_form_view',
+                                                     'tree_view_ref': 'empezar_base.shipping_lines_tree_view'}"/>
+                <field name="location_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="move_in_action" model="ir.actions.act_window">
+        <field name="name">Move In</field>
+        <field name="res_model">move.in</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_move_in_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_empezar_move_in_root"
+            name="Move In"
+    />
+
+    <menuitem
+            id="menu_move_in"
+            name="Move In"
+            parent="empezar_move_in.menu_empezar_move_in_root"
+            action="move_in_action"
+            sequence="1"
+            groups="empezar_base.group_gate_operator,empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

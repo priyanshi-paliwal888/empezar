@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_parties_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <div style="padding:10px;border:solid 1px #ced4da;">
+                        <field name="active" invisible="1"/>
+                        <field name="country_id" invisible="1"/>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="is_this_billed_to_party"/><br></br>
+                                    <field name="is_this_billed_to_party" widget="radio" options="{'horizontal': true}" class="w-100"
+                                    readonly="context.get('is_from_billed_to_party')"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="parties_type_ids"/><br></br>
+                                    <field name="parties_type_ids" widget="many2many_tags" options="{'no_create': True}"
+                                           class="w-100" readonly="context.get('is_from_booking') or context.get('is_from_delivery')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="is_gst_applicable"/><br></br>
+                                    <field name="is_gst_applicable" class="w-100" widget="radio" options="{'horizontal': true}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center" style="display:flex;" invisible="is_gst_applicable == 'no' or parties_gst_invoice_line_ids">
+                                <div class="col-lg-8">
+                                    <label for="gst_no"/>
+                                    <field name="gst_no" class="w-100" required="is_gst_applicable == 'yes'"/>
+                                </div>
+                                <div class="col-lg-3">
+                                    <a href="#" role="button" class="get_gst_details_for_parties btn btn-secondary" style="margin-top: 0.3cm; margin-left: 10px;">Check Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" invisible="context.get('is_from_booking') or context.get('is_from_delivery') or context.get('is_from_billed_to_party')">
+                                <label for="party_name"/><br></br>
+                                <field name="party_name" class="w-100" required="not (context.get('is_from_booking') or context.get('is_from_delivery') or context.get('is_from_billed_to_party'))"/>
+                            </div>
+                            <div class="col-lg-6" invisible="not (context.get('is_from_booking') or context.get('is_from_delivery') or context.get('is_from_billed_to_party'))">
+                                <label for="name"/><br></br>
+                                <field name="name" class="w-100" string="Party Name"
+                                       required="context.get('is_from_booking') or context.get('is_from_delivery')"/>
+                            </div>
+                            <div class="col-lg-6" style="pointer-events: none;">
+                                <div invisible="is_gst_applicable == 'no'">
+                                    <label for="l10n_in_pan"/><br></br>
+                                    <field name="l10n_in_pan" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <label for="street"/><br></br>
+                                <field name="street" string="Principal Address" placeholder="Address Line 1"
+                                       class="w-100" required="1"/>
+                            </div>
+                            <div>
+                                <field name="street2" placeholder="Address Line 2" class="w-100"
+                                required="1"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" invisible="is_gst_applicable == 'yes'">
+                                <div>
+                                    <label for="city"/><br></br>
+                                    <field name="city" class="w-100" required="is_gst_applicable == 'no'"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="is_gst_applicable == 'no'">
+                                <div>
+                                    <label for="gst_state"/>
+                                    <br></br>
+                                    <field name="gst_state" class="w-100" required="is_gst_applicable == 'yes'"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="is_gst_applicable == 'yes'">
+                                <div>
+                                    <label for="gst_state"/>
+                                    <br></br>
+                                    <field name="state_id" placeholder="State" options="{'no_create': True}" required="is_gst_applicable == 'no'" />
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="zip"/><br></br>
+                                    <field name="zip" string="Pincode" class="w-100"
+                                           required="1"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" invisible="is_gst_applicable == 'yes'">
+                                <div>
+                                    <label for="country_id"/><br></br>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_create': True}" required="is_gst_applicable == 'no'"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-4" style="border:solid 1px #ced4da; padding:0px 10px;"
+                    invisible="is_gst_applicable == 'no' or parties_gst_invoice_line_ids">
+                            <div class="alert alert-success d-none" role="alert" id="success_message">
+                                Valid GST No., information was successfully retrieved as shown below:
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-lg-4">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="TAXPAYER TYPE"/></span>
+                                        <label class="ms-2" for="tax_payer_type"/><br></br>
+                                        <field name="tax_payer_type" class="ms-3"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="NATURE OF BUSINESS"/></span>
+                                        <label class="ms-2" for="nature_of_business"/><br></br>
+                                        <field name="nature_of_business" class="ms-3"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="STATE JURISDICTION"/></span>
+                                        <label class="ms-2" for="state_jurisdiction"/><br></br>
+                                        <field name="state_jurisdiction" class="ms-3"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="ADDITIONAL PLACE OF BUSINESS 1"/></span>
+                                <label class="ms-2" for="additional_place_of_business"/><br></br>
+                                <field name="additional_place_of_business" class="ms-3"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="NATURE OF ADDITIONAL PLACE OF BUSINESS 1"/></span>
+                                <label class="ms-2" for="nature_additional_place_of_business"/><br></br>
+                                <field name="nature_additional_place_of_business" class="ms-3"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="ADDITIONAL PLACE OF BUSINESS 2"/></span>
+                                <label class="ms-2" for="additional_place_of_business_2"/><br></br>
+                                <field name="additional_place_of_business_2" class="ms-3"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="NATURE OF ADDITIONAL PLACE OF BUSINESS 2"/></span>
+                                <label class="ms-2" for="nature_additional_place_of_business_2"/><br></br>
+                                <field name="nature_additional_place_of_business_2" class="ms-3"/>
+                            </div>
+                            <div class="w-100" style="pointer-events: none;">
+                                <span><i class="fa fa-file-text-o" title="LAST UPDATE ON"/></span>
+                                <label class="ms-2" for="last_update"/><br></br>
+                                <field name="last_update" class="ms-3"/>
+                            </div>
+                            <div class="row d-none">
+                                <div class="col-lg-6">
+                                    <div class="w-100">
+                                        <field name="parties_gst_api_response"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <notebook>
+                        <page string="GST Details" name="gst" invisible="not parties_gst_invoice_line_ids or is_gst_applicable == 'no'">
+                            <field name="parties_gst_invoice_line_ids" mode="tree">
+                                <tree create="bottom" delete="False" class="response_parties">
+                                    <field name="gst_no" string="GST No."/>
+                                    <field name="tax_payer_type" string="Taxpayer Type"/>
+                                    <field name="state" string="State"/>
+                                    <field name="status" widget="badge" decoration-success="1" string="GST Number Status"/>
+                                    <button type="object" icon="empezar_base/static/src/img/gst_resp_view.svg" name="view_response" title="View GST Details"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_parties_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.tree.view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0" import="0">
+                <field name="party_name"/>
+                <field name="parties_type_ids" widget="many2many_tags"/>
+                <field name="is_this_billed_to_party" string="Billed To Party"/>
+                <field name="is_gst_applicable"/>
+                <field name="line_status" widget="badge" decoration-danger="line_status == 'inactive'" decoration-success="line_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_parties_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search.view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Parties">
+                    <field name="party_name"/>
+                </search>
+            </field>
+    </record>
+
+    <record id="res_partner_parties_action" model="ir.actions.act_window">
+            <field name="name">Parties</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="res_partner_parties_search_view"/>
+            <field name="domain">[('is_cms_parties', '=', True)]</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('empezar_base.res_partner_parties_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('empezar_base.res_partner_parties_form_view')})]"/>
+            <field name="context">{'default_is_company': True, 'is_cms_parties_view': True, 'active_test': False}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_cms_parties"
+        name="Parties"
+        parent="empezar_base.menu_master_root"
+        action="res_partner_parties_action"
+        sequence="3"
+        groups="empezar_base.group_gate_operator,empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

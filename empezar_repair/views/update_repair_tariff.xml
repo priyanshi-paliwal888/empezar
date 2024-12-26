@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="update_repair_tariff_tree_view" model="ir.ui.view">
+        <field name="name">update.repair.tariff.tree.view</field>
+        <field name="model">update.repair.tariff</field>
+        <field name="arch" type="xml">
+            <tree create="False">
+                <field name="repair_code"/>
+                <field name="damage_location"/>
+                <field name="component"/>
+                <field name="damage_type"/>
+                <field name="repair_type"/>
+                <field name="measurement"/>
+                <field name="size_type"/>
+                <field name="material_cost"/>
+                <field name="labour_hour"/>
+                <field name="key_value"/>
+                <field name="limit"/>
+            </tree>
+        </field>
+    </record>
+    <record id="update_repair_tariff_action" model="ir.actions.act_window">
+            <field name="name">Update Repair Tariff</field>
+            <field name="res_model">update.repair.tariff</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem id="menu_update_repair_tariff"
+              name="Update Repair Tariff"
+              parent="empezar_repair.menu_repair_root"
+              action="update_repair_tariff_action"
+              sequence="1"
+              groups="empezar_base.group_empezar_management,empezar_base.group_repair_estimates_team,empezar_base.group_repair_estimates_yard"
+    />
+</odoo>

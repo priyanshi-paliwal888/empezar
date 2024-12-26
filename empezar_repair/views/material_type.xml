@@ -1,0 +1,51 @@
+<odoo>
+    <record id="material_type_form_view" model="ir.ui.view">
+        <field name="name">material.type.form.view</field>
+        <field name="model">material.type</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code" required="1"/>
+                            <field name="name" required="1"/>
+                            <field name="description" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="material_type_tree_view" model="ir.ui.view">
+        <field name="name">material.type.tree.view</field>
+        <field name="model">material.type</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="code" required="1"/>
+                <field name="name" required="1"/>
+                <field name="description" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="material_type_action" model="ir.actions.act_window">
+        <field name="name">Material Type</field>
+        <field name="res_model">material.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_material_type"
+            name="Material Type"
+            parent="empezar_base.menu_master_configurations"
+            action="material_type_action"
+            sequence="6"
+            groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management,empezar_base.group_repair_estimates_team,empezar_base.group_repair_estimates_yard"
+    />
+
+</odoo>

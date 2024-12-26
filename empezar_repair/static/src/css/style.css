@@ -1,0 +1,10 @@
+.repair_pending .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(8)::after {
+    content: "Actions"; /* Add multiple spaces */
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px
+}
+.highlight-font {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}

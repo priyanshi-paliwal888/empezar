@@ -1,0 +1,20 @@
+<odoo>
+    <!-- Record rule for move.in model -->
+    <record id="move_in_location_rule" model="ir.rule">
+        <field name="name">Location-based access for Move In</field>
+        <field name="model_id" ref="model_move_in"/>
+        <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+     <record id="access_ir_model_fields" model="ir.model.access">
+        <field name="name">ir.model.fields access</field>
+        <field name="model_id" ref="base.model_ir_model_fields"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>

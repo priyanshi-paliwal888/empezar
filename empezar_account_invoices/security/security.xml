@@ -1,0 +1,24 @@
+<odoo>
+    <!-- Record rule for credit.note.invoice model -->
+    <record id="credit_note_invoice_location_rule" model="ir.rule">
+        <field name="name">Location-based access for credit note invoice</field>
+        <field name="model_id" ref="model_credit_note_invoice"/>
+        <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+    </record>
+    <!-- Record rule for move.in.out.invoice model -->
+    <record id="move_in_out_invoice_location_rule" model="ir.rule">
+        <field name="name">Location-based access for move in out invoice</field>
+        <field name="model_id" ref="model_move_in_out_invoice"/>
+        <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+    </record>
+    <record id="pending_invoices_location_rule" model="ir.rule">
+        <field name="name">Location-based access for pending invoices</field>
+        <field name="model_id" ref="model_pending_invoices"/>
+        <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+    </record>
+    <record id="monthly_lock_location_rule" model="ir.rule">
+        <field name="name">Location-based access for monthly lock</field>
+        <field name="model_id" ref="model_monthly_lock"/>
+        <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+    </record>
+</odoo>

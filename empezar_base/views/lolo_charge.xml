@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="lolo_charge_form_view" model="ir.ui.view">
+        <field name="name">lolo.charge.form.view</field>
+        <field name="model">lolo.charge</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <sheet>
+                    <div class="row">
+                         <div class="col-lg-4">
+                            <div>
+                                <label for="location"/>
+                                <br></br>
+                                <field name="location" string="Location" readonly="1" class="w-100" options="{'no_open': True,'no_create': True}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div>
+                                <label for="shipping_line"/>
+                                <br></br>
+                                <field name="shipping_line" required="1" readonly="1" class="w-100" options="{'no_open': True,'no_create': True}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div>
+                                <label for="active"/>
+                                <br></br>
+                                <field name="active" widget="boolean_toggle" readonly="not id" string="Status" />
+                            </div>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page name="lolo_charges" string="Lolo Charges">
+                            <field name="lolo_charge_lines" mode="tree">
+                                 <tree editable="bottom" create="0" delete="0" readonly="1">
+                                    <field name="container_size" required="1" width="33" readonly="id"/>
+                                    <field name="lift_on" width="33" readonly="id"/>
+                                    <field name="lift_off" width="33" readonly="id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="lolo_charge_tree_view" model="ir.ui.view">
+        <field name="name">lolo.charge.tree.view</field>
+        <field name="model">lolo.charge</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="shipping_line_logo" widget="image" class="oe_avatar" options="{'size': [50, 50]}"/>
+                <field name="location"/>
+                <field name="charges_for"/>
+                <field name="rec_status" widget="badge" decoration-success="rec_status == 'active'" decoration-danger="rec_status == 'disable'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="lolo_charge_action" model="ir.actions.act_window">
+        <field name="name">LOLO Charges</field>
+        <field name="res_model">lolo.charge</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_lolo_charges"
+        name="LOLO Charges"
+        parent="empezar_base.menu_location_root"
+        action="lolo_charge_action"
+        sequence="2"
+        groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

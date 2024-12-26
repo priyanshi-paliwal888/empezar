@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="location_shipping_line_mapping_form_view" model="ir.ui.view">
+            <field name="name">location.shipping.line.mapping.form.view</field>
+            <field name="model">location.shipping.line.mapping</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group style="margin-left:90%">
+                            <field name="active" widget="boolean_toggle" readonly="not id"/>
+                        </group>
+                        <div class="row">
+                            <div>
+                                <label for="shipping_line_id"/><br></br>
+                                <field name="shipping_line_id" required="1" class="w-100"
+                                       options="{'no_open': True,'no_create': True}"
+                                        domain="[('is_shipping_line','=',True)]"
+                                        readonly="id"/>
+                            </div>
+                        </div>
+                        <div name="location_setting" style="padding:10px;border:solid 1px grey;" class="mt-3">
+                            <h3>Location Settings</h3>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="gate_pass_ids"/><br></br>
+                                        <field name="gate_pass_ids" widget="many2many_checkboxes" class="w-100 checkbox_class"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="refer_container"/><br></br>
+                                        <field name="refer_container" widget="radio" options="{'horizontal': true}" required="1" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="capacity"/><br></br>
+                                        <field name="capacity" required="1" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div name="seal_setting" style="padding:10px;border:solid 1px grey;" class="mt-3">
+                            <h3>Seal Settings</h3>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="seal_threshold"/><br></br>
+                                        <field name="seal_threshold" class="w-100"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="email_sent_on"/><br></br>
+                                        <field name="email_sent_on" class="w-100" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" invisible="seal_threshold == 0">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="from_email"/><br></br>
+                                        <field name="from_email" required="seal_threshold != 0" class="w-100"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="to_email"/><br></br>
+                                        <field name="to_email" required="seal_threshold != 0" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" invisible="seal_threshold == 0">
+                                <div>
+                                    <field name="cc_email" placeholder="CC Email" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div name="repair_setting" style="padding:10px;border:solid 1px grey;" class="mt-3">
+                            <h3>Repair Settings</h3>
+                            <div class="row">
+                                <div>
+                                    <label for="repair"/><br></br>
+                                    <field name="repair" widget="radio" options="{'horizontal': true}" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="repair_vendor_is_same_company"/><br></br>
+                                        <field name="repair_vendor_is_same_company" widget="radio" options="{'horizontal': true}" required="1" class="w-100"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" invisible="repair_vendor_is_same_company == 'yes'">
+                                    <div>
+                                        <label for="repair_vendor_name"/><br></br>
+                                        <field name="repair_vendor_name" options="{'no_open': True,'no_create': True}"
+                                               required="repair_vendor_is_same_company == 'no'" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="depot_name"/><br></br>
+                                        <field name="depot_name" required="1" class="w-100" readonly="id"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="depot_code"/><br></br>
+                                        <field name="depot_code" required="1" class="w-100" readonly="id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="labour_rate"/><br></br>
+                                        <field name="labour_rate" required="1" class="w-100"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="repair_vendor_code"/><br></br>
+                                        <field name="repair_vendor_code" required="1" readonly="id" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="ftp_location"/><br></br>
+                                        <field name="ftp_location" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="ftp_username"/><br></br>
+                                        <field name="ftp_username" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="ftp_password"/><br></br>
+                                        <field name="ftp_password" password="True" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="port_number"/><br></br>
+                                        <field name="port_number" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div invisible="(repair == 'no')">
+                                    <label for="secure_connection"/><br></br>
+                                    <field name="secure_connection" options="{'horizontal': true}"  class="w-100" required="(repair == 'yes')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="ftp_folder_name"/><br></br>
+                                        <field name="ftp_folder_name" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="folder_name_westim"/><br></br>
+                                        <field name="folder_name_westim" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="folder_name_destim"/><br></br>
+                                        <field name="folder_name_destim" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="folder_name_destim_response"/><br></br>
+                                        <field name="folder_name_destim_response" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="folder_name_before_images"/><br></br>
+                                        <field name="folder_name_before_images" class="w-100" required="(repair == 'yes')"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div invisible="(repair == 'no')">
+                                        <label for="folder_name_after_images"/><br></br>
+                                        <field name="folder_name_after_images" required="(repair == 'yes')" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div name="remarks" style="padding:10px;border:solid 1px grey;" class="mt-3">
+                            <h3>Remarks</h3>
+                            <div class="row">
+                                <div>
+                                    <field name="remarks" placeholder="Remarks" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </sheet>
+                    <div style="margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                        <div style="width:55%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                        <div class="mt-2" style="width:55%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

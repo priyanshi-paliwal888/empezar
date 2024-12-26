@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="edi_settings_form_view" model="ir.ui.view">
+        <field name="name">edi.setting.form.view</field>
+        <field name="model">edi.settings</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <div style="border:solid 1px #ced4da; padding:10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="shipping_line_id"/><br></br>
+                                    <field name="active" invisible="1"/>
+                                    <field name="shipping_line_id" options="{'no_open': True,'no_create_edit': True,'no_create': True}" readonly="id" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="location"/><br></br>
+                                    <field name="location_domain" invisible="1"/>
+                                    <field name="location" readonly="id" domain="[('id', 'in', location_domain)]" options="{'no_open': True,'no_create_edit': True,'no_create': True}" required="1" class="w-100"/>
+                                    <field name="company_id" invisible="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="edi_type"/><br></br>
+                                    <field name="edi_type" readonly="id" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="shipping_line_ofc_code"/><br></br>
+                                    <field name="shipping_line_ofc_code" required="0" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="frequency"/><br></br>
+                                    <field name="frequency" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <div invisible="frequency != 'hourly'">
+                                        <label for="freqency_hourly"/><br></br>
+                                        <field name="freqency_hourly" widget="float_time" invisible="frequency != 'hourly'" required="frequency == 'hourly'" class="w-100"/>
+                                    </div>
+                                    <div invisible="frequency != 'daily'">
+                                        <label for="freqency_daily"/><br></br>
+                                        <field name="freqency_daily" widget="float_time" invisible="frequency != 'daily'" required="frequency == 'daily'" class="w-100"/>
+                                    </div>
+                                    <div invisible="frequency != 'weekly'">
+                                        <label for="frequency_weekly" string="Frequency Setting (Weekly)" class="w-50 w-lg-25" />
+                                        <label for="freqency_time" string="Frequency Time"/><br></br>
+                                        <field name="frequency_weekly" class="w-50 w-lg-25" invisible="frequency != 'weekly'" required="frequency == 'weekly'"/>
+                                        <field name="freqency_time" widget="float_time" invisible="frequency != 'weekly'" required="frequency == 'weekly'"/><br></br>
+                                        <!-- <field name="frequency_weekly" required="frequency == 'weekly'" nolabel="1" class="w-100"/> -->
+                                    </div>
+                                    <div invisible="frequency != 'monthly'">
+                                        <label for="freqency_monthly_date" class="w-50 w-lg-25" string="Frequency Setting (Monthly)"/>
+                                        <label for="freqency_monthly" class="w-50 w-lg-25" string="Frequency Time" /><br></br>
+                                        <field name="freqency_monthly_date" class="w-50 w-lg-25" invisible="frequency != 'monthly'" required="frequency == 'monthly'"/>
+                                        <field name="freqency_monthly" class="w-50 w-lg-25" widget="float_time" invisible="frequency != 'monthly'" required="frequency == 'monthly'"/>
+                                    </div>
+                                    <div invisible="frequency != 'real_time'">
+                                        <label for="freqency_real_time"/><br></br>
+                                        <field name="freqency_real_time" readonly="1" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="mode"/><br></br>
+                                    <field name="mode" required="1" widget="radio" options="{'horizontal': true}"  class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <div invisible="mode != 'email'">
+                                        <label for="email_to"/><br></br>
+                                        <field name="email_to" invisible="mode != 'email'" required="mode == 'email'" class="w-100"/>
+                                    </div>
+                                    <div invisible="mode != 'ftp'">
+                                        <label for="ftp_location"/><br></br>
+                                        <field name="ftp_location" invisible="mode != 'ftp'" required="mode == 'ftp'" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <div invisible="mode != 'email'">
+                                        <label for="email_from"/><br></br>
+                                        <field name="email_from" invisible="mode != 'email'" required="mode == 'email'" class="w-100"/>
+                                    </div>
+                                    <div invisible="mode != 'ftp'">
+                                        <label for="ftp_username"/><br></br>
+                                        <field name="ftp_username" invisible="mode != 'ftp'" required="mode == 'ftp'" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <div invisible="mode != 'email'">
+                                        <label for="email_cc"/><br></br>
+                                        <field name="email_cc" invisible="mode != 'email'" class="w-100"/>
+                                    </div>
+                                    <div invisible="mode != 'ftp'">
+                                        <label for="ftp_password"/><br></br>
+                                        <field name="ftp_password" invisible="mode != 'ftp'" required="mode == 'ftp'" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <div invisible="mode != 'email'">
+                                        <label for="email_bcc"/><br></br>
+                                        <field name="email_bcc" invisible="mode != 'email'" class="w-100"/>
+                                    </div>
+                                    <div invisible="mode != 'ftp'">
+                                        <label for="port_number"/><br></br>
+                                        <field name="port_number" invisible="mode != 'ftp'" required="mode == 'ftp'" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="secure_connection" invisible="mode != 'ftp'"/><br></br>
+                                    <field name="secure_connection" invisible="mode != 'ftp'" required="mode == 'ftp'" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="ftp_folder" invisible="mode != 'ftp'"/><br></br>
+                                    <field name="ftp_folder" invisible="mode != 'ftp'" required="mode == 'ftp'" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <h3>EDI Template</h3>
+                        <div class="row">
+                            <div>
+                                <label for="edi_format"/><br></br>
+                                <field name="edi_format" readonly="id" required="1" widget="radio" options="{'horizontal': true}" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div invisible="edi_format != 'edi'">
+                                <label for="header_edi"/><br></br>
+                                <field name="header_edi" class="w-100"/><br></br>
+                                <label for="body_edi"/><br></br>
+                                <field name="body_edi" required="edi_format == 'edi'" class="w-100"/><br></br>
+                                <label for="footer_edi"/><br></br>
+                                <field name="footer_edi" class="w-100"/><br></br>
+                                <label for="attchment_file_name"/><br></br>
+                                <field name="attchment_file_name" required="edi_format == 'edi'" class="w-100"/>
+                                <label for="is_for_msc_shipping_line"/><br></br>
+                                <field name="is_for_msc_shipping_line" class="w-100"/>
+                                <label for="is_for_msc_south_shipping_line"/><br></br>
+                                <field name="is_for_msc_south_shipping_line" class="w-100"/>
+                            </div>
+                            <div invisible="edi_format != 'excel'">
+                                <label for="file_attched" string="Upload File"/><br></br>
+                                <field name="file_attched" required="edi_format == 'excel'" filename="file_name" class="w-100"/>
+                                <field name="file_name" invisible="1"/> <br></br>
+                                <label for="attchment_file_name"/><br></br>
+                                <field name="attchment_file_name" required="edi_format == 'excel'"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Run:<field name="last_run" readonly="1"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Next Scheduled Run:<field name="next_scheduled"/></div>
+                 </div>
+            </form>
+        </field>
+    </record>
+    <record id="edi_settings_list_view" model="ir.ui.view">
+        <field name="name">edi.setting.tree.view</field>
+        <field name="model">edi.settings</field>
+        <field name="arch" type="xml">
+            <tree js_class="button_in_tree" duplicate="0">
+                <field name="shipping_line_id"/>
+                <field name="location"/>
+                <field name="edi_type"/>
+                <field name="frequency"/>
+                <field name="mode"/>
+                <field name="edi_format"/>
+                <field name="last_run"/>
+                <field name="next_scheduled"/>
+                <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="edi_setting_search_view" model="ir.ui.view">
+        <field name="name">edi.settings.search</field>
+        <field name="model">edi.settings</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="location" string="Location"/>
+                <field name="shipping_line_id" string="Shipping Line"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="edi_setting_action" model="ir.actions.act_window">
+        <field name="name">EDI Settings</field>
+        <field name="res_model">edi.settings</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+    
+    <menuitem
+        id="menu_edi_setting"
+        name="EDI Settings"
+        parent="empezar_base.menu_location_root"
+        action="edi_setting_action"
+        sequence="4"
+        groups="empezar_base.group_empezar_management"
+    />
+
+</odoo>
+                

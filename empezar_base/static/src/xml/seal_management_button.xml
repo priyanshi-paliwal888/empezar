@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="seal_help_button.ListView.Buttons" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <div t-if="props.resModel == 'seal.management'">
+                <button class="btn btn-secondary" type="button" id="add_new_seal" t-if="addNewButton"
+                        aria-expanded="false" style="background-color: #910000; color: white;">
+                    Add New
+                </button>
+                <button type="button" class="fa fa-info-circle h-100"
+                        style="margin-left: 10px; border: none; background-color: transparent; font-size: 1.4em; color: #997a00;"
+                        t-on-click="HelpButtonSeal" data-tooltip="Help Document">
+                </button>
+            </div>
+        </xpath>
+    </t>
+    <t t-inherit="web.ListView.Selection" t-inherit-mode="extension">
+        <xpath expr="//div" position="after">
+            <div t-if="props.resModel == 'seal.management'">
+                <button class="btn btn-secondary" t-if="canSeeButton" type="button" id="move_to_damage_records"
+                        aria-expanded="false">
+                    Move to Damage
+                 </button>
+             </div>
+        </xpath>
+    </t>
+</templates>

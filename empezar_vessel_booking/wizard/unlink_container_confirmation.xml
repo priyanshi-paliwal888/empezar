@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_unlink_container_confirmation_form" model="ir.ui.view">
+        <field name="name">unlink.container.confirmation.form</field>
+        <field name="model">unlink.container.confirmation</field>
+        <field name="arch" type="xml">
+            <form string="Unlink Container Confirmation">
+                <p>The Selected Container/s will be unlinked from the vessel booking. click on confirm to proceed</p>
+                <footer>
+                    <button string="Confirm" type="object" name="confirm_unlink" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

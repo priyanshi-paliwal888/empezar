@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_pending_invoices_tree" model="ir.ui.view">
+        <field name="name">pending.invoices.tree</field>
+        <field name="model">pending.invoices</field>
+        <field name="arch" type="xml">
+            <tree create="0" delete="0" js_class="invoice_help_button" class="container_master">
+                <field name="shipping_line_logo" widget="image" class="oe_avatar"
+                       options="{'size': [50, 50]}" string="Shipping Line"/>
+                <field name="location_id" string="Location"/>
+                <field name="billed_to_party" string="Billing Party"/>
+                <field name="container_details" string="Container Details"/>
+                <field name="movement_type" string="Movement Type"/>
+                <field name="is_invoice_setting" column_invisible="1"/>
+                <field name="movement_date_time" string="Movement Date/Time"/>
+                <field name="invoice_type" column_invisible="1"/>
+                <button name="action_view_move_in_out_records" type="object" icon="empezar_account_invoices/static/src/images/arrow.svg" class="btn btn-secondary"
+                        title="Redirect"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pending_invoices_form" model="ir.ui.view">
+        <field name="name">pending.invoices.form</field>
+        <field name="model">pending.invoices</field>
+        <field name="arch" type="xml">
+            <form string="Pending Invoices" delete="0">
+                <sheet>
+                    <div style="border:solid 1px #ced4da; padding:10px;">
+                        <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px; pointer-events: none;"
+                             string="Selected Containers">
+                            <h4>Selected Containers</h4>
+                            <field name="selected_record_ids" widget="one2many_list" readonly="1"
+                                   force_save="1">
+                                <tree string="Selected Records" readonly="1" force_save="1">
+                                    <field name="booking_no_id" />
+                                    <field name="container_details" string="Container No.  Type/Size"/>
+                                    <field name="movement_type"/>
+                                    <field name="movement_date_time" string="Movement Date/Time"/>
+                                </tree>
+                            </field>
+                        </div>
+                        <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;"
+                             string="Invoice Details">
+                            <h4>Invoice Details</h4>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <field name="location_id" invisible="1"/>
+                                        <field name="is_invoice_setting" invisible="1"/>
+                                        <field name="container_number" invisible="1"/>
+                                        <label for="invoice_date"/>
+                                        <field name="invoice_date" class="w-100" readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="due_date"/>
+                                        <field name="due_date" class="w-100"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="billed_to_party"/>
+                                        <field name="billed_to_party" class="w-100"  options='{"no_open": True, "no_create": True}' readonly="1"
+                                        required="1" string="Billed To Party"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" invisible="is_parties_gst_invoice_line_empty == True or billed_to_party == False">
+                                    <div>
+                                        <label for="gst_details_id"/>
+                                        <field name="gst_details_id" class="w-100" required="is_parties_gst_invoice_line_empty == False"
+                                            options='{"no_open": True, "no_create": True}'/>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-6" invisible="is_parties_gst_invoice_line_empty == False or billed_to_party == False">
+                                     <div class="row">
+                                         <div class="col-lg-6" >
+                                             <field name="is_parties_gst_invoice_line_empty" invisible="1"/>
+                                            <label for="gst_no">Billed To GST No.</label>
+                                             <field name="gst_no" readonly="id" style="width: 200px;"
+                                              required="is_parties_gst_invoice_line_empty == True"/>
+                                         </div>
+                                         <div class="col-lg-6">
+                                            <a href="#" role="button" class="billed_to_gst_details_for_parties btn btn-secondary">Check Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="billed_to_party_address"/>
+                                        <field name="billed_to_party_address" class="w-100" readonly="gst_details_id"/>
+                                    </div>
+                                </div>
+                                <field name="is_sez" invisible="1"/>
+                                <div class="col-lg-6" invisible="is_sez == False">
+                                    <div>
+                                         <label for="is_gst_applicable"/>
+                                        <field name="is_gst_applicable" class="w-100" widget="radio"
+                                            required="1" options="{'horizontal': True}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="gst_state"/>
+                                        <field name="gst_state" class="w-100" readonly="1"
+                                        string="Supply To State"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" invisible="is_gst_applicable == 'no'">
+                                    <div>
+                                        <label for="gst_rate"/>
+                                        <field name="gst_rate" class="w-100" string="GST Rate"
+                                               widget="many2many_tags" readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" invisible="is_gst_applicable == 'yes'">
+                                    <div>
+                                        <label for="gst_rate_display"/>
+                                        <field name="gst_rate_display" class="w-100" string="GST Rate"
+                                        readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- GST Details Section -->
+                        <div class="mt-4 mb-4" style="border:solid 1px #ced4da; padding:0px 10px;">
+                            <div class="alert alert-success d-none" role="alert" id="success_message">
+                                Valid GST No., information was successfully retrieved as shown below:
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="TAXPAYER TYPE"/></span>
+                                        <label class="ms-2" for="tax_payer_type"/><br></br>
+                                        <field class="ms-3" name="tax_payer_type"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="NATURE OF BUSINESS"/></span>
+                                        <label class="ms-2" for="nature_of_business"/><br></br>
+                                        <field class="ms-3" name="nature_of_business"/>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-3">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="STATE JURISDICTION"/></span>
+                                        <label class="ms-2" for="state_jurisdiction"/><br></br>
+                                        <field class="ms-3" name="state_jurisdiction"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="ADDITIONAL PLACE OF BUSINESS 1"/></span>
+                                        <label class="ms-2" for="additional_place_of_business"/><br></br>
+                                        <field class="ms-3" name="additional_place_of_business"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="NATURE OF ADDITIONAL PLACE OF BUSINESS 1"/></span>
+                                        <label class="ms-2" for="nature_additional_place_of_business"/><br></br>
+                                        <field class="ms-3" name="nature_additional_place_of_business"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="ADDITIONAL PLACE OF BUSINESS 2"/></span>
+                                        <label class="ms-2" for="additional_place_of_business_2"/><br></br>
+                                        <field class="ms-3" name="additional_place_of_business_2"/>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-6">
+                                    <div class="w-100" style="pointer-events: none;">
+                                        <span><i class="fa fa-file-text-o" title="NATURE OF ADDITIONAL PLACE OF BUSINESS 2"/></span>
+                                        <label class="ms-2" for="nature_additional_place_of_business_2"/><br></br>
+                                        <field class="ms-3" name="nature_additional_place_of_business_2"/>
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="w-100" style="pointer-events: none;">
+                                    <span><i class="fa fa-file-text-o" title="LAST UPDATE ON"/></span>
+                                    <label class="ms-2" for="last_update"/><br></br>
+                                    <field class="ms-3" name="last_update"/>
+                                </div>
+                            </div>
+                            <div class="row d-none">
+                                <div class="col-lg-6">
+                                    <div class="w-100">
+                                        <field name="gst_api_response"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                            <div style="display:flex;">
+                                <h2>
+                                    Charges
+                                </h2>
+                                <field name="currency_id" style="pointer-events: none; background-color: lightgrey; border-radius: 10px; padding: 5px; border: 1px solid #ccc;margin-left:9px;" no_label="True"/>
+                            </div>
+                            <div class="o_form_label" style="margin-top: 20px;">
+                                <div class="o_group">
+                                     <field name="charge_ids" mode="tree" string="Charge" force_save="1" options="{'no_open': True}" style="pointer-events: none;">
+                                        <tree>
+                                            <field name="charge_id" column_invisible="1"/>
+                                            <field name="charge_name"/>
+                                            <field name="hsn_code_id" column_invisible="1"/>
+                                            <field name="hsn_code"/>
+                                            <field name="size"/>
+                                            <field name="amount"/>
+                                            <field name="qty"/>
+                                            <field name="gst_breakup_igst" string="IGST" />
+                                            <field name="gst_breakup_cgst" string="CGST" />
+                                            <field name="gst_breakup_sgst" string="SGST" />
+                                            <field name="total_amount"/>
+                                        </tree>
+                                    </field>
+                                    <div class="o_form_sheet_footer">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="padding: 10px;">
+                                                <strong>Grand Total:</strong>
+                                            </span>
+                                            <div>
+                                                <field name="total_amount" readonly="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                            <label for="remarks"/>
+                            <field name="remarks" class="w-100"/>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="row"
+                     style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;"
+                     invisible="not id">
+                    <div style="width: 100%; display:flex;">
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                            Created By :
+                            <field name="display_create_info"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                            Last Modified By:
+                            <field name="display_modified_info"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center;  border-radius: 10px; margin: 10px; padding-top: 3px;">
+                            Source :
+                            <field name="display_sources"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="pending_invoices_action">
+        <field name="name">Pending to Invoice</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pending.invoices</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your Pending Invoices!
+            </p>
+        </field>
+        <field name="domain">
+        ['&amp;', ('is_invoice_setting', '=', True), '|', ('move_in_id.is_invoice_created', '=', False), ('move_out_id.is_invoice_created', '=', False)]
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_pending_invoices_search">
+        <field name="model">pending.invoices</field>
+        <field name="arch" type="xml">
+            <search string="Pending to Invoice">
+              <field name="container_number"/>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="menu_pending_invoices_root"
+              name="Accounts"/>
+
+    <menuitem id="menu_pending_invoices"
+              name="Pending to Invoice"
+              parent="empezar_account_invoices.menu_pending_invoices_root"
+              action="pending_invoices_action"
+              sequence="1"
+              groups="empezar_base.group_gate_operator,empezar_base.group_yard_manager,empezar_base.group_empezar_management,empezar_base.group_empezar_accounts"
+    />
+</odoo>

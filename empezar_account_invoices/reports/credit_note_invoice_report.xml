@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_credit_note_invoice_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div style="text-align: right; margin-bottom: 20px;">
+                            <div style="font-weight: bold;">GSTIN NO:
+                                <t t-esc="o.gst_no"/>
+                            </div>
+                            <div style="font-weight: bold;">CIN NO:
+                                <t t-esc="o.cin_no"/>
+                            </div>
+                        </div>
+                        <table style="width: 100%; text-align: left; border: 1px solid black; border-collapse: collapse;">
+                            <tr>
+                                <td colspan="3"
+                                    style="border: 1px solid black; padding: 8px; text-align: center; background-color: #FAFAE7;">
+                                    <span style="font-weight: bold; color: #000000;">Credit Note
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Invoice No:
+                                        </div>
+                                        <t t-esc="o.credit_note_number"/>
+                                    </div>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Invoice Date:
+                                        </div>
+                                        <t t-esc="o.credit_note_date.strftime('%d-%m-%Y')"/>
+                                    </div>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Supply to State: 
+                                        </div>
+                                        <t t-esc="o.supply_to_state"/>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Customer:
+                                        </div>
+                                        <t t-esc="o.billed_to_party.name"/>
+                                    </div>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Address:
+                                        </div>
+                                        <t t-esc="o.billed_to_party_address"/>
+                                    </div>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Customer GSTIN:
+                                        </div>
+                                        <t t-esc="o.billed_to_gst_no.gst_no"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Container No:
+                                        </div>
+                                        <t t-esc="o.container_no"/>
+                                    </div>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Truck No:
+                                        </div>
+                                        <t t-esc="o.truck_no"/>
+                                    </div>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Shipping Line:
+                                        </div>
+                                        <t t-esc="o.shipping_line_id.name"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Reference Invoice No:
+                                        </div>
+                                        <t t-esc="o.invoice_number"/>
+                                    </div>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <div style="font-weight: bold; color: #000000; font-weight: bold; padding-bottom:5px;">
+                                            Reference Invoice Date:
+                                        </div>
+                                        <t t-esc="o.invoice_date.strftime('%d-%m-%Y')"/>
+                                    </div>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; width: 33%;">
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <t t-if="o.e_invoice == 'yes'">
+                            <table style="width: 100%; text-align: left; border: 1px solid black; border-collapse: collapse;">
+                                <tr>
+                                    <td colspan="10"
+                                        style="border: 1px solid black; padding: 8px; text-align: center; background-color: #FAFAE7;">
+                                        <span style="font-weight: bold; color: #000000;">E-invoice details</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 8px; margin-top: 0px;">
+                                        <strong>IRN No.</strong><br/>
+                                        <t t-if="o.irn_no">
+                                            <t t-esc="o.irn_no"/>
+                                        </t>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-if="o.qr_code">
+                                            <img t-att-src="'data:image/png;base64,' + o.qr_code" alt="QR Code"
+                                                 style="width: 80px; height: 80px;"/>
+                                        </t>
+                                </td>
+                                </tr>
+
+                            </table>
+                        </t>
+                        <t t-if="o.credit_note_status == 'cancelled'">
+                            <div style="position: absolute; top: 450px; left: 30%; rotate: 45deg;
+                                font-size: 60px; color: red; opacity: 0.2; pointer-events: none; text-align: center;">
+                                    CANCELLED
+                            </div>
+                        </t>
+                        <table style="width: 100%; text-align: left; border: 1px solid black; border-collapse: collapse;">
+                            <tr>
+                                <td colspan="10"
+                                    style="border: 1px solid black; padding: 8px; text-align: center; background-color: #FAFAE7;;">
+                                    <span style="font-weight: bold; color: #000000;">Charges Details</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">Description</th>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">HSN/SAC Code</th>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">Qty</th>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">Amount</th>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">Currency</th>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">CGST (%)</th>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">SGST (%)</th>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">IGST (%)</th>
+                                <th style="border: 1px solid black; padding: 8px;font-weight: bold; color: #000000;">Grand Total</th>
+                            </tr>
+
+                          
+                            <t t-set="total_amount" t-value="0"/>
+                            <t t-set="total_base_amount" t-value="0"/>
+                            <t t-set="total_cgst" t-value="0"/>
+                            <t t-set="total_sgst" t-value="0"/>
+                            <t t-set="total_igst" t-value="0"/>
+                            <t t-if="o.invoice_type == 'Others'">
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.other_charge_id.charge_name"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.hsn_code"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        1
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.amount"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.currency_id.name"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.gst_breakup_cgst"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.gst_breakup_sgst"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.gst_breakup_igst"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.amount"/>
+                                    </td>
+                                </tr>
+                                <t t-set="total_amount"
+                                       t-value="total_amount + o.amount"/>
+                                    <t t-set="total_base_amount"
+                                       t-value="total_base_amount + o.amount"/>
+                                    <t t-set="total_cgst"
+                                       t-value="total_cgst + o.gst_breakup_cgst"/>
+                                    <t t-set="total_sgst"
+                                       t-value="total_sgst + o.gst_breakup_sgst"/>
+                                    <t t-set="total_igst"
+                                       t-value="total_igst + o.gst_breakup_igst"/>
+                            </t>
+                            <t t-elif="o.invoice_type in ['lift_off', 'lift_on']">
+                            <t t-foreach="o.charge_ids" t-as="charge">
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="charge.charge_name"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="charge.hsn_code"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="charge.qty"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="charge.amount"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="o.currency_id.name"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="charge.gst_breakup_cgst"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="charge.gst_breakup_sgst"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="charge.gst_breakup_igst"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 8px;">
+                                        <t t-esc="charge.total_amount"/>
+                                    </td>
+                                </tr>
+                                 
+                                <t t-set="total_amount" t-value="total_amount + charge.total_amount"/>
+                                <t t-set="total_base_amount" t-value="total_base_amount + charge.amount"/>
+                                <t t-set="total_cgst" t-value="total_cgst + charge.gst_breakup_cgst"/>
+                                <t t-set="total_sgst" t-value="total_sgst + charge.gst_breakup_sgst"/>
+                                <t t-set="total_igst" t-value="total_igst + charge.gst_breakup_igst"/>
+                            </t>
+                            </t>
+                            <t t-else="">
+                                <t t-if="o.charge_ids">
+                                    <t t-foreach="o.charge_ids" t-as="charge">
+                                        <tr>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="charge.charge_name"/>
+                                            </td>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="charge.hsn_code"/>
+                                            </td>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="charge.qty"/>
+                                            </td>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="charge.amount"/>
+                                            </td>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="o.currency_id.name"/>
+                                            </td>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="charge.gst_breakup_cgst"/>
+                                            </td>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="charge.gst_breakup_sgst"/>
+                                            </td>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="charge.gst_breakup_igst"/>
+                                            </td>
+                                            <td style="border: 1px solid black; padding: 8px;">
+                                                <t t-esc="charge.total_amount"/>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Update the totals for each charge inside the loop -->
+                                        <t t-set="total_amount"
+                                           t-value="total_amount + charge.total_amount"/>
+                                        <t t-set="total_base_amount"
+                                           t-value="total_base_amount + charge.amount"/>
+                                        <t t-set="total_cgst"
+                                           t-value="total_cgst + charge.gst_breakup_cgst"/>
+                                        <t t-set="total_sgst"
+                                           t-value="total_sgst + charge.gst_breakup_sgst"/>
+                                        <t t-set="total_igst"
+                                           t-value="total_igst + charge.gst_breakup_igst"/>
+                                    </t>
+                                </t>
+                            </t>
+                            <tr>
+                                <td colspan="3"
+                                    style="border: 1px solid black; padding: 8px; text-align: left; font-weight: bold; background-color: #eff8ff;">
+                                    Total
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; background-color: #eff8ff;">
+                                    <t t-esc="total_base_amount"/>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; background-color: #eff8ff;">
+                                    <t t-esc="o.currency_id.name"/>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; background-color: #eff8ff;">
+                                    <t t-esc="total_cgst"/>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; background-color: #eff8ff;">
+                                    <t t-esc="total_sgst"/>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; background-color: #eff8ff;">
+                                    <t t-esc="total_igst"/>
+                                </td>
+                                <td style="border: 1px solid black; padding: 8px; background-color: #eff8ff;">
+                                    <t t-esc="o.total_charge_amount"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width: 100%; text-align: left; border: 1px solid black; border-collapse: collapse; margin-bottom: 20px;">
+                            <tr>
+                                <td colspan="4">
+                                    <span style="font-weight: bold; color: #000000;">
+                                        <strong>Amount in Words (Including GST):</strong>
+                                    </span>
+                                    <t t-esc="o.currency_id.amount_to_text(float(o.total_charge_amount))">
+                                        Only
+                                    </t>
+                                </td>
+                            </tr> 
+
+                            <tr>
+                                <td colspan="2" style="border: 1px solid black; padding: 8px;">
+                                    <strong>Remarks:</strong>
+                                    <br/>
+                                    <t t-esc="o.remarks"/>
+                                </td>
+ 
+                                <td colspan="2" rowspan="2"
+                                    style="border: 1px solid black; padding: 8px;">
+                                    <p style="margin: 2px;">
+                                        <strong>For</strong>
+                                    </p>
+                                    <p style="margin: 2px;">Empezar Global Marine
+                                        Services Pvt. Ltd
+                                    </p>
+                                    <p style="margin: 2px;">
+                                        <strong>Authorized Signatory</strong>
+                                    </p>
+                                </td>
+
+                            </tr>
+
+                            
+                            <tr>
+                                <td colspan="2" style="border: 1px solid black; padding: 4px;">
+                                    <strong>Terms &amp; Conditions:</strong>
+                                    <ol style="padding: 12px 0px 0px 16px;">
+                                        <li style="padding-bottom: 8px;">Interest @ 24% p.a. will
+                                            attract for all payments beyond
+                                            15 days from the date of receipt of the Invoice.
+                                        </li>
+                                        <li>Any discrepancies must be reported within 7 days of
+                                            receipt of Invoice.
+                                        </li>
+                                    </ol>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="border: 1px solid black; padding: 8px; background-color: #eff8ff; ">
+                                    <strong>Prepared By/On:</strong>
+                                    <t t-esc="user.name"/>  
+                                    (
+                                    <t t-esc="(datetime.datetime.now() + datetime.timedelta(hours=5, minutes=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
+                                    )
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_credit_note_invoice_tree" model="ir.ui.view">
+        <field name="name">credit.note.invoice.tree</field>
+        <field name="model">credit.note.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Credit Note Invoice" class="credit_notes" js_class="credit_note_help_button"
+                  default_order="id desc" delete="0" duplicate="0">
+                <field name="shipping_line_logo" widget="image" class="oe_avatar"
+                       options="{'size': [50, 50]}" />
+                <field name="credit_note_details" />
+                <field name="party_reference_no"/>
+                <field name="location_id" />
+                <field name="total_charge_amount"/>
+                <field name="currency_id" string=""/>
+                <field name="credit_note_status" widget="badge"
+                       decoration-success="credit_note_status == 'active'"
+                       decoration-danger="credit_note_status == 'cancelled'"/>
+                <field name="e_invoice" string="E-Invoice" column_invisible="1"/>
+                <field name="is_success" string="Is Successs" column_invisible="1"/>
+                <button type="object"
+                        icon="empezar_account_invoices/static/src/images/e-invoice.svg"
+                        name="e_invoice_credit_record" class="button_e_invoice_yes_actions"
+                        invisible="e_invoice == 'no' or is_success == False" title="E-Invoice"/>
+                <button type="object"
+                    icon="empezar_account_invoices/static/src/images/e-invoice.svg"
+                    name="show_error" class="button_e_invoice_no_actions"
+                    invisible="e_invoice == 'no' or is_success == True" title="Error"/>
+                <button type="object"
+                        icon="empezar_account_invoices/static/src/images/refresh_icon.svg"
+                        name="refresh_invoice" class="button_actions"
+                        invisible="e_invoice == 'no' or is_success == True or credit_note_status == 'cancelled'" title="Refresh"/>
+                <button type="object"
+                        icon="empezar_account_invoices/static/src/images/pdf.svg"
+                        name="generate_credit_pdf" class="button_actions" groups = "empezar_base.group_generate_credit_pdf"
+                        title="PDF"/>
+                <button type="object"
+                        icon="empezar_account_invoices/static/src/images/e-invoice.svg"
+                        name="e_invoice_view" class="button_actions" title="View Invoice"/>
+                <button type="object"
+                        icon="empezar_account_invoices/static/src/images/cancel.svg"
+                        name="cancel_invoice_credit" class="button_actions"
+                        invisible="credit_note_status == 'cancelled'" groups = "empezar_base.group_cancel_credit_pdf"
+                        title="Cancel Credit Note"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_credit_note_invoice_form" model="ir.ui.view">
+        <field name="name">credit.note.invoice.form</field>
+        <field name="model">credit.note.invoice</field>
+        <field name="arch" type="xml">
+            <form duplicate="0" delete="0">
+                <sheet>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <div class="row" invisible="is_invoice_no">
+                            
+                            <field name="credit_note_number" invisible="1"/>
+                            <div class="col-lg-6">
+                                <field name="is_invoice_no" invisible="1"/>
+                                <label for="invoice_reference_no"/>
+                                <field name="invoice_reference_no" class="w-100"/>
+                            </div>
+                            <div class="col-lg-6" style="margin-top: 0.35cm;">
+                            <button name="action_check_invoice_no" type="object" string="Check Details" class="btn btn-secondary "/>
+                            </div>
+                             
+                        </div>
+                        <div invisible="is_invoice_no == False">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="invoice_number"/>
+                                        <field name="invoice_number" class="w-100" readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="invoice_type"/>
+                                        <field name="invoice_type" class="w-100" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="invoice_date"/>
+                                        <field name="invoice_date" class="w-100" readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="billed_to_gst_no"/>
+                                        <field name="billed_to_gst_no" class="w-100" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="supply_to_state"/>
+                                        <field name="supply_to_state" class="w-100"
+                                            readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="gst_rate"/>
+                                        <field name="gst_rate" class="w-100" string="GST Rate"
+                                               widget="many2many_tags" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="billed_to_party"/>
+                                        <field name="billed_to_party" class="w-100"
+                                            readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="billed_to_party_address"/>
+                                        <field name="billed_to_party_address" class="w-100" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <label for="irn_no"/>
+                                    <field name="irn_no" class="w-100" readonly="1"/>
+                                </div>
+                            </div>
+                            <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px; border-radius: 6px;">
+                                <div style="display:flex;">
+                                    <h2>
+                                        Charges
+                                    </h2>
+                                    <field name="currency_id" readonly="1" style="pointer-events: none; background-color: lightgrey; border-radius: 10px; padding: 5px; border: 1px solid #ccc;margin-left:9px;"
+                                        no_label="True"/>
+                                </div>
+                                 <div class="o_form_label" style="margin-top: 20px;" invisible="invoice_type != 'Others'">
+                                    <div class="o_group">
+                                        <table class="o_table table-hover" style="width: 100%; border: 1px solid #ddd;">
+                                            <thead>
+                                                <tr style="background-color: #f9f9f9;">
+                                                    <th class="text-center">Charge Name</th>
+                                                    <th class="text-center">HSN Code</th>
+                                                    <th class="text-center">Amount</th>
+                                                    <th class="text-center">Quantity</th>
+                                                    <th class="text-center">GST Details</th>
+                                                    <th class="text-center">Total Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <field name="other_charge_id" options="{'no_open': True, 'no_create': True}" required="invoice_type == 'Others'" readonly="id"
+                                                            class="w-100"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <field name="hsn_code_id" invisible="1"/>
+                                                        <field name="hsn_code" class="w-100" required="invoice_type == 'Others'" readonly="id"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <field name="amount" class="w-100" required="invoice_type == 'Others'" />
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span>1</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        IGST: <field name="gst_breakup_igst" readonly="1" style="display: inline-block; width: 70px;" />
+                                                        <br/>
+                                                        CGST: <field name="gst_breakup_cgst" readonly="1" style="display: inline-block; width: 70px;"/>
+                                                        <br/>
+                                                        SGST: <field name="gst_breakup_sgst" readonly="1" style="display: inline-block; width: 70px;"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <field name="total_charge_amount" class="w-100" readonly="1"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="o_form_sheet_footer">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="padding: 10px;">
+                                                <strong>Grand Total:</strong>
+                                            </span>
+                                            <div>
+                                                <field name="total_charge_amount" readonly="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="o_form_label" style="margin-top: 20px;" invisible="invoice_type == 'Others'">
+                                    <div class="o_group">
+                                        <field name="charge_ids" mode="tree" string="Charge">
+                                            <tree editable="bottom" delete="0" create="0">
+                                                <field name="charge_id" column_invisible="1"/>
+                                                <field name="charge_name"/>
+                                                <field name="hsn_code_id" column_invisible="1"/>
+                                                <field name="hsn_code" readonly="1"/>
+                                                <field name="size" readonly="1"/>
+                                                <field name="amount"/>
+                                                <field name="qty" readonly="1"/>
+                                                <field name="gst_breakup_igst" string="IGST" readonly="1"/>
+                                                <field name="gst_breakup_cgst" string="CGST" readonly="1"/>
+                                                <field name="gst_breakup_sgst" string="SGST" readonly="1"/>
+                                                <field name="total_amount" readonly="1"/>
+                                            </tree>
+                                        </field>
+                                    </div>
+                                    <div class="o_form_sheet_footer">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="padding: 10px;">
+                                                <strong>Grand Total:</strong>
+                                            </span>
+                                            <div>
+                                                <field name="total_charge_amount" readonly="1"/>
+                                            </div>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;" invisible="is_invoice_no == False">
+                            <div style="display:flex;">
+                                <h2>
+                                    Credit Note Reason
+                                </h2>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <label for="credit_note_reason"/>
+                                    <field name="credit_note_reason" class="w-100" required="is_invoice_no == True"/>
+                                </div>
+                            </div>
+                            <div class="row" invisible="credit_note_reason != 'others'">
+                                <div>
+                                    <label for="reason"/>
+                                    <field name="reason" class="w-100" required="credit_note_reason == 'others'"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="row"
+                    style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;"
+                    invisible="is_invoice_no == False">
+                <div style="width: 100%; display:flex;">
+                    <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                        Created By :
+                        <field name="display_create_info"
+                                style="display: flex; width: fit-content; justify-content: center;"/>
+                    </p>
+                    <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                        Last Modified By:
+                        <field name="display_modified_info"
+                                style="display: flex; width: fit-content; justify-content: center;"/>
+                    </p>
+                </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="error_credit_response_view" model="ir.ui.view">
+        <field name="name">e.credit.error.response.form.view</field>
+        <field name="model">credit.note.invoice</field>
+        <field name="arch" type="xml">
+            <form edit="0" create="0">
+                <sheet>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="w-100">
+                                <field name="response_error"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_credit_note_invoice" model="ir.actions.act_window">
+        <field name="name">Credit Note Invoices</field>
+        <field name="res_model">credit.note.invoice</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Credit Note
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_credit_note_invoices"
+              name="Credit Notes"
+              parent="empezar_account_invoices.menu_pending_invoices_root"
+              action="action_credit_note_invoice"
+              sequence="3"
+              groups="empezar_base.group_gate_operator,empezar_base.group_yard_manager,empezar_base.group_empezar_management,empezar_base.group_empezar_accounts"
+    />
+</odoo>

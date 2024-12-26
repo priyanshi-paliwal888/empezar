@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_edi_reference_number1" model="ir.sequence">
+            <field name="name">EDI Reference Number 1</field>
+            <field name="code">edi.sequence.number.1</field>
+            <field name="padding">6</field>
+            <field name="number_next">100001</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="sequence_edi_reference_number2" model="ir.sequence">
+            <field name="name">EDI Reference Number 2</field>
+            <field name="code">edi.sequence.number.2</field>
+            <field name="padding">5</field>
+            <field name="number_next">10001</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

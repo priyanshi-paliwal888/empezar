@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Movement Dashboard Action -->
+        <record id="action_view_movement_dashboard" model="ir.actions.client">
+            <field name="name">Movement</field>
+            <field name="tag">empezar.dashboard_movement</field>
+        </record>
+
+        <!-- Inventory Dashboard Action -->
+        <record id="action_view_inventory_dashboard" model="ir.actions.client">
+            <field name="name">Inventory</field>
+            <field name="tag">empezar.dashboard_inventory</field>
+        </record>
+
+        <!-- Repair Dashboard Action -->
+        <record id="action_view_repair_dashboard" model="ir.actions.client">
+            <field name="name">Repair</field>
+            <field name="tag">empezar.dashboard_repair</field>
+        </record>
+
+        <!-- Dashboard Menus -->
+        <menuitem name="Dashboard" id="menu_root_dashboard" sequence="10">
+            <menuitem name="Movement" id="menu_movement_dashboard" sequence="10"
+                      action="action_view_movement_dashboard"/>
+            <menuitem name="Inventory" id="menu_inventory_dashboard" sequence="11"
+                      action="action_view_inventory_dashboard"/>
+            <menuitem name="Repair" id="menu_repair_dashboard" sequence="12"
+                      action="action_view_repair_dashboard"/>
+        </menuitem>
+
+    </data>
+</odoo>

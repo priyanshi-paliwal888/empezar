@@ -1,0 +1,45 @@
+<odoo>
+    <record id="view_update_allocation_wizard_inherit" model="ir.ui.view">
+        <field name="name">view.update.allocation.inherit</field>
+        <field name="model">view.update.allocation</field>
+        <field name="inherit_id"
+               ref="empezar_delivery_order.view_allocation_wizard_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='count']" position="after">
+                 <field name="related_moves_ids" column_invisible="1"/>
+                <field name="related_moves_in" column_invisible="1"/>
+                <button type="object" icon="empezar_move_out/static/src/images/view_edi.svg"
+                        name="view_records" class="button_actions"
+                        title="View Records" invisible="is_from_location == False"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_update_allocation_form" model="ir.ui.view">
+        <field name="name">view.update.allocation.form</field>
+        <field name="model">view.update.allocation</field>
+        <field name="arch" type="xml">
+            <form string="View Allocation" edit="0" create="0">
+                <sheet>
+                    <!-- Display related moves out in a table -->
+                    <field name="related_moves_ids" mode="tree" readonly="1" force_save="1" invisible= "not related_moves_ids" style="pointer-events: none;">
+                        <tree>
+                            <field name="display_name" string="Container No." />
+                            <field name="move_out_date_time" string="Move Out D/T"/>
+                        </tree>
+                    </field>
+                    <!-- Display related moves in a table -->
+                    <field name="related_moves_in" mode="tree" readonly="1" force_save="1" invisible= "not related_moves_in" style="pointer-events: none;">
+                        <tree>
+                            <field name="display_name" string="Container No."/>
+                            <field name="move_in_date_time" string="Move In D/T"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="button_save" type="object" string="Save" class="oe_highlight" invisible="1"/>
+                    <button name="button_cancel" type="object" string="Cancel" class="oe_highlight" invisible="1"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

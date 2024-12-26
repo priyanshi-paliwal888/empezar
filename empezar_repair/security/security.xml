@@ -1,0 +1,9 @@
+<odoo>
+    <!-- Record rule for move.in model -->
+    <record id="move_in_location_rule" model="ir.rule">
+        <field name="name">Location-based access for Repair</field>
+        <field name="model_id" ref="model_repair_pending"/>
+        <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+    </record>
+
+</odoo>

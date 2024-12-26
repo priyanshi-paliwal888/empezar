@@ -1,0 +1,29 @@
+<odoo>
+    <!-- Inherit the existing view -->
+    <record id="view_vessel_booking_form_inherit" model="ir.ui.view">
+        <field name="name">vessel.booking.form.inherit</field>
+        <field name="model">vessel.booking</field>
+        <field name="inherit_id"
+               ref="empezar_vessel_booking.view_vessel_booking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='container_numbers']/tree"
+                   position="inside">
+<!--                <field name="move_in_datetime"/>-->
+                <field name="move_out_datetime" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='container_details']/tree"
+                   position="inside">
+                <field name="balance" invisible="not id" readonly="1"/>
+            </xpath>
+            <xpath expr="//button[@name='download_container_record']" position="before">
+                <button class="btn btn-secondary" type="object" name="unlink_container_record"
+                        invisible="not container_numbers" groups = "empezar_base.group_unlink_container_record">
+                    <i class="fa fa-unlink" style="font-size:15px;color:red"></i>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='is_unlink']" position="attributes">
+                <attribute name="readonly">move_out_datetime != False or is_unlink_non_editable</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

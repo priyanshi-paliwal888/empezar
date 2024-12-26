@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="off_hire_hold" model="hold.reason">
+        <field name="name">Off Hire hold</field>
+    </record>
+    <record id="line_request" model="hold.reason">
+        <field name="name">Line Request</field>
+    </record>
+    <record id="reserve_for_party" model="hold.reason">
+        <field name="name">Reserve for Party</field>
+    </record>
+    <record id="traxen_hold" model="hold.reason">
+        <field name="name">Traxen Hold</field>
+    </record>
+    <record id="whitelist_container" model="hold.reason">
+        <field name="name">Whitelist Container</field>
+    </record>
+    <record id="others" model="hold.reason">
+        <field name="name">Others</field>
+    </record>
+
+</odoo>

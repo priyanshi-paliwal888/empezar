@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+       <record id="inherit_container_facilities_form_view" model="ir.ui.view">
+           <field name="name">container.facilities.form.view.inherit</field>
+           <field name="model">container.facilities</field>
+           <field name="inherit_id" ref="empezar_base.container_facilities_form_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//form//field[@name='facility_type']" position="attributes">
+                   <attribute name="readonly">context.get('is_from_move_out') or context.get('is_from_move_in') or id</attribute>
+               </xpath>
+               <xpath expr="//form//field[@name='port']" position="attributes">
+                   <attribute name="readonly">context.get('is_from_move_out')</attribute>
+               </xpath>
+           </field>
+       </record>
+   </data>
+</odoo>

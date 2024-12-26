@@ -1,0 +1,146 @@
+<odoo>
+    <record model="ir.ui.view" id="view_repair_pending_tree">
+        <field name="name">repair.pending.tree</field>
+        <field name="model">repair.pending</field>
+        <field name="arch" type="xml">
+            <tree class="repair_pending" js_class="repair_pending_help_button">
+                <field name="shipping_line_logo" options="{'size': [50, 50]}" widget="image"
+                       class="oe_avatar"/>
+                <field name="display_name" string="Container Details"/>
+                <field name="location_id"/>
+                <field name="move_in_date_time"/>
+                <field name="estimate_details"/>
+                <field name="repair_status"/>
+                <field name="estimate_number" column_invisible="1"/> 
+                <button type="object"
+                        name="action_add_estimate"
+                        icon="empezar_repair/static/src/images/add.svg"
+                        invisible="repair_status != 'awaiting_estimates'"
+                        title="Add Estimate"/>
+                <button type="object"
+                        name="action_edit_estimate" 
+                        icon="empezar_repair/static/src/images/edit.svg"
+                        invisible="repair_status == 'awaiting_estimates' or repair_status == 'completed' or repair_status == 'rejected'"
+                        title="Edit Estimate"/>
+                <button type="object"
+                        name="action_repair_completion"
+                        icon="empezar_repair/static/src/images/completion.svg"
+                        invisible="repair_status != 'approved' and repair_status != 'partially_approved'"
+                        title="Repair Completion"/>      
+                <button type="object"
+                        name="action_view_estimate"
+                        icon="empezar_repair/static/src/images/view.svg"
+                        invisible="repair_status == 'awaiting_estimates'"
+                        title="View Estimate"/>  
+            </tree>
+        </field>
+    </record>
+    <record id="view_container_form" model="ir.ui.view">
+        <field name="name">repair.pending.form</field>
+        <field name="model">repair.pending</field>
+        <field name="arch" type="xml">
+            <form string="Add New Container">
+                <field name="is_editable" invisible="1"/>
+                <field name="is_location_editable" invisible="1"/>
+                <sheet>
+                    <label for="repair_status"/>
+                    <field name="repair_status" class="w-100" invisible="1"/>
+                    <div style="border:solid 1px #ced4da; padding:10px;"> 
+                        <div class="row"> 
+                            <div class="col-lg-6">
+                                <div>
+                                    <field name="location_id_domain" invisible="1"/>
+                                    <label for="location_id"/>
+                                    <field name="location_id" domain="location_id_domain" options="{'no_create': True, 'no_open': True}" class="w-100"
+                                           readonly="is_editable == False"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="container_no" string="Container No." />
+                                    <field name="container_no" class="w-100"
+                                           readonly="is_editable == False"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <field name="shipping_line_id_domain" invisible="1"/>                  
+                                    <label for="shipping_line_id"/>
+                                    <field name="shipping_line_id" domain="[('id', 'in', shipping_line_id_domain)]"
+                                           options="{'no_create': True, 'no_open': True}" class="w-100" readonly="is_editable == False"/>
+                                </div>
+                            </div>                                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <field name="type_size_id_domain" invisible="1"/>
+                                <label for="type_size_id"/>
+                                <field name="type_size_id" domain="type_size_id_domain" class="w-100"
+                                       options="{'no_create': True, 'no_open': True}" readonly="is_editable == False"/>
+                            </div>
+                            <div class="col-lg-6">                             
+                               <div>
+                                    <label for="month" string="Production Month/Year"
+                                            style="font-weight: bold"/>
+                                </div>
+                                    <field name="month" style="width:90px;" required="1" readonly="is_editable == False"/>
+                                    <field name="year" style="width:60px;" required="1" readonly="is_editable == False"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="gross_wt"/>
+                                <field name="gross_wt" class="w-100" readonly="is_editable == False"/>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="tare_wt"/>
+                                <field name="tare_wt" required="1" class="w-100" readonly="is_editable == False"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="grade"/>
+                                <field name="grade" widget="radio" options="{'horizontal': True}" class="w-100" readonly="is_editable == False"/>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="damage_condition"/>
+                                <field name="damage_condition" widget="selection" class="w-100" readonly="is_editable == False"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                        <div class="col-lg-4" style="background-color: lightgrey; border-radius: 5px;padding-top: 3px;margin-top:5px;">
+                            <div class="width:max-content;" style="justify-content:center;display:flex">Created By :<field name="display_create_info" style="margin-left:2px;"/></div>
+                        </div>
+                        <div class="col-lg-4" style="background-color: lightgrey; border-radius: 5px;padding-top: 3px;margin-top:5px;">
+                            <div class="width:max-content;" style="justify-content:center;display:flex">Last Modified By :<field name="display_modified_info" style="margin-left:2px;"/></div>
+                        </div>
+                        <div class="col-lg-2" style="background-color: lightgrey; border-radius: 5px;padding-top: 3px; margin-top:5px;">
+                            <div class="width:max-content;" style="justify-content:center;display:flex">Sources :<field name="display_sources" style="margin-left:2px;"/></div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="repair_pending_action">
+        <field name="name">Repair Pending</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">repair.pending</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('repair_status', 'not in', ['completed', 'rejected'])]</field>
+    </record>
+
+    <menuitem id="menu_repair_pending"
+              name="Pending"
+              parent="empezar_repair.menu_repair_root"
+              action="repair_pending_action"
+              sequence="3"
+              groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management,empezar_base.group_repair_estimates_team,empezar_base.group_repair_estimates_yard"
+    />
+</odoo>

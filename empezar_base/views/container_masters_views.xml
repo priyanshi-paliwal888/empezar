@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="container_master_form_view" model="ir.ui.view">
+        <field name="name">container.master.form.view</field>
+        <field name="model">container.master</field>
+        <field name="arch" type="xml">
+            <form duplicate="0" create="0" delete="0">
+                <sheet>
+                    <div name="container_master" style="padding:10px;border:solid 1px grey;" class="mt-3">
+                        <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="shipping_line_id"/><br></br>
+                                        <field name="shipping_line_id" options="{'no_open': True,'no_create': True}" class="w-100" readonly="id"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="type_size"/><br></br>
+                                        <field name="type_size" required="1" options="{'no_open': True,'no_create': True}" class="w-100"/>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="month" string="Production Month/Year"
+                                               style="font-weight: bold !important;margin-right:107px;margin-left: 0px;"/>
+                                    </div>
+                                    <field name="month" style="width:90px;" required="1"/>
+                                    <field name="year" style="width:60px;" required="1"/>
+                                    <field name="is_import" invisible="1"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="gross_wt"/><br></br>
+                                        <field name="gross_wt" required="1" class="w-100"/>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="tare_wt"/><br></br>
+                                <field name="tare_wt" required="1" class="w-100"/>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="name"/><br></br>
+                                <field name="name" required="1" class="w-100" readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div class="col-lg-4" style="background-color: lightgrey; border-radius: 5px;padding-top: 3px;margin-top:5px;">
+                        <div class="width:max-content;" style="justify-content:center;display:flex">Created By :<field name="display_create_info" style="margin-left:2px;"/></div>
+                    </div>
+                    <div class="col-lg-4" style="background-color: lightgrey; border-radius: 5px;padding-top: 3px;margin-top:5px;">
+                        <div class="width:max-content;" style="justify-content:center;display:flex">Last Modified By :<field name="display_modified_info" style="margin-left:2px;"/></div>
+                    </div>
+                    <div class="col-lg-2" style="background-color: lightgrey; border-radius: 5px;padding-top: 3px; margin-top:5px;">
+                        <div class="width:max-content;" style="justify-content:center;display:flex">Sources :<field name="display_sources" style="margin-left:2px;"/></div>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="container_master_tree_view" model="ir.ui.view">
+        <field name="name">container.master.tree.view</field>
+        <field name="model">container.master</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0" create="0" delete="0">
+                <field name="shipping_line_logo" widget="image" class="oe_avatar" options="{'size': [50, 50]}"/>
+                <field name="name"/>
+                <field name="type_size"/>
+                <field name="gross_wt"/>
+                <field name="tare_wt"/>
+                <field name="production_month_year"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="container_master_search_view" model="ir.ui.view">
+        <field name="name">container.master.search</field>
+        <field name="model">container.master</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Container No."/>
+                <filter string="Source" name="is_import"/>
+                <separator/>
+                <filter string="Excel" name="is_import" domain="[('is_import', '=', True)]"/>
+                <filter string="System" name="is_import" domain="[('is_import', '=', False)]"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="container_master_action" model="ir.actions.act_window">
+            <field name="name">Containers</field>
+            <field name="res_model">container.master</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_container_master"
+        name="Containers"
+        parent="empezar_base.menu_master_root"
+        action="container_master_action"
+        sequence="4"
+        groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

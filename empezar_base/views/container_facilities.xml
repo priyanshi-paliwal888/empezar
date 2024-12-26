@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="container_facilities_form_view" model="ir.ui.view">
+        <field name="name">container.facilities.form.view</field>
+        <field name="model">container.facilities</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <div class="row">
+                        <div>
+                            <label for="facility_type"/><br></br>
+                            <field name="facility_type" readonly="context.get('is_from_move_out')" widget="radio" options="{'horizontal': true}" class="w-100"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="name"/><br></br>
+                                <field name="name" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="code"/><br></br>
+                                <field name="code" class="w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label for="port"/><br></br>
+                            <field name="port" class="w-100" options="{'no_open': True,'no_create': True}"/>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="container_facilities_tree_view" model="ir.ui.view">
+        <field name="name">container.facilities.tree.view</field>
+        <field name="model">container.facilities</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0" import="0">
+                <field name="facility_type"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="port"/>
+                <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="container_facility_search_view" model="ir.ui.view">
+        <field name="name">container.facility.search.view</field>
+        <field name="model">container.facilities</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="port" string="Port Code" filter_domain="['|','|','|',('port_iso_with_code', 'ilike', self),('port_iso_code', 'ilike', self),
+                ('port_code', 'ilike', self),('port_name', 'ilike', self)]"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="container_facility_action" model="ir.actions.act_window">
+            <field name="name">Container Facilities</field>
+            <field name="res_model">container.facilities</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'active_test': False}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_container_facilities"
+        name="Container Facilities"
+        parent="empezar_base.menu_master_root"
+        action="container_facility_action"
+        sequence="2"
+        groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

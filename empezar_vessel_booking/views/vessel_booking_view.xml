@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_vessel_booking_tree">
+        <field name="name">vessel.booking.tree</field>
+        <field name="model">vessel.booking</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="shipping_line_logo" options="{'size': [50, 50]}" widget="image" class="oe_avatar"/>
+                <field name="display_info"/>
+                <field name="location" widget="many2many_tags"/>
+                <field name="transporter_name"/>
+                <field name="total_containers"/>
+                <field name="balance_containers"/>
+                <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_vessel_booking_form">
+        <field name="name">vessel.booking.form</field>
+        <field name="model">vessel.booking</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                     <div style="border:solid 1px #ced4da; padding:10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="location"/><br></br>
+                                    <field name="location" required="1" class="w-100" widget="many2many_tags"
+                                           domain="[('parent_id','!=', False),('active','=',True)]"
+                                           readonly="id or context.get('is_from_vessel_booking')"
+                                           options="{'no_open': True,'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="booking_no"/><br></br>
+                                    <field name="booking_no" required="1" class="w-100" readonly="id or context.get('is_from_vessel_booking')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="shipping_line_id"/><br></br>
+                                    <field name="shipping_line_id" class="w-100" required="1"
+                                           domain="[('is_shipping_line','=',True),('active','=',True)]"
+                                           options="{'no_open': True,'no_create': True}" readonly="id"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div>
+                                    <label for="booking_date"/><br></br>
+                                    <field name="booking_date" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div>
+                                    <label for="validity_datetime" string="Validity Date/Time"/><br></br>
+                                    <field name="validity_datetime" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="transporter_name"/><br></br>
+                                    <field name="transporter_name" required="1" class="w-100"
+                                            context="{'form_view_ref': 'empezar_base.res_partner_parties_form_view','is_from_booking':1}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="cutoff_datetime"/><br></br>
+                                    <field name="cutoff_datetime"  required="1" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="row">
+                            <div class="col-lg-3">
+                                <div>
+                                    <label for="vessel"/><br></br>
+                                    <field name="vessel"  class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div>
+                                    <label for="voyage"/><br></br>
+                                    <field name="voyage"  class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div>
+                                    <label for="via"/><br></br>
+                                    <field name="via" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div style="margin-top:21px">
+                                    <field name="service" placeholder="Service" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="port_loading"/><br></br>
+                                    <field name="port_loading" class="w-100" domain="[('active','=',True)]"
+                                           options="{'no_open': True,'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="port_discharge"/><br></br>
+                                    <field name="port_discharge" class="w-100" domain="[('active','=',True)]"
+                                           options="{'no_open': True,'no_create': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row">
+                             <div>
+                                 <field name="remarks" placeholder="Remarks" class="w-100"/>
+                                 <field name="active" invisible="1"/>
+                             </div>
+                         </div>
+                     </div>
+
+                    <notebook>
+                        <page string="Container Details">
+                            <field name="container_details" mode="tree">
+                                <tree editable="bottom">
+                                    <field name="container_size_type" readonly="id"
+                                           options="{'no_open': True,'no_create': True}"
+                                            domain="refer_container_selection"/>
+                                    <field name="container_qty" required="True"/>
+                                    <field name="refer_container_selection" invisible="1" nolabel="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Container No(S)." invisible="not id">
+                            <div class="row mb-4">
+                                <div class="col-md-6"><p>Containers</p></div>
+                                <div class="col-md-6 d-flex justify-content-end">
+                                    <div class="dropdown" style="display: flex; justify-content: space-between; width: 165px;">
+                                        <button class="btn btn-secondary" type="object"
+                                                name="download_container_record" invisible="not container_numbers">
+                                            <i class="fa fa-file-excel-o" style="font-size:18px;color:green"></i>
+                                        </button>
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                id="upload_dropdownMenu" name="upload_button_action"
+                                                data-bs-toggle="dropdown" aria-expanded="false"
+                                                style="background-color: #910000; color: white;">
+                                            Upload
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="upload_dropdownMenu">
+                                            <li>
+                                                <a class="dropdown-item" id="download_template_booking" href="#" type="object" name="download_booking_xlsx_file">Download
+                                                    Sample
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" id="upload_container" href="#" type="object" name="upload_containers">Upload Containers</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <field name="container_numbers" mode="tree" invisible="not container_numbers">
+                                <tree editable="bottom" delete="False" create="False">
+                                    <field name="is_unlink" nolabel="1"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="unlink_reason" readonly="1"/>
+                                    <field name="is_unlink_non_editable" invisible="1" nolabel="1"/>
+                                </tree>
+                            </field>
+
+                            <div style="text-align: center; border: solid 1px #ced4da;padding: 35px;" invisible="container_numbers">
+                                <h3>No Records Found</h3>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width: 100%; display:flex;">
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">Created By : <field name="display_create_info" style="display: flex; width: fit-content; justify-content: center;"/></p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">Last Modified By: <field name="display_modified_info" style="display: flex; width: fit-content; justify-content: center;"/></p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center;  border-radius: 10px; margin: 10px; padding-top: 3px;">Sources : <field name="display_sources" style="display: flex; width: fit-content; justify-content: center;"/></p>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_vessel_booking_search">
+        <field name="name">vessel.booking.search</field>
+        <field name="model">vessel.booking</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="booking_no"/>
+                <field name="location"/>
+                <field name="shipping_line_logo"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="vessel_booking_action">
+        <field name="name">Vessel Booking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vessel.booking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your Booking!
+            </p>
+        </field>
+    </record>
+
+     <menuitem id="menu_booking_root"
+              name="Bookings"/>
+
+     <menuitem id="menu_vessel_booking"
+               name="Vessel Booking"
+               parent="empezar_vessel_booking.menu_booking_root"
+               action="vessel_booking_action"
+               sequence="1"
+               groups="empezar_base.group_gate_operator,empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+     />
+</odoo>

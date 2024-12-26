@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+       <record id="vessel_booking_inherited_tree_view" model="ir.ui.view">
+           <field name="name">vessel.booking.tree.inherit</field>
+           <field name="model">vessel.booking</field>
+           <field name="inherit_id" ref="empezar_vessel_booking.view_vessel_booking_tree"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">vessel_booking_help_button</attribute>
+               </xpath>
+           </field>
+       </record>
+   </data>
+</odoo>

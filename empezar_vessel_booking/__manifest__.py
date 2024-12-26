@@ -1,0 +1,31 @@
+{
+    "name": "Empezar Vessel Booking",
+    "summary": "Empezar Vessel Booking",
+    "category": "Empezar/empezar_vessel_booking",
+    "version": "17.0.1.0.0",
+    "depends": ["empezar_base"],
+    "author": "Codetrade.io",
+    "website": "https://www.codetrade.io/",
+    "license": "LGPL-3",
+    "description": """Empezar Vessel Booking""",
+    "data": [
+        "security/ir.model.access.csv",
+        "security/security.xml",
+        "views/vessel_booking_view.xml",
+        "views/help_button_tree.xml",
+        "views/unlink_reason.xml",
+        'wizard/vessel_booking_import_wizard.xml',
+        'wizard/unlink_container_wizard.xml',
+        'wizard/unlink_container_confirmation.xml',
+    ],
+    'demo': [],
+    "installable": True,
+    'application': True,
+    "assets": {
+        "web.assets_backend": [
+            "empezar_vessel_booking/static/src/js/vessel_booking_button.js",
+            "empezar_vessel_booking/static/src/xml/**/*",
+            "empezar_vessel_booking/static/src/document/**/*",
+        ],
+    },
+}

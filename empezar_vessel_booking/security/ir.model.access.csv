@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vessel_booking,vessel.booking,model_vessel_booking,base.group_user,1,1,1,1
+access_container_details,container.details,model_container_details,base.group_user,1,1,1,1
+access_container_number,container.number,model_container_number,base.group_user,1,1,1,1
+access_booking_import_wizard,booking.import.wizard,model_booking_import_wizard,base.group_user,1,1,1,1
+access_unlink_container_wizard,unlink.container.wizard,model_unlink_container_wizard,base.group_user,1,1,1,1
+access_unlink_container_confirmation,unlink.container.confirmation,model_unlink_container_confirmation,base.group_user,1,1,1,1
+access_unlink_reason,unlink.reason,model_unlink_reason,base.group_user,1,0,0,0
+access_unlink_reason_yard_manager,unlink.reason.yard.manager,model_unlink_reason,empezar_base.group_yard_manager,1,0,0,0
+access_unlink_reason_management,unlink.reason.management,model_unlink_reason,empezar_base.group_empezar_management,1,1,1,1

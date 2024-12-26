@@ -1,0 +1,16 @@
+<odoo>
+    <record id="seal_management_tree_view_inherit" model="ir.ui.view">
+        <field name="name">seal.management.inherit</field>
+        <field name="model">seal.management</field>
+        <field name="inherit_id" ref="empezar_base.seal_management_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+            <attribute name="class">seal_view_history</attribute>
+            </xpath>
+            <xpath expr="//field[@name='rec_status']" position="after">
+                <button name="action_seal_view_history" type="object" icon="fa-history" class="btn btn-secondary"
+                        title="View History" groups = "empezar_base.group_seal_view_history"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="repair_edi_setting_form_view" model="ir.ui.view">
+        <field name="name">repair.edi.setting.form.view</field>
+        <field name="model">repair.edi.setting</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <div class="row">
+                        <div>
+                            <label for="header"/><br></br>
+                            <field name="header" class="w-100"/><br></br>
+                            <label for="body"/><br></br>
+                            <field name="body" class="w-100"/><br></br>
+                            <label for="footer"/><br></br>
+                            <field name="footer" class="w-100"/><br></br>
+                            <label for="is_dry_edi"/><br></br>
+                            <field name="is_dry_edi" class="w-100"/>
+                            <label for="is_repair_completion"/><br></br>
+                            <field name="is_repair_completion" class="w-100"/>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="repair_edi_settings_list_view" model="ir.ui.view">
+        <field name="name">repair.edi.setting.tree.view</field>
+        <field name="model">repair.edi.setting</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="header"/>
+                <field name="body"/>
+                <field name="footer"/>
+                <field name="is_dry_edi"/>
+                <field name="is_repair_completion"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="repair_edi_setting_action" model="ir.actions.act_window">
+        <field name="name">Repair EDI Settings</field>
+        <field name="res_model">repair.edi.setting</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Records Found
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_repair_edi_setting"
+              name="Repair EDI Setting"
+              parent="empezar_repair.menu_repair_root"
+              action="repair_edi_setting_action"
+              sequence="5"
+              groups="empezar_base.group_empezar_management"
+    />
+
+</odoo>

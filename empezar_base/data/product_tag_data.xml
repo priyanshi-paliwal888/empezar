@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="empezar_charge_product_tag" model="product.tag">
+            <field name="name">Charge Product</field>
+        </record>
+
+        <record id="empezar_product_category_1" model="product.category">
+            <field name="name">Refrigerator</field>
+        </record>
+
+        <record id="empezar_product_category_2" model="product.category">
+            <field name="name">Dry Container</field>
+        </record>
+
+    </data>
+</odoo>

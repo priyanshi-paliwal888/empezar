@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_move_in_form_inherit" model="ir.ui.view">
+        <field name="name">move.in.form.inherit</field>
+        <field name="model">move.in</field>
+        <field name="inherit_id"
+               ref="empezar_move_in.move_in_form_view"/>
+        <field name="arch" type="xml">
+             <xpath expr="//sheet" position="inside">
+                <field name="do_no_compute_domain" invisible="1"/>
+                 <field name="booking_no_compute_domain" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='do_no_id']" position="attributes">
+                    <attribute name="domain">[('id', 'in', do_no_compute_domain)]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='booking_no_id']" position="attributes">
+                    <attribute name="domain">[('id', 'in', booking_no_compute_domain)]</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="Empezar.RepairDashboard" owl="1">
+        <div id="root" class="vh-100 overflow-auto bg-muted">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"></link>
+            <div class="row mt-3 mx-3 d-flex justify-content-center">
+                <div class="col-lg-12 p-0">
+                    <h2 class="fw-bold" style="color: #911301;">REPAIR DASHBOARD</h2>
+                </div>
+            </div>
+            <div class="header mx-3 d-flex">
+                <div class="awaiting-repair-details mt-3">
+                    <div class="awaiting_repair_upper d-flex p-2">
+                        <span class="await-style-icon">
+                            <i class="bi bi-clock"/>
+                        </span>
+                        <div class="await-text">
+                            <span class="await-style">Total Awaiting</span>
+                            <h3><t t-esc="state.TotalAwaiting" /></h3>
+                        </div>
+                    </div>
+                    <div class="awaiting_repair_lower d-flex mt-3">
+                        <div class="">
+                            <span class="">Estimate</span>
+                            <h5 class="head5"><t t-esc="state.TotalAwaitingEstimates" /></h5>
+                        </div>
+                        <div class="vertical-line"></div>
+                        <div class="">
+                            <span class="">Approval</span>
+                            <h5 class="head5"><t t-esc="state.TotalAwaitingApproval" /></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="approvals-repair-details mt-3">
+                    <div class="approvals_repair_upper d-flex p-2">
+                        <span class="approve-style-icon">
+                            <i class="bi bi-journal-text"/>
+                        </span>
+                        <div class="approve-text">
+                            <span class="approve-style">Total Approvals</span>
+                            <h3><t t-esc="state.TotalsApproved" /></h3>
+                        </div>
+                    </div>
+                    <div class="approvals_repair_lower d-flex mt-3">
+                        <div class="">
+                            <span class="">Partial</span>
+                            <h5 class="head5"><t t-esc="state.TotalPartiallyApproved" /></h5>
+                        </div>
+                        <div class="vertical-line"></div>
+                        <div class="">
+                            <span class="">Approved</span>
+                            <h5 class="head5"><t t-esc="state.TotalApproved" /></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="rejected-repair-details mt-3">
+                    <div class="rejected_repair_upper d-flex p-2">
+                        <span class="reject-style-icon">
+                            <i class="bi bi-x-lg text text-danger"/>
+                        </span>
+                    </div>
+                    <div class="rejected_repair_lower d-flex mt-3">
+                        <div class="rejected-lower">
+                            <span class="">Rejected</span>
+                            <h5 class="head5"><t t-esc="state.TotalRejected" /></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="completed-repair-details mt-3">
+                    <div class="completed_repair_upper d-flex p-2">
+                        <span class="complete-style-icon">
+                            <i class="bi bi-check-lg text text-success"/>
+                        </span>
+                    </div>
+                    <div class="completed_repair_lower d-flex mt-3">
+                        <div class="completed-lower">
+                            <span class="">Completed</span>
+                            <h5 class="head5"><t t-esc="state.TotalCompleted" /></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="estimate-amount-repair-details mt-3">
+                    <div class="estimate_amount_repair_upper d-flex p-2">
+                        <span class="estimate-style-icon">
+                            <i class="bi bi-currency-dollar"/>
+                        </span>
+                    </div>
+                    <div class="estimate_amount_repair_lower d-flex mt-3">
+                        <div class="estimate-amount-lower">
+                            <span class="">Total Estimate Amount</span>
+                            <h5 class="head5"><t t-esc="state.TotalEstimateAmount" /> INR</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="avg-estimate-amount-repair-details mt-3 me-0" style="width: 200px;">
+                    <div class="avg_estimate_amount_repair_upper d-flex p-2">
+                        <span class="avg-estimate-style-icon">
+                            <i class="bi bi-currency-dollar"/>
+                        </span>
+                    </div>
+                    <div class="avg_estimate_amount_repair_lower d-flex mt-3">
+                        <div class="avg-estimate-amount-lower">
+                            <span class="">Avg Estimate Amount / TEUS</span>
+                            <h5 class="head5"><t t-esc="(state.AvgTotalEstimateAmount)" /> INR</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mx-3 d-flex justify-content-center">
+                <div class="row filter-container shadow-sm">
+                    <div class="filter-item">
+                        <span>Shipping Line:</span>
+                        <select class="form-select" t-model="state.ShippingLine1" t-on-change="OnchangeShippingLine">
+                            <option value="">Select Shipping Line</option>
+                            <t t-foreach="state.ShippingLine" t-as="shipping_line" t-key="shipping_line.id">
+                                <option t-att-value="shipping_line.id">
+                                    <t t-esc="shipping_line.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <span>Location:</span>
+                        <select class="form-select" t-model="state.Location1" t-on-change="OnchangeLocation">
+                            <option value="">Select Location</option>
+                            <t t-foreach="state.Locations" t-as="location" t-key="location.id">
+                                <option t-att-value="location.id">
+                                    <t t-esc="location.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <span>Type / Size:</span>
+                        <select class="form-select" t-model="state.TypeSize1" t-on-change="OnchangeTypeSize">
+                            <option value="">Select Type</option>
+                            <t t-foreach="state.Types" t-as="type" t-key="type.id">
+                                <option t-att-value="type.id">
+                                    <t t-esc="type.name" /> (<t t-esc="type.company_size_type_code" />)
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="filter-item" style="padding-right:5rem;">
+                        <span>Date Range:</span>
+                        <input type="text" id="dates" name="daterange" style="margin-right:-5rem;"/>
+                    </div>
+                    <div class="filter-buttons">
+                        <button type="button" class="searchBtn btn btn-primary">Search</button>
+                        <button type="button" class="clearBtn btn btn-secondary">Clear All</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mx-3 d-flex data-box">
+                <div class="shadow-sm border mt-3 p-4 bg-white">
+                    <h3 class="fw-bold" style="color: #911301 !important;">Location Wise Estimates Summary</h3>
+                    <t t-if="!state.TotalContainer and !state.TotalTEUsByLocation and !state.GrandTotalEstAmtByLocation">
+                        <img src="empezar_dashboards/static/src/img/no_records.jpg" alt="No Data Found" style="width: 20%; display:flex; margin: 0 auto;"/>
+                        <span class="d-flex justify-content-center">No records found</span>
+                    </t>
+                    <t t-else="">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>LOCATION</th>
+                                    <th>CONTAINERS</th>
+                                    <th>TEUS</th>
+                                    <th>TOTAL ESTIMATES (INR)</th>
+                                    <th>AVG / TEUS (INR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.Locations" t-as="location" t-key="location.id">
+                                    <tr>
+                                        <td><t t-esc="location.name"/></td>
+                                        <td><t t-esc="state.ContainerByLocations.get(location.name) or '0'"/></td>
+                                        <td><t t-esc="state.TEUsByLocation.get(location.name) or '0'"/></td>
+                                        <td><t t-esc="state.TotalEstAmtByLocation.get(location.name) or '0'"/></td>
+                                        <td><t t-esc="state.TotalEstAmtByLocation.get(location.name) / state.TEUsByLocation.get(location.name) or '0'"/></td>
+                                    </tr>
+                                </t>
+                                <tr class="table-secondary">
+                                    <td><strong>Grand Total</strong></td>
+                                    <td><t t-esc="state.TotalContainer"/></td>
+                                    <td><t t-esc="state.TotalTEUsByLocation"/></td>
+                                    <td><t t-esc="state.GrandTotalEstAmtByLocation"/></td>
+                                    <td><t t-esc="state.GrandTotalEstAmtByLocation / state.TotalTEUsByLocation or '0'"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div></t>
+                </div>
+                <div class="shadow-sm border mt-3 p-4 bg-white" style="height:350px;">
+                    <div class="d-flex">
+                        <h3 class="fw-bold" style="color: #911301 !important;">Average Repair Turnaround Time</h3>
+                    </div>
+                    <t t-if="state.noData1">
+                        <img src="empezar_dashboards/static/src/img/no_records.jpg" alt="No Data Found" style="width: 20%; display:flex; margin: 0 auto;"/>
+                        <span class="d-flex justify-content-center">No records found</span>
+                    </t>
+                    <t t-else="">
+                        <ChartRenderer type="'bar'" title="'DAYS'" config="state.AverageRepairTurnAroundTime"/>
+                    </t>
+                </div>
+                <div class="shadow-sm border mt-3 p-4 bg-white" style="height:350px;">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h3 class="fw-bold" style="color: #911301 !important;">Average Estimate Amount Comparision</h3>
+                        <select class="form-select frequency-select" style="width: 100px;">
+                            <option t-att-value="'Weekly'" t-att-selected="state.freq === 'Weekly'">Weekly</option>
+                            <option t-att-value="'Monthly'" t-att-selected="state.freq === 'Monthly'">Monthly</option>
+                            <option t-att-value="'Yearly'" t-att-selected="state.freq === 'Yearly'">Yearly</option>
+                        </select>
+                    </div>
+                    <t t-if="state.noData2">
+                        <img src="empezar_dashboards/static/src/img/no_records.jpg" alt="No Data Found" style="width: 20%; display:flex; margin: 0 auto;"/>
+                        <span class="d-flex justify-content-center">No records found</span>
+                    </t>
+                    <t t-else="">
+                        <ChartRenderer type="'line'" title="'AMOUNT'"
+                                        config="state.AverageEstimateAmountDetails"/>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

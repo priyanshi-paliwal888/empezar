@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+       <record id="lolo_charges_inherited_tree_view" model="ir.ui.view">
+           <field name="name">lolo.charges.view.tree.inherit</field>
+           <field name="model">lolo.charge</field>
+           <field name="inherit_id" ref="empezar_base.lolo_charge_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">upload_button</attribute>
+               </xpath>
+           </field>
+       </record>
+   </data>
+</odoo>

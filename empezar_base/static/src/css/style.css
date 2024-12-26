@@ -1,0 +1,16 @@
+.response_parties .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(5)::after {
+    content: "Actions"; /* Add multiple spaces */
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px
+}
+
+.response_parties_button_actions{
+    margin-right:1rem !important;
+
+}
+
+.fa-info-circle:before
+{
+    color:#997a00;
+}

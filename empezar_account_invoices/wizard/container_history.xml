@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record id="view_move_in_history_wizard_form" model="ir.ui.view">
+            <field name="name">container.history.wizard.form</field>
+            <field name="model">container.history.wizard</field>
+            <field name="arch" type="xml">
+                <form string="History">
+                    <div>
+                        <field name="history_line_ids" mode="tree" force_save="1">
+                            <tree editable="bottom" create="0" delete="0" readonly="1">
+                                <field name="location_id" string="Location" readonly="1"/>
+                                <field name="move_in_date_time" string="Move In" readonly="1"/>
+                                <field style="color:#599e53;" name="move_in_url" readonly="1" string=""/>
+                                <field name="move_out_date_time" string="Move Out" readonly="1"/>
+                                <field style="color:#599e53;" name="move_out_url" readonly="1" string=""/>
+                            </tree>
+                        </field>
+                    </div>
+                    <footer>
+                        <button string="Close" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="update_tariff_tree_view" model="ir.ui.view">
+        <field name="name">update.tariff.tree.view</field>
+        <field name="model">update.tariff</field>
+        <field name="arch" type="xml">
+            <tree create="False" js_class="update_tariff_help_button">
+                <field name="name"/>
+                <field name="upload_id"/>
+                <field name="uploaded_by"/>
+                <field name="uploaded_on"/>
+                <field name="rec_status" string="Status"/>
+                <field name="upload_tariff_file" string="Actions" widget="binary"
+                       filename="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="update_tariff_action" model="ir.actions.act_window">
+            <field name="name">Update Tariff</field>
+            <field name="res_model">update.tariff</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+        <menuitem id="menu_repair_root"
+              name="Repair"/>
+
+    <menuitem id="menu_update_tariff"
+              name="Update Tariff"
+              parent="empezar_repair.menu_repair_root"
+              action="update_tariff_action"
+              sequence="1"
+              groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management,empezar_base.group_repair_estimates_team,empezar_base.group_repair_estimates_yard"
+    />
+
+</odoo>

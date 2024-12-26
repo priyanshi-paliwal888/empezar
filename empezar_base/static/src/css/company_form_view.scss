@@ -1,0 +1,37 @@
+#b2b_toggle_password{
+        position: absolute;
+        right: 50px;
+        cursor: pointer;
+    }
+
+.btn-primary{
+    background-color : #910000;
+}
+
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "\292C";
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "\2713";
+}
+
+.checkbox_class > div:first-child {
+    display : flex;
+    }
+.checkbox_class > div:first-child > div{
+    margin-right : 7px;
+    }

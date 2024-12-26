@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="security_policy_form_view" model="ir.ui.view">
+        <field name="name">security.policy.form.view</field>
+        <field name="model">security.policy</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group style="margin-left:90%">
+                        <field name="active" string="Status" widget="boolean_toggle" readonly="1"/>
+                    </group>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="name"/><br></br>
+                                <field name="name" required="true" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="ip_address"/><br></br>
+                                <field name="ip_address" required="true" class="w-100"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="access"/><br></br>
+                            <field name="access" options="{'horizontal': true}" widget="radio" required="true" class="w-100"/>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="security_policy_tree_view" model="ir.ui.view">
+        <field name="name">security.policy.tree.view</field>
+        <field name="model">security.policy</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="ip_address"/>
+                <field name="access"/>
+                <field name="active" string="Status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="security_policy_action" model="ir.actions.act_window">
+            <field name="name">Security Policy</field>
+            <field name="res_model">security.policy</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+<!--    <menuitem-->
+<!--        id="menu_security_policy"-->
+<!--        name="Security Policy"-->
+<!--        parent="base.menu_users"-->
+<!--        action="security_policy_action"-->
+<!--        sequence="1"/>-->
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="integration_form_view" model="ir.ui.view">
+        <field name="name">gst.integration.form.view</field>
+        <field name="model">gst.integration</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="api_key" required="1"/>
+                        <field name="url" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

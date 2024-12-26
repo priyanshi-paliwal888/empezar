@@ -1,0 +1,199 @@
+#root {
+    .header {
+        column-gap: 1.5rem;
+        flex-wrap: wrap;
+        .awaiting-repair-details {
+            border: 1px solid #838383a1;
+            margin-bottom: 2rem;
+            .awaiting_repair_upper {
+                background-color: #c39e5c29;
+                column-gap: 1.5rem;
+                .await-style-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: orange;
+                    background-color: white;
+                    font-size: 1.25rem;
+                    border-radius: 50%;
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    font-weight: bolder;
+                }
+                .await-style {
+                    color: orange;
+                }
+            }
+            .awaiting_repair_lower {
+                column-gap: 1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                .head5 {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+        .approvals-repair-details {
+            border: 1px solid #838383a1;
+            margin-bottom: 2rem;
+            .approvals_repair_upper {
+                background-color: #94b4d938;
+                column-gap: 1.5rem;
+                .approve-style-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: #3a3a74;
+                    background-color: white;
+                    font-size: 1.25rem;
+                    border-radius: 50%;
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    font-weight: bolder;
+                }
+                .approve-style {
+                    color: #3a3a74;
+                }
+            }
+            .approvals_repair_lower {
+                column-gap: 1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                .head5 {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+        .rejected-repair-details {
+            border: 1px solid #838383a1;
+            margin-bottom: 2rem;
+            .rejected_repair_upper {
+                background-color: #f1e0e0a8;
+                column-gap: 1.5rem;
+                padding-left: 2rem;
+                .reject-style-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: white;
+                    font-size: 1.25rem;
+                    border-radius: 50%;
+                    width: 3.5rem;
+                    height: 3.5rem;
+                    font-weight: bolder;
+                    margin-left: 3.5rem;
+                    margin-right: 3.5rem;
+                }
+            }
+            .rejected_repair_lower {
+                display: flex;
+                justify-content: center;
+                column-gap: 1rem;
+                .head5 {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+        .completed-repair-details {
+            border: 1px solid #838383a1;
+            margin-bottom: 2rem;
+            .completed_repair_upper {
+                background-color: #d6f5d57d;
+                column-gap: 1.5rem;
+                padding-left: 2rem;
+                .complete-style-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: white;
+                    font-size: 1.25rem;
+                    border-radius: 50%;
+                    width: 3.5rem;
+                    height: 3.5rem;
+                    font-weight: bolder;
+                    margin-left: 3.5rem;
+                    margin-right: 3.5rem;
+                }
+            }
+            .completed_repair_lower {
+                display: flex;
+                justify-content: center;
+                column-gap: 1rem;
+                .head5 {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+        .estimate-amount-repair-details {
+            border: 1px solid #838383a1;
+            margin-bottom: 2rem;
+            .estimate_amount_repair_upper {
+                background-color: #94b4d938;
+                column-gap: 1.5rem;
+                padding-left: 2rem;
+                .estimate-style-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: #3a3a74;
+                    background-color: white;
+                    font-size: 1.25rem;
+                    border-radius: 50%;
+                    width: 3.5rem;
+                    height: 3.5rem;
+                    font-weight: bolder;
+                    margin-left: 3.5rem;
+                    margin-right: 3.5rem;
+                }
+            }
+            .estimate_amount_repair_lower {
+                display: flex;
+                justify-content: center;    
+                column-gap: 1rem;
+                .head5 {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+        .avg-estimate-amount-repair-details {
+            border: 1px solid #838383a1;
+            margin-bottom: 2rem;
+            .avg_estimate_amount_repair_upper {
+                background-color: #c39e5c29;
+                column-gap: 1.5rem;
+                padding-left: 2rem;
+                .avg-estimate-style-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: #3a3a74;
+                    background-color: white;
+                    font-size: 1.25rem;
+                    border-radius: 50%;
+                    width: 3.5rem;
+                    height: 3.5rem;
+                    font-weight: bolder;
+                    margin-left: 3.5rem;
+                    margin-right: 3.5rem;
+                }
+            }
+            .avg_estimate_amount_repair_lower {
+                display: flex;
+                justify-content: center;
+                column-gap: 1rem;
+                .head5 {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+    .data-box {
+        margin-bottom: 60px;
+    }
+}

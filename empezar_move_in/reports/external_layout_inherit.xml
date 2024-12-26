@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="custom_external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[@t-attf-class='footer o_boxed_footer o_company_#{company.id}_layout']/div[@class='text-center']/div[2]"
+               position="replace"/>
+    </template>
+</odoo>

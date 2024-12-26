@@ -1,0 +1,18 @@
+<odoo>
+    <record model="ir.actions.act_window" id="repair_completed_action">
+        <field name="name">Repair Completed</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">repair.pending</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('repair_status', '=', 'completed')]</field>
+        <field name="context">{'create': False}</field>
+    </record>
+
+    <menuitem id="menu_repair_completed"
+              name="Completed"
+              parent="empezar_repair.menu_repair_root"
+              action="repair_completed_action"
+              sequence="4"
+              groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management,empezar_base.group_repair_estimates_team,empezar_base.group_repair_estimates_yard"
+    />
+</odoo>

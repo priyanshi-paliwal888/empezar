@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_company_location_form_view" model="ir.ui.view">
+        <field name="name">res.company.form.view</field>
+        <field name="model">res.company</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <group>
+                        <field name="parent_id" domain="[('parent_id','=', False)]" options="{'no_open': True,'no_create': True}" required="1" readonly="id"/>
+                    </group>
+                    <div style="border:solid 1px #ced4da; padding:10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="name"/><br></br>
+                                    <field name="name" readonly="not active" string="Location Name" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="location_code"/><br></br>
+                                    <field name="location_code" readonly="not active" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="location_type"/><br></br>
+                                    <field name="location_type" readonly="not active" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="port"/><br></br>
+                                    <field name="port" readonly="not active" required="1" options="{'no_open': True,'no_create': True}" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="capacity"/><br></br>
+                                    <field name="capacity" readonly="not active" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div>
+                                    <label for="mode_ids"/><br></br>
+                                    <field name="mode_ids" readonly="not active" widget="many2many_checkboxes" required="1" class="w-100 checkbox_class"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div>
+                                    <label for="laden_status_ids"/><br></br>
+                                    <field name="laden_status_ids" readonly="not active" widget="many2many_checkboxes" options="{'horizontal': true}" required="1" class="w-100 checkbox_class"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div>
+                                    <label for="operations_ids"/><br></br>
+                                    <field name="operations_ids" readonly="not active" widget="many2many_checkboxes" options="{'horizontal': true}" required="1" class="w-100 checkbox_class"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <h3>Address/Contact Details</h3>
+                        <div class="row">
+                            <div>
+                                <label for="street" string="Address Line 1"/><br></br>
+                                <field name="street" readonly="not active" required="1" class="w-100"/>
+                            </div>
+                            <div>
+                                <field name="street2" readonly="not active" placeholder="Address Line 2"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="city" string="City"/><br></br>
+                                    <field name="city" readonly="not active" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="state_id" string="State"/><br></br>
+                                    <field name="state_id" readonly="not active" options="{'no_open': True,'no_create': True}" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="country_id"/><br></br>
+                                    <field name="country_id" readonly="not active" options="{'no_open': True,'no_create': True}" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="zip" string="Pin Code"/><br></br>
+                                    <field name="zip" readonly="not active" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="latitude"/><br></br>
+                                    <field name="latitude" readonly="not active" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="longitude"/><br></br>
+                                    <field name="longitude" readonly="not active" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="email"/><br></br>
+                                    <field name="email" readonly="not active" string="Email ID" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="escalation_email"/><br></br>
+                                    <field name="escalation_email" readonly="not active" placeholder="Enter email IDs, separated by commas" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <label for="phone"/><br></br>
+                                <field name="phone" readonly="not active" string="Contact No." required="1" class="w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <h3>Account Setting</h3>
+                        <div class="row">
+                            <div>
+                                <label for="gst_no"/><br></br>
+                                <field name="gst_no" class="w-100"  required="1" readonly="1"
+                                force_save="1"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                        <h3>Remarks</h3>
+                        <div class="row">
+                            <div>
+                                <field name="remarks" readonly="not active" placeholder="Remarks" class="w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page name="movement_settings" string="Movement Settings" invisible="not id">
+                            <h3>Move In</h3>
+                            <field name="movement_move_in_settings_ids" mode="tree" class="mt-3" context="{'default_movement_type': 'move_in'}" readonly="not active">
+                                <tree editable="bottom" delete="False">
+                                    <field name="field_name" options="{'no_open': True,'no_create': True}" required="1"/>
+                                    <field name="show_on_screen"/>
+                                    <field name="mandatory" widget="radio" options="{'horizontal':true}"/>
+                                    <field name="movement_type" column_invisible="1"/>
+                                </tree>
+                            </field>
+                            <h3>Move Out</h3>
+                            <field name="movement_move_out_settings_ids" mode="tree" class="mt-3" context="{'default_movement_type': 'move_out'}" readonly="not active">
+                                <tree editable="bottom" delete="False">
+                                    <field name="field_name_move_out" options="{'no_open': True,'no_create': True}" required="1"/>
+                                    <field name="show_on_screen"/>
+                                    <field name="mandatory" widget="radio" options="{'horizontal':true}"/>
+                                    <field name="movement_type" column_invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Shipping Line Mapping" invisible="not id">
+                            <h3>Shipping Line Mapping</h3>
+                            <field name="shipping_line_mapping_ids" mode="tree" readonly="not active">
+                                <tree delete="False">
+                                    <field name="shipping_line_logo" widget="image" class="m-7" options="{'size': [50, 50]}"/>
+                                    <field name="gate_pass"/>
+                                    <field name="capacity"/>
+                                    <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Invoice Settings" invisible="not id">
+                            <h3>Invoice Settings</h3>
+                            <field name="invoice_setting_ids" mode="tree" readonly="not active">
+                                <tree delete="False">
+                                    <field name="inv_shipping_line_logo" widget="image" class="m-7" options="{'size': [50, 50]}"/>
+                                    <field name="inv_applicable_at_location" string="Invoice Type"/>
+                                    <field name="gst_number" string="GST No."/>
+                                    <field name="payment_mode" string="Payment Type"/>
+                                    <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_company_location_tree_view" model="ir.ui.view">
+        <field name="name">res.company.tree.view</field>
+        <field name="model">res.company</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0">
+                <field name="name" string="Location Name"/>
+                <field name="location_type"/>
+                <field name="port"/>
+                <field name="capacity"/>
+                <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_company_location_search_view" model="ir.ui.view">
+        <field name="name">res.company.search.view</field>
+        <field name="model">res.company</field>
+        <field name="arch" type="xml">
+            <search string="Location">
+                <field name="name" string="Location"/>
+                <field name="port" string="Port Code" filter_domain="['|','|','|',('port_iso_with_code', 'ilike', self),('port_iso_code', 'ilike', self),('port_code', 'ilike', self),('port_name', 'ilike', self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="res_company_location_action" model="ir.actions.act_window">
+            <field name="name">Locations</field>
+            <field name="res_model">res.company</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('parent_id','!=',False)]</field>
+            <field name="search_view_id" ref="res_company_location_search_view"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('res_company_location_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('res_company_location_form_view')})]"/>
+            <field name="context">{'is_res_company_location_view': True, 'active_test': False}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_location_root"
+        name="Locations"
+    />
+
+    <menuitem
+        id="menu_locations"
+        name="Locations"
+        parent="empezar_base.menu_location_root"
+        action="res_company_location_action"
+        sequence="1"
+        groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

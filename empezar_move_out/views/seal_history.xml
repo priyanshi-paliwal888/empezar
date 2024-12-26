@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_seal_history_tree" model="ir.ui.view">
+        <field name="name">seal.history.tree</field>
+        <field name="model">seal.history</field>
+        <field name="arch" type="xml">
+            <tree create="0" default_order="id desc">
+                <field name="seal_id" column_invisible="1"/>
+                <field name="rec_status"/>
+                <field name="activity"/>
+                <field name="container_number"/>
+                <field name="user_name"/>
+                <field name="date_changed"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

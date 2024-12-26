@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="monthly_lock_form_view" model="ir.ui.view">
+        <field name="name">monthly.lock.form.view</field>
+        <field name="model">monthly.lock</field>
+        <field name="arch" type="xml">
+            <form delete="0" duplicate="0">
+                <sheet>
+                    <div class="row">
+                        <label for="location_id"/>
+                        <field name="location_id" required="1" readonly="id"/>
+                    </div>
+                    <div class="row">
+                        <label for="month"/>
+                        <field name="month" required="1"/>
+                    </div>
+                    <div class="row">
+                        <label for="fiscal_year"/>
+                        <field name="fiscal_year" required="1"/>
+                    </div>
+                    <div class="row" invisible="1">
+                        <label for="is_locked"/>
+                        <field name="is_locked"/>
+                    </div>
+                    <div class="row">
+                        <label for="invoice_type"/>
+                        <field name="invoice_type" required="1"/>
+                    </div>
+                    <div class="row">
+                        <label for="history"/>
+                        <field name="history"/>
+                    </div>
+                </sheet>
+                <div class="row"
+                     style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;"
+                     invisible="not id">
+                    <div style="width: 100%; display:flex;">
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                            Created By :
+                            <field name="display_create_info"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center; border-radius: 10px; margin: 10px; padding-top: 5px;">
+                            Last Modified By:
+                            <field name="display_modified_info"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                        <p style="width:100%;text-align:left;background-color: lightgrey; display:flex; justify-content: center;  border-radius: 10px; margin: 10px; padding-top: 3px;">
+                            Source :
+                            <field name="display_sources"
+                                   style="display: flex; width: fit-content; justify-content: center;"/>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="monthly_lock_tree_view" model="ir.ui.view">
+        <field name="name">monthly.lock.tree.view</field>
+        <field name="model">monthly.lock</field>
+        <field name="arch" type="xml">
+            <tree js_class="monthly_lock_help_button" class="monthly_lock_tree" delete="0" duplicate="0">
+                <field name="location_id"/>
+                <field name="is_locked" column_invisible="1"/>
+                <field name="invoice_type"/>
+                <field name="fiscal_year"/>
+                <field name="month"/>
+                <field name="history" column_invisible="1"/>
+                <button name="action_lock_invoice" type="object"
+                        icon="empezar_account_invoices/static/src/images/lock_invoice_credit_note.svg"
+                        class="button_actions"
+                        title="Lock" invisible="is_locked == True"/>
+                <button name="action_unlock_invoice" type="object"
+                        icon="empezar_account_invoices/static/src/images/open_invoice_credit_note.svg"
+                        class="button_actions"
+                        title="Unlock" invisible="is_locked == False"/>
+                <button name="action_view_monthly_lock_history" type="object" icon="fa-history"
+                        class="btn btn-secondary"
+                        title="View History" invisible="history == 'hide'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_monthly_lock_history_tree" model="ir.ui.view">
+        <field name="name">monthly.lock.history.tree</field>
+        <field name="model">monthly.lock.history</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="username"/>
+                <field name="date_time"/>
+                <field name="invoice_type" column_invisible="1"/>
+                <field name="action"/>
+                <field name="remarks" column_invisible="1"/>
+                <field name="display_remarks"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="monthly_lock_action">
+        <field name="name">Monthly Lock</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">monthly.lock</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Monthly Lock!
+            </p>
+        </field>
+        <field name="domain">[]</field>
+        <field name="context">{'group_by': ['invoice_type','fiscal_year', 'month', 'location_id']}
+        </field>
+    </record>
+
+    <record id="action_lock_unlock" model="ir.actions.server">
+        <field name="name">Lock Invoices</field>
+        <field name="model_id" ref="model_monthly_lock"/>
+        <field name="binding_model_id" ref="model_monthly_lock"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_lock_invoice()</field>
+    </record>
+
+    <record id="action_unlock_unlock" model="ir.actions.server">
+        <field name="name">Unlock Invoices</field>
+        <field name="model_id" ref="model_monthly_lock"/>
+        <field name="binding_model_id" ref="model_monthly_lock"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_unlock_invoice()</field>
+    </record>
+
+    <menuitem id="menu_monthly_lock"
+              name="Monthly Lock"
+              parent="empezar_account_invoices.menu_pending_invoices_root"
+              action="monthly_lock_action"
+              sequence="4"
+              groups="empezar_base.group_empezar_management,empezar_base.group_empezar_accounts"
+    />
+
+</odoo>

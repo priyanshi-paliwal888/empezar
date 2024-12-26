@@ -1,0 +1,8 @@
+<odoo>
+    <!-- Record rule for move.in model -->
+    <record id="move_out_location_rule" model="ir.rule">
+        <field name="name">Location-based access for Move Out</field>
+        <field name="model_id" ref="model_move_out"/>
+        <field name="domain_force">[('location_id', 'in', user.company_ids.ids)]</field>
+    </record>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="bulk_import_form">
+            <field name="name">Upload Lolo Charges</field>
+            <field name="model">bulk.import.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="shipping_line" required="1" options="{'no_open': True,'no_create': True}"/>
+                        <field name="file" filename="file_namex" required="1" invisible ="is_import_done != False" />
+                        <field name="file_namex" invisible="1" />
+                        <field name="delimiter" invisible="1" />
+                        <field name="my_flie" invisible="1"/>
+                        <field name="is_import_done" invisible="1"/>
+                        <field name="hide_invalid_location" invisible="1"/>
+                        <field name="hide_numeric_values" invisible="1"/>
+                        <field name="hide_updated_record" invisible="1"/>
+                        <field name="created_record" widget="text" readonly="1" invisible="is_import_done == False"/>
+                        <field name="invalid_location" widget="text" readonly="1" invisible="not is_import_done or not hide_invalid_location"/>
+                        <field name="numeric_values" widget="text" readonly="1" invisible="not is_import_done or not hide_numeric_values"/>
+                        <field name="updated_record" widget="text" readonly="1" invisible="not is_import_done or not hide_updated_record"/>
+                    </group>
+
+                    <footer>
+                        <div class="col">
+                            <div class="row" style=" display: inline; float:right; padding: 5px 25px 10px 5px">
+                                <button name="action_import" string="Submit" type="object" class="btn-primary"  invisible ="is_import_done != False" />
+                                <button name="action_close" string="Close" type="object" class="btn-primary"  invisible ="is_import_done == False" />
+                            </div>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

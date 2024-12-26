@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="shipping_lines_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <div class="row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="shipping_line_name"/><br></br>
+                                    <field name="shipping_line_name" required="1" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="shipping_line_code"/><br></br>
+                                    <field name="shipping_line_code" required="1" class="w-100" readonly="id"/>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label for="applied_for_interchange" string="Applicable for Interchange?"/><br></br>
+                            <field name="applied_for_interchange" widget="radio" required="1" options="{'horizontal': true}" class="w-100"/>
+                        </div>
+                        <div>
+                            <label for="logo"/><br></br>
+                            <field name="logo" widget="image" class="oe_avatar w-100" string="Shipping Line Logo" style="width:100%" options="{'accepted_file_extensions': '.jpg,.png,.jpeg'}"/>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page name="container_type_edi" string="Container Type EDI" invisible="not id">
+                            <field name="container_type_edi_ids" mode="tree">
+                                <tree delete="False">
+                                    <field name="name"/>
+                                    <field name="type_group_code"/>
+                                    <field name="edi_code"/>
+                                    <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="shipping_line_transporters" string="Transporters" invisible="not id">
+                            <field name="shipping_line_transporters_ids" mode="tree">
+                                <tree delete="False">
+                                    <field name="transporter_id"/>
+                                    <field name="code"/>
+                                    <field name="rec_status" widget="badge" decoration-danger="rec_status == 'disable'" decoration-success="rec_status == 'active'"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="row" style="justify-content:space-around;margin: 20px; border: solid 1px black; padding: 10px;" invisible="not id">
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Created By :<field name="display_create_info"/></div>
+                    <div style="width:47%;text-align:center;background-color: lightgrey; border-radius: 5px;padding-top: 5px;">Last Modified By:<field name="display_modified_info"/></div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="shipping_lines_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.tree.view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree duplicate="0" import="0">
+                <field name="logo" widget="image" class="oe_avatar" options="{'size': [50, 50]}"/>
+                <field name="shipping_line_name"/>
+                <field name="shipping_line_code"/>
+                <field name="line_status" widget="badge" decoration-danger="line_status == 'inactive'" decoration-success="line_status == 'active'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="shipping_lines_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Shipping Lines">
+                    <field name="shipping_line_name"/>
+                </search>
+            </field>
+    </record>
+
+    <record id="shipping_lines_action" model="ir.actions.act_window">
+            <field name="name">Shipping Lines</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_shipping_line', '=', True)]</field>
+            <field name="search_view_id" ref="shipping_lines_search_view"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('empezar_base.shipping_lines_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('empezar_base.shipping_lines_form_view')})]"/>
+            <field name="context">{'default_is_company': True, 'is_shipping_view': True, 'active_test': False}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Records Found
+                </p>
+            </field>
+    </record>
+
+    <menuitem
+        id="menu_master_root"
+        name="Masters"
+    />
+
+    <menuitem
+        id="menu_shipping_lines"
+        name="Shipping Lines"
+        parent="empezar_base.menu_master_root"
+        action="shipping_lines_action"
+        sequence="1"
+        groups="empezar_base.group_yard_manager,empezar_base.group_empezar_management"
+    />
+
+</odoo>

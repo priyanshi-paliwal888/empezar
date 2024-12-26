@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="repair_pending_estimates_lines_form" model="ir.ui.view">
+            <field name="name">repair.pending.estimates.lines.form</field>
+            <field name="model">repair.pending.estimates.lines</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div style="border:solid 1px #ced4da; padding:10px;">
+                            <field name="estimate_id" invisible="1"/>
+                            <div class="row">
+                                <label for="description"/>
+                                <field name="description" class="w-100"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <field name="is_refer" invisible="1"/>
+                                    <field name="repair_code_domain" invisible="1"/>
+                                    <label for="repair_code_id"/>
+                                    <field name="repair_code_id" class="w-100" context="{'show_limit': False}" options="{'no_create': True, 'no_open': True}" invisible="is_refer"
+                                    domain="repair_code_domain"/>
+                                    <field name="repair_code" class="w-100"
+                                    invisible="is_refer == False"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="damage_location_id"/>
+                                    <field name="damage_location_domain" invisible="1"/>
+                                    <field name="damage_location_id" domain="damage_location_domain" 
+                                    required="1" class="w-100" options="{'no_create': True, 'no_open': True}"
+                                    invisible="is_refer"
+                                    context="{'show_location': True}"/>
+                                    <field name="damage_location_text" class="w-100"
+                                           required="1" invisible="is_refer == False"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="component"/>
+                                    <field name="component_domain" invisible="1"/>
+                                    <field name="component" domain="component_domain" 
+                                           required="1" class="w-100" options="{'no_create': True, 'no_open': True}"
+                                           invisible="is_refer" readonly="damage_location_id == False"/>
+                                    <field name="component_text" class="w-100"
+                                           required="1" invisible="is_refer == False"
+                                           readonly="damage_location_text == False"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="damage_type"/>
+                                    <field name="damage_type_domain" invisible="1"/>
+                                    <field name="damage_type" domain="damage_type_domain"
+                                           required="1" class="w-100" options="{'no_create': True, 'no_open': True}"
+                                           invisible="is_refer" readonly="component == False"/>
+                                    <field name="damage_type_text" class="w-100"
+                                           required="1" invisible="is_refer == False"
+                                           readonly="component_text == False"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="repair_type"/>
+                                    <field name="repair_type_domain" invisible="1"/>
+                                    <field name="repair_type" domain="repair_type_domain"
+                                           required="1" class="w-100" options="{'no_create': True, 'no_open': True}"
+                                           invisible="is_refer" readonly="damage_type == False"/>
+                                    <field name="repair_type_text" class="w-100"
+                                           required="1" invisible="is_refer == False"
+                                           readonly="damage_type_text == False"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="material_type"/>
+                                    <field name="material_type"  class="w-100"
+                                           required="1" options="{'no_create': True, 'no_open': True}"
+                                           invisible="is_refer" readonly="repair_type == False"/>
+                                    <field name="material_type_text" class="w-100"
+                                           required="1" invisible="is_refer == False"
+                                           readonly="repair_type_text == False"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4" invisible="is_refer == False">
+                                    <label for="part_no"/>
+                                    <field name="part_no" class="w-100"/>              
+                                </div>
+                                <div class="col-lg-4" invisible="is_refer == False">
+                                    <label for="old_serial_no"/>
+                                    <field name = "old_serial_no" class="w-100"/>
+                                </div>
+                                <div class="col-lg-4" invisible="is_refer == False">
+                                    <label for="new_serial_no"/>
+                                    <field name = "new_serial_no" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="border:solid 1px #ced4da; padding:10px; margin-top:20px;">
+                            <h3>Measurement Details</h3>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="measurement"/>
+                                    <field name="measurement_domain" invisible="1"/>
+                                    <field name="measurement" domain="measurement_domain" required="1"
+                                           class="w-100" options="{'no_create': True, 'no_open': True}"
+                                           readonly="material_type == False and material_type_text == False "/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="key_value"/>
+                                    <field name="key_value_domain" invisible="1"/>
+                                    <field name="key_value" domain="key_value_domain" required="1"
+                                           class="w-100" options="{'no_create': True, 'no_open': True}"
+                                           readonly="measurement == False"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="limit_id"/>
+                                    <field name="limit_domain" invisible="1"/>
+                                    <field name="limit_id" class="w-100" domain="limit_domain" required="1"
+                                           options="{'no_create': True, 'no_open': True}" invisible="is_refer"
+                                           readonly="key_value == False" context="{'show_limit': True}"/>
+                                    <field name="limit_text" class="w-100" 
+                                           required="1" invisible="is_refer == False"
+                                           readonly="key_value == False"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="qty"/>
+                                    <field name="is_qty" invisible="1"/>
+                                    <field name="qty" class="w-100"
+                                           readonly="key_value == False " required="1"/>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-lg-6" invisible="is_refer == False">
+                                    <label for="material_cost_tarrif_text"/>
+                                    <field name="material_cost_tarrif_text" class="w-100"
+                                           readonly="qty == False" required="is_refer"/>
+                                </div>
+                                <div class="col-lg-6" invisible="is_refer == False" >
+                                    <label for="labour_hour_text"/>
+                                    <field name="labour_hour_text" class="w-100"
+                                           readonly="material_cost_tarrif_text == False" required="is_refer"
+                                           />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="material_cost"/>
+                                    <field name="material_cost" class="w-100"
+                                           readonly="1"/>
+                                </div>
+                                <div class="col-lg-6">
+                                <field name="total" invisible="1"/>
+                                    <label for="labour_cost"/>
+                                    <field name="labour_cost" class="w-100"
+                                           readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+.move_in_tree .table-responsive .o_list_table thead tr:nth-child(1) th:nth-child(7)::after {
+            content: "Actions";
+            display: inline-block;
+            position: relative;
+            top: -9px;
+        }
+
+.container, .booking, .delivery_order{
+    display:flex;
+    justify-content: space-around;
+}
+.container_details, .booking_details, .delivery_order_details{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.vertical-line {
+    border-left: 2px solid #d1d0d0;
+    margin: 0px 10px 10px 2px;
+}
